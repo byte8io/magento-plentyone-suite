@@ -1,0 +1,8 @@
+{
+  "label": "Troubleshooting",
+  "position": 10,
+  "link": {
+    "type": "generated-index",
+    "description": "Resolve common issues, API errors, order synchronization problems, and profile execution failures with detailed troubleshooting guides."
+  }
+}

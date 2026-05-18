@@ -1,0 +1,35 @@
+packages:
+  - softcommerce/module-core
+  - softcommerce/module-plenty-attribute
+  - softcommerce/module-plenty-category
+  - softcommerce/module-plenty-category-profile
+  - softcommerce/module-plenty-client
+  - softcommerce/module-plenty-customer
+  - softcommerce/module-plenty-customer-profile
+  - softcommerce/module-plenty-item
+  - softcommerce/module-plenty-item-profile
+  - softcommerce/module-plenty-log
+  - softcommerce/module-plenty-order
+  - softcommerce/module-plenty-order-profile
+  - softcommerce/module-plenty-profile
+  - softcommerce/module-plenty-property
+  - softcommerce/module-plenty-stock
+  - softcommerce/module-plenty-stock-profile
+  - softcommerce/module-profile
+  - softcommerce/module-profile-history
+  - softcommerce/module-profile-notification
+  - softcommerce/module-profile-queue
+  - softcommerce/module-profile-schedule
+
+# Email notification settings
+email:
+  enabled: true  # Send email notifications for this metapackage
+  reason: "Primary metapackage - send consolidated release emails"
+
+  # Smart content curation - intelligently truncate email content
+  truncation:
+    enabled: true      # Enable smart truncation (default: true)
+    maxItems: 10       # Maximum items to show in email (default: 10)
+    # Priority: ALL breaking changes + top N features + top N bug fixes
+    # Breaking changes are always shown (critical for customers)
+    # Features and bug fixes are ranked by impact score and truncated to fit maxItems

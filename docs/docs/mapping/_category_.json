@@ -1,0 +1,8 @@
+{
+  "label": "Mapping",
+  "position": 8,
+  "link": {
+    "type": "generated-index",
+    "description": "Configure mappings between Magento and PlentyONE for attributes, properties, payment methods, shipping methods, and product variations."
+  }
+}

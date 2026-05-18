@@ -1,0 +1,22 @@
+{
+    "name": "byte8/magento-plentyone-suite",
+    "description": "Bundle package of PlentyONE connector for Magento & Adobe Commerce.",
+    "type": "metapackage",
+    "license": "EULA",
+    "require": {
+        "byte8/module-core": "1.0.0",
+        "byte8/module-plenty-attribute": "1.0.0",
+        "byte8/module-plenty-category": "1.0.0",
+        "byte8/module-plenty-client": "1.0.0",
+        "byte8/module-plenty-customer": "1.0.0",
+        "byte8/module-plenty-item": "1.0.0",
+        "byte8/module-plenty-log": "1.0.0",
+        "byte8/module-plenty-order": "1.0.0",
+        "byte8/module-plenty-profile": "1.0.0",
+        "byte8/module-plenty-property": "1.0.0",
+        "byte8/module-plenty-stock": "1.0.0",
+        "byte8/module-profile": "1.0.0",
+        "byte8/module-profile-notification": "1.0.0"
+    },
+    "version": "4.0.0"
+}

@@ -1,0 +1,8 @@
+{
+  "label": "Testing",
+  "position": 7,
+  "link": {
+    "type": "generated-index",
+    "description": "Test API connectivity, order synchronization, product imports, and perform your first synchronization with confidence."
+  }
+}
