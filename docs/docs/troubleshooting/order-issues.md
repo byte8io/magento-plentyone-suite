@@ -27,7 +27,7 @@ Customer with ID 456 not found in PlentyONE
 bin/magento plenty:customer:export --id=456 --verbose
 
 # 2. Verify customer export succeeded
-mysql> SELECT * FROM softcommerce_plenty_customer_relation WHERE magento_customer_id = 456;
+mysql> SELECT * FROM plenty_customer_relation WHERE magento_customer_id = 456;
 
 # 3. Retry order export
 bin/magento plenty:order:export -i 123 --verbose
@@ -56,7 +56,7 @@ Cannot create payment record
    ```
 
 2. **Configure mapping via Admin:**
-   - Navigate to **SoftCommerce → Profiles → Manage Profiles**
+   - Navigate to **Byte8 → Profiles → Manage Profiles**
    - Select your Order Export profile
    - Go to **Configuration → Payment Method Mapping**
    - Map each Magento payment method to PlentyONE payment method
@@ -81,7 +81,7 @@ Order export failed
 **Solution:**
 
 1. **Configure shipping mapping:**
-   - **SoftCommerce → Profiles → Manage Profiles → [Order Export Profile]**
+   - **Byte8 → Profiles → Manage Profiles → [Order Export Profile]**
    - **Configuration → Shipping Method Mapping**
    - Map Magento shipping methods to PlentyONE shipping profiles
 
@@ -91,7 +91,7 @@ Order export failed
    bin/magento plenty:setup:collect --type=shipping --verbose
 
    # View collected shipping profiles
-   mysql> SELECT * FROM softcommerce_plenty_config_shipping_profile;
+   mysql> SELECT * FROM plenty_config_shipping_profile;
    ```
 
 3. **Example mappings:**
@@ -157,7 +157,7 @@ bin/magento plenty:item:collect --sku=PRODUCT-SKU
 bin/magento plenty:item:export --sku=PRODUCT-SKU --verbose
 
 # 3. Verify product mapping exists
-mysql> SELECT * FROM softcommerce_plenty_item_relation WHERE sku = 'PRODUCT-SKU';
+mysql> SELECT * FROM plenty_item_relation WHERE sku = 'PRODUCT-SKU';
 
 # 4. Retry order export
 bin/magento plenty:order:export -i 123 --verbose
@@ -179,7 +179,7 @@ bin/magento plenty:order:export -i 123 --verbose
 bin/magento plenty:order:check-integrity --skip-collect
 
 # 2. Check if mapping exists
-mysql> SELECT * FROM softcommerce_plenty_order_relation WHERE magento_order_id = 123;
+mysql> SELECT * FROM plenty_order_relation WHERE magento_order_id = 123;
 
 # 3. If issues found, review and clean up affected orders
 bin/magento plenty:order:delete --id=<affected_plenty_order_id> --verbose
@@ -188,7 +188,7 @@ bin/magento plenty:order:delete --id=<affected_plenty_order_id> --verbose
 bin/magento plenty:order:map
 
 # 5. Verify mapping
-mysql> SELECT * FROM softcommerce_plenty_order_relation WHERE magento_order_id = 123;
+mysql> SELECT * FROM plenty_order_relation WHERE magento_order_id = 123;
 ```
 
 ### Issue: "Referrer Not Found"
@@ -208,10 +208,10 @@ Cannot create order
 bin/magento plenty:setup:create --type=referrer --verbose
 
 # Verify referrer created
-mysql> SELECT * FROM softcommerce_plenty_config_referrer WHERE name = 'magento';
+mysql> SELECT * FROM plenty_config_referrer WHERE name = 'magento';
 
 # Configure profile to use referrer
-# SoftCommerce → Profiles → Manage Profiles → [Order Export Profile]
+# Byte8 → Profiles → Manage Profiles → [Order Export Profile]
 # Configuration → Order Configuration → Order Referrer: magento
 ```
 
@@ -275,14 +275,14 @@ mysql> SELECT * FROM softcommerce_plenty_config_referrer WHERE name = 'magento';
 1. **Verify order is collected:**
    ```bash
    # Check if order exists in collection table
-   mysql> SELECT * FROM softcommerce_plenty_order WHERE magento_order_id = 123;
+   mysql> SELECT * FROM plenty_order WHERE magento_order_id = 123;
 
    # If not, collect it
    bin/magento plenty:order:collect --date-updated="$(date +%Y-%m-%d)" --verbose
    ```
 
 2. **Check status mapping:**
-   - **SoftCommerce → Profiles → Manage Profiles → [Order Import Profile]**
+   - **Byte8 → Profiles → Manage Profiles → [Order Import Profile]**
    - **Configuration → Status Mapping**
    - Ensure PlentyONE statuses are mapped to Magento statuses
 
@@ -340,7 +340,7 @@ If you need to create orders in Magento from PlentyONE, this requires custom dev
 **Solution:**
 
 1. **Ensure tracking sync is enabled:**
-   - **SoftCommerce → Profiles → Manage Profiles → [Order Import Profile]**
+   - **Byte8 → Profiles → Manage Profiles → [Order Import Profile]**
    - **Configuration → Order Configuration**
    - Enable **Sync Tracking Information**
 
@@ -376,7 +376,7 @@ If you need to create orders in Magento from PlentyONE, this requires custom dev
 **Solutions:**
 
 1. **Enable invoice sync:**
-   - **SoftCommerce → Profiles → Manage Profiles → [Order Import Profile]**
+   - **Byte8 → Profiles → Manage Profiles → [Order Import Profile]**
    - **Configuration → Order Configuration**
    - Enable **Sync Invoices**
 
@@ -437,7 +437,7 @@ Contact creation failed: Email already exists
 **Solution:**
 
 1. **Configure guest order handling:**
-   - **SoftCommerce → Profiles → Manage Profiles → [Order Export Profile]**
+   - **Byte8 → Profiles → Manage Profiles → [Order Export Profile]**
    - **Configuration → Customer Configuration**
    - Set **Guest Order Handling** to one of:
      - Create new contact with unique email
@@ -576,11 +576,11 @@ tail -f var/log/plenty_api.log | grep "/rest/orders"
 
 ```sql
 -- Check order mapping
-SELECT * FROM softcommerce_plenty_order_relation
+SELECT * FROM plenty_order_relation
 WHERE magento_order_id = 123;
 
 -- Check collected order data
-SELECT * FROM softcommerce_plenty_order
+SELECT * FROM plenty_order
 WHERE magento_order_id = 123;
 
 -- Check order export queue
@@ -589,9 +589,9 @@ WHERE topic_name = 'plenty.order.export'
 AND body LIKE '%123%';
 
 -- View profile execution history
-SELECT * FROM softcommerce_profile_history
+SELECT * FROM byte8_profile_history
 WHERE profile_id IN (
-    SELECT entity_id FROM softcommerce_profile
+    SELECT entity_id FROM byte8_profile
     WHERE type_id LIKE '%order%'
 )
 ORDER BY created_at DESC

@@ -28,20 +28,20 @@ Cannot execute profile
 1. **List existing profiles:**
    ```bash
    # Via database
-   mysql> SELECT entity_id, name, type_id, status FROM softcommerce_profile;
+   mysql> SELECT entity_id, name, type_id, status FROM byte8_profile;
 
    # Via Admin
-   # Navigate to: SoftCommerce → Profiles → Manage Profiles
+   # Navigate to: Byte8 → Profiles → Manage Profiles
    ```
 
 2. **Create missing profile:**
    - If profile doesn't exist, create it via Admin panel
-   - **SoftCommerce → Profiles → Manage Profiles → Add New Profile**
+   - **Byte8 → Profiles → Manage Profiles → Add New Profile**
 
 3. **Verify profile ID:**
    ```bash
    # Check which profile IDs exist
-   mysql> SELECT entity_id, name FROM softcommerce_profile WHERE type_id = 'plenty_item_import';
+   mysql> SELECT entity_id, name FROM byte8_profile WHERE type_id = 'plenty_item_import';
    ```
 
 ### Issue: "Profile Configuration Incomplete"
@@ -80,7 +80,7 @@ Error: Required configuration missing
    bin/magento profile:export:config --profile=1
 
    # Check database
-   mysql> SELECT path, value FROM softcommerce_profile_config WHERE profile_id = 1;
+   mysql> SELECT path, value FROM byte8_profile_config WHERE profile_id = 1;
    ```
 
 ### Issue: "Client ID Not Configured"
@@ -98,11 +98,11 @@ Cannot proceed with synchronization
 bin/magento plenty:system:check
 
 # 2. Configure in profile
-# SoftCommerce → Profiles → Manage Profiles → [Profile]
+# Byte8 → Profiles → Manage Profiles → [Profile]
 # Configuration → Client Configuration → Client ID
 
 # Or set via database (emergency only)
-mysql> INSERT INTO softcommerce_profile_config (profile_id, path, value)
+mysql> INSERT INTO byte8_profile_config (profile_id, path, value)
 VALUES (1, 'plenty_item_import/client_config/client_id', '12345');
 ```
 
@@ -126,13 +126,13 @@ Cannot load profile
 2. **Enable missing modules:**
    ```bash
    # For item profiles
-   bin/magento module:enable SoftCommerce_PlentyItemProfile
+   bin/magento module:enable Byte8_PlentyItemProfile
 
    # For order profiles
-   bin/magento module:enable SoftCommerce_PlentyOrderProfile
+   bin/magento module:enable Byte8_PlentyOrderProfile
 
    # For stock profiles
-   bin/magento module:enable SoftCommerce_PlentyStockProfile
+   bin/magento module:enable Byte8_PlentyStockProfile
 
    # Apply changes
    bin/magento setup:upgrade
@@ -141,7 +141,7 @@ Cannot load profile
 
 3. **Verify module installation:**
    ```bash
-   composer show softcommerce/* | grep plenty
+   composer show byte8/* | grep plenty
    ```
 
 ## Profile Execution Issues
@@ -357,7 +357,7 @@ Profile execution failed
    ```sql
    -- Check item mapping
    SELECT COUNT(*), COUNT(DISTINCT magento_product_id), COUNT(DISTINCT plenty_item_id)
-   FROM softcommerce_plenty_item_relation;
+   FROM plenty_item_relation;
 
    -- Should have same counts for all three columns
    ```
@@ -366,13 +366,13 @@ Profile execution failed
    ```sql
    -- Find duplicates
    SELECT magento_product_id, COUNT(*)
-   FROM softcommerce_plenty_item_relation
+   FROM plenty_item_relation
    GROUP BY magento_product_id
    HAVING COUNT(*) > 1;
 
    -- Remove duplicates (keep newest)
-   DELETE t1 FROM softcommerce_plenty_item_relation t1
-   INNER JOIN softcommerce_plenty_item_relation t2
+   DELETE t1 FROM plenty_item_relation t1
+   INNER JOIN plenty_item_relation t2
    WHERE t1.entity_id < t2.entity_id
      AND t1.magento_product_id = t2.magento_product_id;
    ```
@@ -406,7 +406,7 @@ Profile execution failed
 
 3. **Check profile schedule config:**
    ```sql
-   SELECT * FROM softcommerce_profile_config
+   SELECT * FROM byte8_profile_config
    WHERE path LIKE '%schedule%'
    AND profile_id = 1;
    ```
@@ -423,7 +423,7 @@ Profile execution failed
 5. **Enable schedule for profile:**
    ```bash
    # Via Admin
-   # SoftCommerce → Profiles → Manage Profiles → [Profile]
+   # Byte8 → Profiles → Manage Profiles → [Profile]
    # Schedule Tab → Enable Schedule: Yes
 
    # Via CLI
@@ -476,7 +476,7 @@ Profile execution failed
 4. **Check crontab.xml configuration:**
    ```bash
    # Verify module's crontab.xml exists
-   find vendor/softcommerce -name crontab.xml
+   find vendor/byte8 -name crontab.xml
 
    # Check for syntax errors
    ```
@@ -540,17 +540,17 @@ Profile execution failed
 1. **Enable history recording:**
    ```bash
    # Via Admin
-   # SoftCommerce → Profiles → Manage Profiles → [Profile]
+   # Byte8 → Profiles → Manage Profiles → [Profile]
    # Configuration → History → Enable: Yes
    ```
 
 2. **Check database table:**
    ```sql
    -- Verify table exists
-   SHOW TABLES LIKE 'softcommerce_profile_history';
+   SHOW TABLES LIKE 'byte8_profile_history';
 
    -- Check for recent entries
-   SELECT * FROM softcommerce_profile_history ORDER BY created_at DESC LIMIT 10;
+   SELECT * FROM byte8_profile_history ORDER BY created_at DESC LIMIT 10;
    ```
 
 3. **Verify database permissions:**
@@ -632,11 +632,11 @@ Profile execution failed
 3. **Add database indexes:**
    ```sql
    -- Check for missing indexes
-   SHOW INDEX FROM softcommerce_plenty_item;
+   SHOW INDEX FROM plenty_item;
 
    -- Add indexes on commonly queried columns
-   ALTER TABLE softcommerce_plenty_item ADD INDEX idx_sku (sku);
-   ALTER TABLE softcommerce_plenty_item ADD INDEX idx_plenty_item_id (plenty_item_id);
+   ALTER TABLE plenty_item ADD INDEX idx_sku (sku);
+   ALTER TABLE plenty_item ADD INDEX idx_plenty_item_id (plenty_item_id);
    ```
 
 4. **Optimize API requests:**
@@ -700,12 +700,12 @@ bin/magento cache:flush
 
 ```bash
 # View profile history
-mysql> SELECT * FROM softcommerce_profile_history
+mysql> SELECT * FROM byte8_profile_history
        WHERE profile_id = 1
        ORDER BY created_at DESC LIMIT 10;
 
 # View profile configuration
-mysql> SELECT path, value FROM softcommerce_profile_config
+mysql> SELECT path, value FROM byte8_profile_config
        WHERE profile_id = 1;
 
 # Export configuration for review
@@ -730,7 +730,7 @@ time bin/magento plenty:item:import
 1. **Monitor profile execution regularly:**
    ```bash
    # Check for failures daily
-   mysql> SELECT COUNT(*) FROM softcommerce_profile_history
+   mysql> SELECT COUNT(*) FROM byte8_profile_history
           WHERE status = 'error' AND DATE(created_at) = CURDATE();
    ```
 
@@ -760,12 +760,12 @@ time bin/magento plenty:item:import
 5. **Regular maintenance:**
    ```bash
    # Clean old profile history (older than 90 days)
-   mysql> DELETE FROM softcommerce_profile_history
+   mysql> DELETE FROM byte8_profile_history
           WHERE created_at < DATE_SUB(NOW(), INTERVAL 90 DAY);
 
    # Optimize tables monthly
-   mysql> OPTIMIZE TABLE softcommerce_profile_history;
-   mysql> OPTIMIZE TABLE softcommerce_plenty_item;
+   mysql> OPTIMIZE TABLE byte8_profile_history;
+   mysql> OPTIMIZE TABLE plenty_item;
    ```
 
 ## Getting Help
@@ -781,7 +781,7 @@ If profile issues persist:
    bin/magento profile:export:config --profile=1 > profile-config.json
 
    # Recent history
-   mysql> SELECT * FROM softcommerce_profile_history
+   mysql> SELECT * FROM byte8_profile_history
           WHERE profile_id = 1
           ORDER BY created_at DESC LIMIT 20;
    ```

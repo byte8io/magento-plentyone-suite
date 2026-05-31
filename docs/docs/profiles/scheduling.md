@@ -33,7 +33,7 @@ crontab -l | grep magento
 
 Each profile can be scheduled independently via the admin panel:
 
-1. Navigate to **SoftCommerce → Plenty Profiles**
+1. Navigate to **Byte8 → Plenty Profiles**
 2. Select your profile
 3. Go to **Schedule** tab
 4. Configure schedule settings:
@@ -110,7 +110,7 @@ Trigger profiles based on Magento events:
 <!-- etc/events.xml -->
 <event name="sales_order_save_after">
     <observer name="plenty_order_export"
-              instance="SoftCommerce\PlentyOrderProfile\Observer\ExportOrderObserver" />
+              instance="Byte8\PlentyOrderProfile\Observer\ExportOrderObserver" />
 </event>
 ```
 
@@ -119,7 +119,7 @@ Trigger profiles based on Magento events:
 ```xml
 <event name="catalog_product_save_after">
     <observer name="plenty_item_export"
-              instance="SoftCommerce\PlentyItemProfile\Observer\ExportProductObserver" />
+              instance="Byte8\PlentyItemProfile\Observer\ExportProductObserver" />
 </event>
 ```
 
@@ -231,7 +231,7 @@ bin/magento plenty:profile:history --status=error
 
 # View last execution time
 mysql> SELECT profile_id, status, created_at, finished_at
-       FROM softcommerce_profile_history
+       FROM byte8_profile_history
        ORDER BY created_at DESC LIMIT 10;
 ```
 

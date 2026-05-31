@@ -9,9 +9,9 @@ description: Monitor and track profile execution and performance
 Effective profile monitoring ensures your synchronization processes run smoothly and reliably. This guide covers monitoring tools, metrics, and best practices for tracking profile execution.
 
 :::info Database Schema Note
-The `softcommerce_profile_history` table contains basic execution history with these columns:
+The `byte8_profile_history` table contains basic execution history with these columns:
 - `entity_id`: History record ID
-- `parent_id`: Profile ID (FK to `softcommerce_profile_entity.entity_id`)
+- `parent_id`: Profile ID (FK to `byte8_profile_entity.entity_id`)
 - `status`: Execution status
 - `type_id`: Profile type identifier
 - `message`: Error/status message (singular)
@@ -63,8 +63,8 @@ SELECT
     h.updated_at,
     TIMESTAMPDIFF(SECOND, h.created_at, h.updated_at) as duration_seconds,
     SUBSTRING(h.message, 1, 100) as message_preview
-FROM softcommerce_profile_history h
-JOIN softcommerce_profile_entity p ON h.parent_id = p.entity_id
+FROM byte8_profile_history h
+JOIN byte8_profile_entity p ON h.parent_id = p.entity_id
 ORDER BY h.created_at DESC
 LIMIT 20;
 
@@ -75,8 +75,8 @@ SELECT
     h.status,
     COUNT(*) as execution_count,
     AVG(TIMESTAMPDIFF(SECOND, h.created_at, h.updated_at)) as avg_duration_seconds
-FROM softcommerce_profile_history h
-JOIN softcommerce_profile_entity p ON h.parent_id = p.entity_id
+FROM byte8_profile_history h
+JOIN byte8_profile_entity p ON h.parent_id = p.entity_id
 WHERE h.created_at >= DATE_SUB(NOW(), INTERVAL 30 DAY)
 GROUP BY h.parent_id, h.status, p.name
 ORDER BY h.parent_id, h.status;
@@ -88,8 +88,8 @@ SELECT
     h.created_at,
     h.status,
     SUBSTRING(h.message, 1, 200) as error_message
-FROM softcommerce_profile_history h
-JOIN softcommerce_profile_entity p ON h.parent_id = p.entity_id
+FROM byte8_profile_history h
+JOIN byte8_profile_entity p ON h.parent_id = p.entity_id
 WHERE h.status IN ('error', 'failed')
 ORDER BY h.created_at DESC
 LIMIT 10;
@@ -97,7 +97,7 @@ LIMIT 10;
 
 #### Via Admin Panel
 
-1. Navigate to **SoftCommerce → Profiles → Manage Profiles**
+1. Navigate to **Byte8 → Profiles → Manage Profiles**
 2. Select your profile
 3. Click **History** tab
 4. View execution history with:
@@ -158,8 +158,8 @@ SELECT
     AVG(TIMESTAMPDIFF(SECOND, h.created_at, h.updated_at)) as avg_seconds,
     MIN(TIMESTAMPDIFF(SECOND, h.created_at, h.updated_at)) as min_seconds,
     MAX(TIMESTAMPDIFF(SECOND, h.created_at, h.updated_at)) as max_seconds
-FROM softcommerce_profile_entity p
-JOIN softcommerce_profile_history h ON p.entity_id = h.parent_id
+FROM byte8_profile_entity p
+JOIN byte8_profile_history h ON p.entity_id = h.parent_id
 WHERE h.created_at >= DATE_SUB(NOW(), INTERVAL 30 DAY)
     AND h.status = 'success'
 GROUP BY p.entity_id, p.name, p.type_id
@@ -172,8 +172,8 @@ SELECT
     p.name as profile_name,
     COUNT(*) as executions,
     AVG(TIMESTAMPDIFF(SECOND, h.created_at, h.updated_at)) as avg_duration_seconds
-FROM softcommerce_profile_history h
-JOIN softcommerce_profile_entity p ON h.parent_id = p.entity_id
+FROM byte8_profile_history h
+JOIN byte8_profile_entity p ON h.parent_id = p.entity_id
 WHERE h.created_at >= DATE_SUB(NOW(), INTERVAL 30 DAY)
     AND h.status = 'success'
 GROUP BY DATE(h.created_at), h.parent_id, p.name
@@ -183,7 +183,7 @@ ORDER BY date DESC, profile_id;
 ### Throughput Analysis
 
 :::note
-The `softcommerce_profile_history` table does not store processed entity counts.
+The `byte8_profile_history` table does not store processed entity counts.
 For throughput metrics, use module-specific logs or implement custom tracking.
 :::
 
@@ -193,8 +193,8 @@ SELECT
     p.name,
     p.type_id,
     COUNT(*) / 168 as avg_executions_per_hour
-FROM softcommerce_profile_entity p
-JOIN softcommerce_profile_history h ON p.entity_id = h.parent_id
+FROM byte8_profile_entity p
+JOIN byte8_profile_history h ON p.entity_id = h.parent_id
 WHERE h.created_at >= DATE_SUB(NOW(), INTERVAL 7 DAY)
     AND h.status = 'success'
 GROUP BY p.entity_id, p.name, p.type_id
@@ -206,7 +206,7 @@ SELECT
     COUNT(*) as total_executions,
     SUM(CASE WHEN h.status = 'success' THEN 1 ELSE 0 END) as successful_executions,
     AVG(TIMESTAMPDIFF(SECOND, h.created_at, h.updated_at)) as avg_duration_seconds
-FROM softcommerce_profile_history h
+FROM byte8_profile_history h
 WHERE h.created_at >= DATE_SUB(NOW(), INTERVAL 7 DAY)
 GROUP BY HOUR(h.created_at)
 ORDER BY hour;
@@ -223,8 +223,8 @@ SELECT
     SUM(CASE WHEN h.status = 'success' THEN 1 ELSE 0 END) as successful,
     SUM(CASE WHEN h.status IN ('error', 'failed') THEN 1 ELSE 0 END) as failed,
     ROUND(SUM(CASE WHEN h.status IN ('error', 'failed') THEN 1 ELSE 0 END) * 100.0 / COUNT(*), 2) as error_rate_percent
-FROM softcommerce_profile_entity p
-JOIN softcommerce_profile_history h ON p.entity_id = h.parent_id
+FROM byte8_profile_entity p
+JOIN byte8_profile_history h ON p.entity_id = h.parent_id
 WHERE h.created_at >= DATE_SUB(NOW(), INTERVAL 30 DAY)
 GROUP BY p.entity_id, p.name, p.type_id
 HAVING total_executions > 0
@@ -236,8 +236,8 @@ SELECT
     p.name as profile_name,
     SUBSTRING(h.message, 1, 100) as error_message,
     COUNT(*) as occurrence_count
-FROM softcommerce_profile_history h
-JOIN softcommerce_profile_entity p ON h.parent_id = p.entity_id
+FROM byte8_profile_history h
+JOIN byte8_profile_entity p ON h.parent_id = p.entity_id
 WHERE h.status IN ('error', 'failed')
     AND h.message IS NOT NULL
     AND h.created_at >= DATE_SUB(NOW(), INTERVAL 7 DAY)
@@ -404,25 +404,25 @@ Configure email alerts via CLI:
 
 ```bash
 # Enable email notifications
-bin/magento config:set softcommerce_profile_notification/email/enabled 1
+bin/magento config:set byte8_profile_notification/email/enabled 1
 
 # Set recipient email(s) - comma-separated for multiple
-bin/magento config:set softcommerce_profile_notification/email/recipient "admin@example.com,devops@example.com"
+bin/magento config:set byte8_profile_notification/email/recipient "admin@example.com,devops@example.com"
 
 # Set email sender identity
-bin/magento config:set softcommerce_profile_notification/email/sender general
+bin/magento config:set byte8_profile_notification/email/sender general
 
 # Set minimum severity threshold (debug, notice, warning, error, critical)
-bin/magento config:set softcommerce_profile_notification/email/threshold error
+bin/magento config:set byte8_profile_notification/email/threshold error
 
 # Enable immediate critical alerts
-bin/magento config:set softcommerce_profile_notification/email/real_time_critical 1
+bin/magento config:set byte8_profile_notification/email/real_time_critical 1
 
 # Enable batch summary emails
-bin/magento config:set softcommerce_profile_notification/email/batch_enabled 1
+bin/magento config:set byte8_profile_notification/email/batch_enabled 1
 
 # Set batch interval in minutes
-bin/magento config:set softcommerce_profile_notification/email/batch_interval 60
+bin/magento config:set byte8_profile_notification/email/batch_interval 60
 
 bin/magento cache:flush
 ```
@@ -431,13 +431,13 @@ bin/magento cache:flush
 
 ```bash
 # Send batch emails manually
-bin/magento softcommerce:notification:send-batch-emails
+bin/magento byte8:notification:send-batch-emails
 
 # Preview without sending
-bin/magento softcommerce:notification:send-batch-emails --preview
+bin/magento byte8:notification:send-batch-emails --preview
 
 # Send only critical notifications
-bin/magento softcommerce:notification:send-batch-emails --severity=critical
+bin/magento byte8:notification:send-batch-emails --severity=critical
 ```
 
 ### Custom Alert Scripts
@@ -449,7 +449,7 @@ Create custom monitoring scripts:
 # /usr/local/bin/monitor-plenty-profiles.sh
 
 # Check for failed profiles in last hour
-FAILED=$(mysql -sN -e "SELECT COUNT(*) FROM softcommerce_profile_history WHERE status IN ('error', 'failed') AND created_at >= DATE_SUB(NOW(), INTERVAL 1 HOUR);")
+FAILED=$(mysql -sN -e "SELECT COUNT(*) FROM byte8_profile_history WHERE status IN ('error', 'failed') AND created_at >= DATE_SUB(NOW(), INTERVAL 1 HOUR);")
 
 if [ "$FAILED" -gt 0 ]; then
     # Send alert
@@ -502,7 +502,7 @@ mysql> SELECT
     SUM(CASE WHEN status = 'success' THEN 1 ELSE 0 END) as successful,
     SUM(CASE WHEN status IN ('error', 'failed') THEN 1 ELSE 0 END) as failed,
     AVG(TIMESTAMPDIFF(SECOND, created_at, updated_at)) as avg_duration_seconds
-FROM softcommerce_profile_history
+FROM byte8_profile_history
 WHERE created_at >= DATE_SUB(NOW(), INTERVAL 7 DAY)
 GROUP BY DATE(created_at)
 ORDER BY date DESC;
@@ -515,11 +515,11 @@ bin/magento plenty:profile:weekly-report --email=admin@example.com
 
 ```bash
 # Export to CSV
-mysql -e "SELECT * FROM softcommerce_profile_history WHERE created_at >= DATE_SUB(NOW(), INTERVAL 30 DAY);" \
+mysql -e "SELECT * FROM byte8_profile_history WHERE created_at >= DATE_SUB(NOW(), INTERVAL 30 DAY);" \
     -B | sed 's/\t/,/g' > profile_history.csv
 
 # Export to JSON
-mysql -e "SELECT * FROM softcommerce_profile_history WHERE created_at >= DATE_SUB(NOW(), INTERVAL 30 DAY);" \
+mysql -e "SELECT * FROM byte8_profile_history WHERE created_at >= DATE_SUB(NOW(), INTERVAL 30 DAY);" \
     -B | python3 -c "import sys, csv, json; print(json.dumps([dict(r) for r in csv.DictReader(sys.stdin, delimiter='\t')]))" \
     > profile_history.json
 ```
@@ -537,8 +537,8 @@ SELECT
     COUNT(*) as executions,
     AVG(TIMESTAMPDIFF(MINUTE, h.created_at, h.updated_at)) as avg_minutes,
     MAX(TIMESTAMPDIFF(MINUTE, h.created_at, h.updated_at)) as max_minutes
-FROM softcommerce_profile_entity p
-JOIN softcommerce_profile_history h ON p.entity_id = h.parent_id
+FROM byte8_profile_entity p
+JOIN byte8_profile_history h ON p.entity_id = h.parent_id
 WHERE h.created_at >= DATE_SUB(NOW(), INTERVAL 30 DAY)
     AND h.status = 'success'
 GROUP BY p.entity_id
@@ -566,26 +566,26 @@ Based on monitoring data:
 # Daily profile health check
 
 echo "=== Profile Executions (Last 24h) ==="
-mysql -t -e "SELECT status, COUNT(*) as count FROM softcommerce_profile_history WHERE created_at >= DATE_SUB(NOW(), INTERVAL 24 HOUR) GROUP BY status;"
+mysql -t -e "SELECT status, COUNT(*) as count FROM byte8_profile_history WHERE created_at >= DATE_SUB(NOW(), INTERVAL 24 HOUR) GROUP BY status;"
 
 echo "=== Queue Status ==="
 mysql -t -e "SELECT CASE qms.status WHEN 4 THEN 'new' WHEN 5 THEN 'in_progress' WHEN 6 THEN 'complete' WHEN 7 THEN 'error' ELSE 'unknown' END as status_name, COUNT(*) as count FROM queue_message qm JOIN queue_message_status qms ON qm.id = qms.message_id WHERE qm.topic_name LIKE 'plenty%' GROUP BY qms.status;"
 
 echo "=== Recent Failures ==="
-mysql -t -e "SELECT parent_id as profile_id, created_at, SUBSTRING(message, 1, 100) as error FROM softcommerce_profile_history WHERE status IN ('error', 'failed') AND created_at >= DATE_SUB(NOW(), INTERVAL 24 HOUR) ORDER BY created_at DESC LIMIT 5;"
+mysql -t -e "SELECT parent_id as profile_id, created_at, SUBSTRING(message, 1, 100) as error FROM byte8_profile_history WHERE status IN ('error', 'failed') AND created_at >= DATE_SUB(NOW(), INTERVAL 24 HOUR) ORDER BY created_at DESC LIMIT 5;"
 ```
 
 ### Weekly Maintenance
 
 ```bash
 # Clean old profile history (older than 90 days)
-mysql -e "DELETE FROM softcommerce_profile_history WHERE created_at < DATE_SUB(NOW(), INTERVAL 90 DAY);"
+mysql -e "DELETE FROM byte8_profile_history WHERE created_at < DATE_SUB(NOW(), INTERVAL 90 DAY);"
 
 # Clean completed queue messages
 mysql -e "DELETE qm FROM queue_message qm JOIN queue_message_status qms ON qm.id = qms.message_id WHERE qms.status = 6;"
 
 # Optimize tables
-mysql -e "OPTIMIZE TABLE softcommerce_profile_history;"
+mysql -e "OPTIMIZE TABLE byte8_profile_history;"
 mysql -e "OPTIMIZE TABLE queue_message;"
 
 # Review and archive logs
@@ -609,7 +609,7 @@ find var/log/plenty_*.log.gz -mtime +90 -exec rm {} \;
 
 1. Check error messages:
    ```sql
-   SELECT message, COUNT(*) FROM softcommerce_profile_history WHERE status = 'error' GROUP BY message;
+   SELECT message, COUNT(*) FROM byte8_profile_history WHERE status = 'error' GROUP BY message;
    ```
 
 2. Review logs for patterns

@@ -10,7 +10,7 @@ The **PlentyONE Storefront plugin** enables direct display of PlentyONE data on 
 
 ## Overview
 
-**Package**: `softcommerce/module-plenty-storefront`
+**Package**: `byte8/module-plenty-storefront`
 **Category**: Frontend & Display
 **License**: OSL-3.0 / AFL-3.0
 **Status**: Production Ready
@@ -103,8 +103,8 @@ Status: Low Stock - Order soon
 - Magento cache system configured
 
 ### Mage2Plenty Modules
-- `softcommerce/module-plenty-client` - Required for API communication
-- `softcommerce/module-plenty-stock` - Required for inventory data
+- `byte8/module-plenty-client` - Required for API communication
+- `byte8/module-plenty-stock` - Required for inventory data
 
 ### System Requirements
 - Magento 2.4.4 - 2.4.8
@@ -117,7 +117,7 @@ Status: Low Stock - Order soon
 
 ```bash
 # Install the plugin
-composer require softcommerce/module-plenty-storefront
+composer require byte8/module-plenty-storefront
 
 # Run Magento setup
 bin/magento setup:upgrade
@@ -132,7 +132,7 @@ bin/magento setup:static-content:deploy
 
 ```bash
 # Check module status
-bin/magento module:status SoftCommerce_PlentyStorefront
+bin/magento module:status Byte8_PlentyStorefront
 
 # Should show as enabled
 ```
@@ -214,7 +214,7 @@ The plugin integrates at multiple points:
 **Solutions**:
 1. Verify plugin is enabled:
    ```bash
-   bin/magento module:status SoftCommerce_PlentyStorefront
+   bin/magento module:status Byte8_PlentyStorefront
    ```
 
 2. Check configuration:
@@ -229,7 +229,7 @@ The plugin integrates at multiple points:
 
 4. Check API connectivity:
    ```bash
-   tail -f var/log/softcommerce/plenty/api.log
+   tail -f var/log/plenty/api.log
    ```
 
 5. Verify PlentyONE API credentials
@@ -322,9 +322,9 @@ The plugin provides layout blocks you can customize:
 
 ```xml
 <!-- In your theme's layout XML -->
-<block class="SoftCommerce\PlentyStorefront\Block\Product\Stock"
+<block class="Byte8\PlentyStorefront\Block\Product\Stock"
        name="product.stock.plenty"
-       template="SoftCommerce_PlentyStorefront::product/stock.phtml"/>
+       template="Byte8_PlentyStorefront::product/stock.phtml"/>
 ```
 
 ### Custom Templates
@@ -332,7 +332,7 @@ The plugin provides layout blocks you can customize:
 Override templates in your theme:
 ```
 app/design/frontend/[Vendor]/[Theme]/
-  SoftCommerce_PlentyStorefront/
+  Byte8_PlentyStorefront/
     templates/
       product/
         stock.phtml (stock display)
@@ -371,7 +371,7 @@ If you encounter issues:
 
 - 📧 **Email**: support@byte8.io
 - 📞 **Phone**: +44 2080 587 795 (GMT working hours)
-- 🐛 **Bug Reports**: [GitHub Issues](https://github.com/softcommerceltd/mage2plenty-os/issues)
+- 🐛 **Bug Reports**: [GitHub Issues](https://github.com/byte8/mage2plenty/issues)
 
 ### Source Code
 
@@ -383,7 +383,7 @@ If you encounter issues:
 
 Check current version:
 ```bash
-composer show softcommerce/module-plenty-storefront
+composer show byte8/module-plenty-storefront
 ```
 
 ## Related Documentation

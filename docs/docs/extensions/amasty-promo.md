@@ -10,7 +10,7 @@ The **Amasty Promo plugin** integrates Amasty Special Promotions (Free Gifts) ex
 
 ## Overview
 
-**Package**: `softcommerce/module-plenty-amasty-promo`
+**Package**: `byte8/module-plenty-amasty-promo`
 **Category**: Amasty Integrations
 **License**: OSL-3.0 / AFL-3.0
 **Status**: Production Ready
@@ -73,7 +73,7 @@ The **Amasty Promo plugin** integrates Amasty Special Promotions (Free Gifts) ex
 - **Amasty Special Promotions** (`amasty/promo`) - Required
 
 ### Mage2Plenty Modules
-- `softcommerce/module-plenty-order-profile` - Required for order export
+- `byte8/module-plenty-order-profile` - Required for order export
 
 ### System Requirements
 - Magento 2.4.4 - 2.4.8
@@ -86,7 +86,7 @@ The **Amasty Promo plugin** integrates Amasty Special Promotions (Free Gifts) ex
 
 ```bash
 # Install the plugin
-composer require softcommerce/module-plenty-amasty-promo
+composer require byte8/module-plenty-amasty-promo
 
 # Run Magento setup
 bin/magento setup:upgrade
@@ -101,7 +101,7 @@ bin/magento setup:static-content:deploy
 
 ```bash
 # Check module status
-bin/magento module:status SoftCommerce_PlentyAmastyPromo
+bin/magento module:status Byte8_PlentyAmastyPromo
 
 # Should show as enabled
 ```
@@ -158,7 +158,7 @@ Export to PlentyONE
 **Solutions**:
 1. Verify plugin is enabled:
    ```bash
-   bin/magento module:status SoftCommerce_PlentyAmastyPromo
+   bin/magento module:status Byte8_PlentyAmastyPromo
    ```
 
 2. Check Amasty Promo extension is installed:
@@ -169,7 +169,7 @@ Export to PlentyONE
 3. Verify promotion was applied in Magento order
 4. Review order export logs:
    ```bash
-   tail -f var/log/softcommerce/plenty/order.log
+   tail -f var/log/plenty/order.log
    ```
 
 ### Promo Items Have Wrong Price
@@ -266,7 +266,7 @@ If you encounter issues:
 
 - 📧 **Email**: support@byte8.io
 - 📞 **Phone**: +44 2080 587 795 (GMT working hours)
-- 🐛 **Bug Reports**: [GitHub Issues](https://github.com/softcommerceltd/mage2plenty-os/issues)
+- 🐛 **Bug Reports**: [GitHub Issues](https://github.com/byte8/mage2plenty/issues)
 
 ### Source Code
 
@@ -278,7 +278,7 @@ If you encounter issues:
 
 Check current version:
 ```bash
-composer show softcommerce/module-plenty-amasty-promo
+composer show byte8/module-plenty-amasty-promo
 ```
 
 ## Related Documentation

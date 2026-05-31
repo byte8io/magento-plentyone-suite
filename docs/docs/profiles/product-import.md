@@ -205,7 +205,7 @@ Enable scheduled automatic imports.
 - Processes products updated since last run
 - Incremental sync for efficiency
 
-**Configuration Path**: `softcommerce_plenty/plenty_item_import/is_active_schedule`
+**Configuration Path**: `plenty/plenty_item_import/is_active_schedule`
 
 #### Batch Size
 
@@ -344,7 +344,7 @@ Each request: GET /rest/pim/variations?itemsPerPage=100&page=N
 - **Larger Size**: Fewer requests, faster total sync, more memory per request
 - **Smaller Size**: More requests, slower total sync, less memory per request
 
-**Configuration Path**: `softcommerce_plenty/plenty_item_import/http_config/collection_size`
+**Configuration Path**: `plenty/plenty_item_import/http_config/collection_size`
 
 #### PIM Search Criteria
 
@@ -510,7 +510,7 @@ Specify VAT rate location configuration.
 - **Based on Billing Address**: Use billing country VAT
 - **Based on Store Location**: Use store's default VAT
 
-**Configuration Path**: `softcommerce_plenty/plenty_item_import/tax_config/tax_rate_location`
+**Configuration Path**: `plenty/plenty_item_import/tax_config/tax_rate_location`
 
 #### VAT Configuration
 
@@ -608,7 +608,7 @@ Define how prices are calculated on import.
 - **Calculate from Net**: Import net, convert to gross for display
 - **Calculate from Gross**: Import gross, extract net for calculations
 
-**Configuration Path**: `softcommerce_plenty/plenty_item_import/price_config/calculation_mode`
+**Configuration Path**: `plenty/plenty_item_import/price_config/calculation_mode`
 
 ---
 
@@ -2078,7 +2078,7 @@ Flush Magento cache after import.
 4. **Test Import (Small Batch)**:
    ```bash
    # Import first 10 products
-   bin/magento softcommerce:plenty:item:import --profile-id=1 --limit=10
+   bin/magento byte8:plenty:item:import --profile-id=1 --limit=10
 
    # Check logs
    tail -f var/log/plenty_item_import.log
@@ -2103,7 +2103,7 @@ Flush Magento cache after import.
 7. **Full Catalog Import**:
    ```bash
    # Run full import
-   bin/magento softcommerce:plenty:item:import --profile-id=1
+   bin/magento byte8:plenty:item:import --profile-id=1
 
    # Monitor progress
    tail -f var/log/plenty_item_import.log
@@ -2259,7 +2259,7 @@ Result:
 **Verification**:
 ```bash
 # Test with single product
-bin/magento softcommerce:plenty:item:import --profile-id=1 --entity-ids=12345
+bin/magento byte8:plenty:item:import --profile-id=1 --entity-ids=12345
 
 # Check only price/stock updated
 bin/magento catalog:product:show SKU123
@@ -2450,7 +2450,7 @@ Product Catalog:
 **CLI Commands**:
 ```bash
 # Import configurable products
-bin/magento softcommerce:plenty:item:import --profile-id=1
+bin/magento byte8:plenty:item:import --profile-id=1
 
 # Check parent product
 bin/magento catalog:product:show 12345
@@ -2474,37 +2474,37 @@ bin/magento catalog:attribute:options size
 
 ```bash
 # Full import (all products)
-bin/magento softcommerce:plenty:item:import --profile-id=1
+bin/magento byte8:plenty:item:import --profile-id=1
 
 # Import specific products by PlentyONE variation IDs
-bin/magento softcommerce:plenty:item:import --profile-id=1 --entity-ids=1001,1002,1003
+bin/magento byte8:plenty:item:import --profile-id=1 --entity-ids=1001,1002,1003
 
 # Import with custom batch size
-bin/magento softcommerce:plenty:item:import --profile-id=1 --batch-size=50
+bin/magento byte8:plenty:item:import --profile-id=1 --batch-size=50
 
 # Import limited number of products
-bin/magento softcommerce:plenty:item:import --profile-id=1 --limit=100
+bin/magento byte8:plenty:item:import --profile-id=1 --limit=100
 ```
 
 ### Advanced Import Options
 
 ```bash
 # Force full re-import (ignore timestamps)
-bin/magento softcommerce:plenty:item:import --profile-id=1 --force
+bin/magento byte8:plenty:item:import --profile-id=1 --force
 
 # Import new products only (skip existing)
-bin/magento softcommerce:plenty:item:import --profile-id=1 --new-only
+bin/magento byte8:plenty:item:import --profile-id=1 --new-only
 
 # Import without processing images (faster)
-bin/magento softcommerce:plenty:item:import --profile-id=1 --skip-media
+bin/magento byte8:plenty:item:import --profile-id=1 --skip-media
 
 # Import without triggering indexers
-bin/magento softcommerce:plenty:item:import --profile-id=1 --skip-reindex
+bin/magento byte8:plenty:item:import --profile-id=1 --skip-reindex
 
 # Import with verbose output
-bin/magento softcommerce:plenty:item:import --profile-id=1 -v
-bin/magento softcommerce:plenty:item:import --profile-id=1 -vv
-bin/magento softcommerce:plenty:item:import --profile-id=1 -vvv (debug)
+bin/magento byte8:plenty:item:import --profile-id=1 -v
+bin/magento byte8:plenty:item:import --profile-id=1 -vv
+bin/magento byte8:plenty:item:import --profile-id=1 -vvv (debug)
 ```
 
 ### Product Management Commands
@@ -2517,37 +2517,37 @@ bin/magento catalog:product:list
 bin/magento catalog:product:show SKU123
 
 # Delete imported products
-bin/magento softcommerce:plenty:item:delete --profile-id=1 --entity-ids=1001,1002
+bin/magento byte8:plenty:item:delete --profile-id=1 --entity-ids=1001,1002
 
 # Clean up orphaned product data
-bin/magento softcommerce:plenty:item:cleanup --profile-id=1
+bin/magento byte8:plenty:item:cleanup --profile-id=1
 ```
 
 ### Configuration Commands
 
 ```bash
 # Collect PlentyONE configuration data
-bin/magento softcommerce:plenty:client:collect-config --profile-id=1
+bin/magento byte8:plenty:client:collect-config --profile-id=1
 
 # Delete cached configuration data
-bin/magento softcommerce:plenty:client:delete-config --profile-id=1
+bin/magento byte8:plenty:client:delete-config --profile-id=1
 
 # View profile configuration
-bin/magento config:show softcommerce_plenty/plenty_item_import
+bin/magento config:show plenty/plenty_item_import
 ```
 
 ### Validation Commands
 
 ```bash
 # Validate attribute restriction configuration
-bin/magento config:show softcommerce_plenty/plenty_item_import/is_active_attribute_restriction
-bin/magento config:show softcommerce_plenty/plenty_item_import/allowed_attributes
+bin/magento config:show plenty/plenty_item_import/is_active_attribute_restriction
+bin/magento config:show plenty/plenty_item_import/allowed_attributes
 
 # Validate store mapping
-bin/magento config:show softcommerce_plenty/plenty_item_import/store_mapping
+bin/magento config:show plenty/plenty_item_import/store_mapping
 
 # Validate sales price configuration
-bin/magento config:show softcommerce_plenty/plenty_item_import/sales_price_config
+bin/magento config:show plenty/plenty_item_import/sales_price_config
 ```
 
 ### Indexing Commands
@@ -2640,7 +2640,7 @@ tail -f var/log/db.log
 **1. Store Mapping Not Configured**
 ```bash
 # Check store mapping
-bin/magento config:show softcommerce_plenty/plenty_item_import/store_mapping
+bin/magento config:show plenty/plenty_item_import/store_mapping
 
 # Solution: Configure at least one store mapping
 # Admin: Profile → Store Mapping Configuration
@@ -2650,7 +2650,7 @@ bin/magento config:show softcommerce_plenty/plenty_item_import/store_mapping
 **2. API Collection Filters Too Restrictive**
 ```bash
 # Check PIM search criteria
-bin/magento config:show softcommerce_plenty/plenty_item_import/pim_search_criteria
+bin/magento config:show plenty/plenty_item_import/pim_search_criteria
 
 # Solution: Review/remove restrictive filters
 # Admin: Profile → HTTP API Configuration → PIM Search Criteria
@@ -2665,7 +2665,7 @@ bin/magento config:show softcommerce_plenty/plenty_item_import/pim_search_criter
 **4. Configuration Data Not Collected**
 ```bash
 # Collect configuration data
-bin/magento softcommerce:plenty:client:collect-config --profile-id=1
+bin/magento byte8:plenty:client:collect-config --profile-id=1
 
 # Verify dropdowns populated
 # Admin: Profile configuration → Check dropdown fields
@@ -2694,7 +2694,7 @@ grep -i "authentication\|unauthorized\|401" var/log/plenty_item_import.log
 **1. Configurable Import Disabled**
 ```bash
 # Check configurable import setting
-bin/magento config:show softcommerce_plenty/plenty_item_import/is_active_configurable
+bin/magento config:show plenty/plenty_item_import/is_active_configurable
 
 # Solution: Enable configurable product import
 # Admin: Profile → Configurable Product Configuration
@@ -2704,7 +2704,7 @@ bin/magento config:show softcommerce_plenty/plenty_item_import/is_active_configu
 **2. Variation Attributes Not Mapped**
 ```bash
 # Check configurable attribute mapping
-bin/magento config:show softcommerce_plenty/plenty_item_import/configurable_attribute_mapping
+bin/magento config:show plenty/plenty_item_import/configurable_attribute_mapping
 
 # Solution: Map variation attributes
 # Admin: Profile → Configurable Product Configuration
@@ -2730,7 +2730,7 @@ bin/magento catalog:attribute:show color
 **4. Attribute Options Not Created**
 ```bash
 # Check if auto-create enabled
-bin/magento config:show softcommerce_plenty/plenty_item_import/auto_create_attribute_options
+bin/magento config:show plenty/plenty_item_import/auto_create_attribute_options
 
 # Enable auto-creation
 # Admin: Profile → Attribute Configuration
@@ -2746,7 +2746,7 @@ bin/magento catalog:attribute:options color --add="Red,Blue,Green"
 
 ```bash
 # Temporary workaround: Disable attribute restriction
-bin/magento config:set softcommerce_plenty/plenty_item_import/is_active_attribute_restriction 0
+bin/magento config:set plenty/plenty_item_import/is_active_attribute_restriction 0
 
 # Or: Include super attributes in allowed list
 # Admin: Profile → Attribute Configuration
@@ -2767,7 +2767,7 @@ bin/magento config:set softcommerce_plenty/plenty_item_import/is_active_attribut
 **1. Image Import Disabled**
 ```bash
 # Check media import setting
-bin/magento config:show softcommerce_plenty/plenty_item_import/is_active_media
+bin/magento config:show plenty/plenty_item_import/is_active_media
 
 # Solution: Enable media import
 # Admin: Profile → Media Configuration
@@ -2777,7 +2777,7 @@ bin/magento config:show softcommerce_plenty/plenty_item_import/is_active_media
 **2. Image Download Issues**
 ```bash
 # Check if file download enabled (if using download mode)
-bin/magento config:show softcommerce_plenty/plenty_item_import/enable_file_download
+bin/magento config:show plenty/plenty_item_import/enable_file_download
 
 # Test image URL accessibility
 curl -I https://cdn02.plentymarkets.com/path/to/image.jpg
@@ -2807,7 +2807,7 @@ chcon -R -t httpd_sys_rw_content_t pub/media/catalog/product/
 **5. Image Role Mapping Not Configured**
 ```bash
 # Check image role mapping
-bin/magento config:show softcommerce_plenty/plenty_item_import/image_role_mapping
+bin/magento config:show plenty/plenty_item_import/image_role_mapping
 
 # Solution: Configure image role mapping
 # Admin: Profile → Media Configuration → Image Role Mapping
@@ -2817,7 +2817,7 @@ bin/magento config:show softcommerce_plenty/plenty_item_import/image_role_mappin
 **6. Image Channel Filter**
 ```bash
 # Check channel filter
-bin/magento config:show softcommerce_plenty/plenty_item_import/image_channel_filter
+bin/magento config:show plenty/plenty_item_import/image_channel_filter
 
 # Solution: Ensure webshop channel included
 # Admin: Profile → Media Configuration → Image Channel Filter
@@ -2838,7 +2838,7 @@ bin/magento config:show softcommerce_plenty/plenty_item_import/image_channel_fil
 **1. Price Import Disabled**
 ```bash
 # Check price import setting
-bin/magento config:show softcommerce_plenty/plenty_item_import/is_active_price
+bin/magento config:show plenty/plenty_item_import/is_active_price
 
 # Solution: Enable price import
 # Admin: Profile → Tax & Price Configuration
@@ -2848,7 +2848,7 @@ bin/magento config:show softcommerce_plenty/plenty_item_import/is_active_price
 **2. Sales Price Not Mapped**
 ```bash
 # Check sales price configuration
-bin/magento config:show softcommerce_plenty/plenty_item_import/sales_price_config
+bin/magento config:show plenty/plenty_item_import/sales_price_config
 
 # Solution: Map sales prices
 # Admin: Profile → Tax & Price Configuration → Sales Price Configuration
@@ -2858,7 +2858,7 @@ bin/magento config:show softcommerce_plenty/plenty_item_import/sales_price_confi
 **3. Wrong Price Calculation Mode**
 ```bash
 # Check price calculation mode
-bin/magento config:show softcommerce_plenty/plenty_item_import/price_calculation_mode
+bin/magento config:show plenty/plenty_item_import/price_calculation_mode
 
 # Options:
 # - net: Import net price (Magento adds tax on display)
@@ -2876,7 +2876,7 @@ bin/magento config:show softcommerce_plenty/plenty_item_import/price_calculation
 **5. Customer Group Pricing Issues**
 ```bash
 # Check sales price customer group mapping
-bin/magento config:show softcommerce_plenty/plenty_item_import/sales_price_config
+bin/magento config:show plenty/plenty_item_import/sales_price_config
 
 # Solution: Map group prices correctly
 # Admin: Profile → Tax & Price Configuration → Sales Price Configuration
@@ -2886,10 +2886,10 @@ bin/magento config:show softcommerce_plenty/plenty_item_import/sales_price_confi
 **6. Tax Configuration Issues**
 ```bash
 # Check tax import setting
-bin/magento config:show softcommerce_plenty/plenty_item_import/is_active_tax
+bin/magento config:show plenty/plenty_item_import/is_active_tax
 
 # Check VAT configuration
-bin/magento config:show softcommerce_plenty/plenty_item_import/vat_config
+bin/magento config:show plenty/plenty_item_import/vat_config
 
 # Solution: Configure tax classes
 # Admin: Profile → Tax & Price Configuration
@@ -2910,18 +2910,18 @@ bin/magento config:show softcommerce_plenty/plenty_item_import/vat_config
 **1. Restriction Not Enabled**
 ```bash
 # Verify restriction enabled
-bin/magento config:show softcommerce_plenty/plenty_item_import/is_active_attribute_restriction
+bin/magento config:show plenty/plenty_item_import/is_active_attribute_restriction
 
 # Should return: 1
 
 # Enable restriction
-bin/magento config:set softcommerce_plenty/plenty_item_import/is_active_attribute_restriction 1
+bin/magento config:set plenty/plenty_item_import/is_active_attribute_restriction 1
 ```
 
 **2. Allowed Attributes Not Set**
 ```bash
 # Check allowed attributes
-bin/magento config:show softcommerce_plenty/plenty_item_import/allowed_attributes
+bin/magento config:show plenty/plenty_item_import/allowed_attributes
 
 # Should return: JSON array like ["price","special_price","quantity"]
 
@@ -2972,7 +2972,7 @@ grep "Skipping attribute" var/log/plenty_item_import.log
 **1. Increase Memory Limit**
 ```bash
 # Temporary (CLI)
-php -d memory_limit=4G bin/magento softcommerce:plenty:item:import --profile-id=1
+php -d memory_limit=4G bin/magento byte8:plenty:item:import --profile-id=1
 
 # Permanent (php.ini)
 memory_limit = 4G
@@ -2985,7 +2985,7 @@ memory_limit = 4G
 **2. Reduce Batch Size**
 ```bash
 # Use smaller batches
-bin/magento softcommerce:plenty:item:import --profile-id=1 --batch-size=25
+bin/magento byte8:plenty:item:import --profile-id=1 --batch-size=25
 
 # Or configure in profile
 # Admin: Profile → Schedule Configuration → Batch Size
@@ -2995,7 +2995,7 @@ bin/magento softcommerce:plenty:item:import --profile-id=1 --batch-size=25
 **3. Increase Timeout**
 ```bash
 # Temporary (CLI)
-php -d max_execution_time=7200 bin/magento softcommerce:plenty:item:import --profile-id=1
+php -d max_execution_time=7200 bin/magento byte8:plenty:item:import --profile-id=1
 
 # Permanent (php.ini)
 max_execution_time = 7200
@@ -3013,7 +3013,7 @@ max_execution_time = 7200
 
 ```bash
 # Fast import: price/stock only, no media, no reindex
-bin/magento softcommerce:plenty:item:import \
+bin/magento byte8:plenty:item:import \
   --profile-id=1 \
   --batch-size=200 \
   --skip-media \
@@ -3034,7 +3034,7 @@ bin/magento softcommerce:plenty:item:import \
 **1. SKU Mapping Configuration**
 ```bash
 # Check product mapping identifier
-bin/magento config:show softcommerce_plenty/plenty_item_import/product_mapping_identifier
+bin/magento config:show plenty/plenty_item_import/product_mapping_identifier
 
 # Options:
 # - sku: Use variation number as SKU (default)
@@ -3047,7 +3047,7 @@ bin/magento config:show softcommerce_plenty/plenty_item_import/product_mapping_i
 **2. Custom Mapping Attribute Issues** (if using custom attribute)
 ```bash
 # Check custom mapping attribute
-bin/magento config:show softcommerce_plenty/plenty_item_import/custom_mapping_attribute
+bin/magento config:show plenty/plenty_item_import/custom_mapping_attribute
 
 # Example: plenty_variation_id
 
@@ -3069,7 +3069,7 @@ bin/magento catalog:attribute:show plenty_variation_id
 **4. URL Key Duplicates**
 ```bash
 # Check URL duplicate handling
-bin/magento config:show softcommerce_plenty/plenty_item_import/append_sku_on_duplicate_url
+bin/magento config:show plenty/plenty_item_import/append_sku_on_duplicate_url
 
 # Enable SKU appending
 # Admin: Profile → URL Configuration
@@ -3161,13 +3161,13 @@ df -h pub/media/catalog/product/
 find var/log -name "plenty_item_import.log*" -mtime +30 -delete
 
 # Monthly: Verify attribute mappings still valid
-bin/magento config:show softcommerce_plenty/plenty_item_import/attribute_mapping
+bin/magento config:show plenty/plenty_item_import/attribute_mapping
 
 # Monthly: Clean up orphaned images (if file cleanup enabled)
-bin/magento softcommerce:plenty:item:cleanup --profile-id=1
+bin/magento byte8:plenty:item:cleanup --profile-id=1
 
 # Quarterly: Full catalog re-sync for data integrity
-bin/magento softcommerce:plenty:item:import --profile-id=1 --force
+bin/magento byte8:plenty:item:import --profile-id=1 --force
 ```
 
 ---
@@ -3242,7 +3242,7 @@ Configuration:
 
 Commands:
 bin/magento maintenance:enable
-bin/magento softcommerce:plenty:item:import --profile-id=1 --skip-reindex
+bin/magento byte8:plenty:item:import --profile-id=1 --skip-reindex
 bin/magento indexer:reindex
 bin/magento cache:flush
 bin/magento maintenance:disable
@@ -3387,7 +3387,7 @@ Configuration Steps:
 **Pre-Production Testing**:
 ```bash
 # 1. Test with small dataset
-bin/magento softcommerce:plenty:item:import --profile-id=1 --limit=10
+bin/magento byte8:plenty:item:import --profile-id=1 --limit=10
 
 # 2. Validate different product types
 # - Simple products

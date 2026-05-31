@@ -701,10 +701,10 @@ This section is currently empty and reserved for future event-based export trigg
 Use CLI commands or scheduled exports with queue processing to achieve similar automation:
 ```bash
 # Add customer to queue manually
-bin/magento softcommerce:plenty:customer:queue --add --entity-id=123
+bin/magento byte8:plenty:customer:queue --add --entity-id=123
 
 # Process queue on schedule
-bin/magento softcommerce:plenty:customer:export --profile-id=4 --queue
+bin/magento byte8:plenty:customer:export --profile-id=4 --queue
 ```
 
 ---
@@ -722,7 +722,7 @@ bin/magento softcommerce:plenty:customer:export --profile-id=4 --queue
 
 Enable logging of all API request data sent to PlentyONE to file system.
 
-**Log Location**: `var/log/softcommerce/plenty/customer_export_request.log`
+**Log Location**: `var/log/plenty/customer_export_request.log`
 
 **What Gets Logged**:
 - Complete API request URLs
@@ -757,7 +757,7 @@ Request logs contain API authentication tokens and complete customer personal da
 
 Enable logging of all API response data received from PlentyONE to file system.
 
-**Log Location**: `var/log/softcommerce/plenty/customer_export_response.log`
+**Log Location**: `var/log/plenty/customer_export_response.log`
 
 **What Gets Logged**:
 - Complete API response body
@@ -853,13 +853,13 @@ Log Configuration:
 6. Enable request/response logging
 7. Start with small test batch (10-50 customers):
    ```bash
-   bin/magento softcommerce:plenty:customer:export --profile-id=4 --entity-ids=1,2,3,4,5
+   bin/magento byte8:plenty:customer:export --profile-id=4 --entity-ids=1,2,3,4,5
    ```
 8. Verify contacts and addresses in PlentyONE
 9. Review logs for any errors or warnings
 10. Process full customer database:
     ```bash
-    bin/magento softcommerce:plenty:customer:export --profile-id=4
+    bin/magento byte8:plenty:customer:export --profile-id=4
     ```
 11. Monitor execution and review final statistics
 12. Disable logging after successful completion
@@ -912,13 +912,13 @@ Log Configuration:
 **Queue Management**:
 ```bash
 # View customers in export queue
-bin/magento softcommerce:plenty:customer:queue --list
+bin/magento byte8:plenty:customer:queue --list
 
 # Add new customer to queue (can be automated via observer)
-bin/magento softcommerce:plenty:customer:queue --add --entity-id=500
+bin/magento byte8:plenty:customer:queue --add --entity-id=500
 
 # Process queue manually (optional, schedule handles this)
-bin/magento softcommerce:plenty:customer:export --profile-id=4 --queue
+bin/magento byte8:plenty:customer:export --profile-id=4 --queue
 ```
 
 ---
@@ -980,99 +980,99 @@ Schedule Configuration:
 
 ```bash
 # Export all customers
-bin/magento softcommerce:plenty:customer:export --profile-id=4
+bin/magento byte8:plenty:customer:export --profile-id=4
 
 # Export specific customers by ID (comma-separated)
-bin/magento softcommerce:plenty:customer:export --profile-id=4 --entity-ids=100,101,102
+bin/magento byte8:plenty:customer:export --profile-id=4 --entity-ids=100,101,102
 
 # Export new customers only (customers not yet exported)
-bin/magento softcommerce:plenty:customer:export --profile-id=4 --new-only
+bin/magento byte8:plenty:customer:export --profile-id=4 --new-only
 
 # Export customers from specific store
-bin/magento softcommerce:plenty:customer:export --profile-id=4 --store-id=1
+bin/magento byte8:plenty:customer:export --profile-id=4 --store-id=1
 
 # Process export queue (customers added to queue)
-bin/magento softcommerce:plenty:customer:export --profile-id=4 --queue
+bin/magento byte8:plenty:customer:export --profile-id=4 --queue
 
 # Force re-export (ignores previous export status)
-bin/magento softcommerce:plenty:customer:export --profile-id=4 --force
+bin/magento byte8:plenty:customer:export --profile-id=4 --force
 
 # Export with verbose output for debugging
-bin/magento softcommerce:plenty:customer:export --profile-id=4 -vvv
+bin/magento byte8:plenty:customer:export --profile-id=4 -vvv
 ```
 
 ### Manage Export Queue
 
 ```bash
 # View all customers in export queue
-bin/magento softcommerce:plenty:customer:queue --list
+bin/magento byte8:plenty:customer:queue --list
 
 # View queue with details
-bin/magento softcommerce:plenty:customer:queue --list --verbose
+bin/magento byte8:plenty:customer:queue --list --verbose
 
 # Add specific customer to export queue
-bin/magento softcommerce:plenty:customer:queue --add --entity-id=123
+bin/magento byte8:plenty:customer:queue --add --entity-id=123
 
 # Add multiple customers to queue
-bin/magento softcommerce:plenty:customer:queue --add --entity-ids=123,124,125
+bin/magento byte8:plenty:customer:queue --add --entity-ids=123,124,125
 
 # Remove customer from export queue
-bin/magento softcommerce:plenty:customer:queue --remove --entity-id=123
+bin/magento byte8:plenty:customer:queue --remove --entity-id=123
 
 # Clear entire export queue (use with caution)
-bin/magento softcommerce:plenty:customer:queue --clear
+bin/magento byte8:plenty:customer:queue --clear
 
 # View queue statistics
-bin/magento softcommerce:plenty:customer:queue --stats
+bin/magento byte8:plenty:customer:queue --stats
 ```
 
 ### Manage Configuration Data
 
 ```bash
 # Collect customer configuration data from PlentyONE
-bin/magento softcommerce:plenty:customer:collect-config --client-id=1
+bin/magento byte8:plenty:customer:collect-config --client-id=1
 
 # Force re-collection of configuration data
-bin/magento softcommerce:plenty:customer:collect-config --client-id=1 --force
+bin/magento byte8:plenty:customer:collect-config --client-id=1 --force
 
 # Delete configuration data
-bin/magento softcommerce:plenty:customer:delete-config --client-id=1
+bin/magento byte8:plenty:customer:delete-config --client-id=1
 ```
 
 ### Profile Management
 
 ```bash
 # List all customer export profiles
-bin/magento softcommerce:profile:list --type=plenty_customer_export
+bin/magento byte8:profile:list --type=plenty_customer_export
 
 # View profile configuration
-bin/magento softcommerce:profile:info --profile-id=4
+bin/magento byte8:profile:info --profile-id=4
 
 # Enable/disable profile scheduling
-bin/magento softcommerce:profile:schedule:enable --profile-id=4
-bin/magento softcommerce:profile:schedule:disable --profile-id=4
+bin/magento byte8:profile:schedule:enable --profile-id=4
+bin/magento byte8:profile:schedule:disable --profile-id=4
 ```
 
 ### Debugging and Diagnostics
 
 ```bash
 # Validate profile configuration
-bin/magento softcommerce:plenty:customer:validate --profile-id=4
+bin/magento byte8:plenty:customer:validate --profile-id=4
 
 # Test API connection for profile
-bin/magento softcommerce:plenty:customer:test-connection --profile-id=4
+bin/magento byte8:plenty:customer:test-connection --profile-id=4
 
 # View recent export history
-bin/magento softcommerce:profile:history --profile-id=4 --limit=10
+bin/magento byte8:profile:history --profile-id=4 --limit=10
 
 # View export history with errors only
-bin/magento softcommerce:profile:history --profile-id=4 --status=error
+bin/magento byte8:profile:history --profile-id=4 --status=error
 
 # Clear customer export history
-bin/magento softcommerce:profile:history:clear --profile-id=4 --older-than=30
+bin/magento byte8:profile:history:clear --profile-id=4 --older-than=30
 
 # Check customer PlentyONE contact mapping
-bin/magento softcommerce:plenty:customer:check-mapping --customer-id=123
+bin/magento byte8:plenty:customer:check-mapping --customer-id=123
 ```
 
 ---
@@ -1096,7 +1096,7 @@ bin/magento softcommerce:plenty:customer:check-mapping --customer-id=123
 2. **Verify Store Filter Settings**
    ```bash
    # Check if store filter is enabled
-   bin/magento config:show softcommerce_plenty_customer/store_config/is_active_store_filter
+   bin/magento config:show plenty_customer/store_config/is_active_store_filter
    ```
    - If enabled, check if customer's store is in store mapping
    - Customer stores must be mapped for export
@@ -1114,13 +1114,13 @@ bin/magento softcommerce:plenty:customer:check-mapping --customer-id=123
 5. **Review API Response Logs**
    - Enable response logging in profile configuration
    - Execute export manually
-   - Check `var/log/softcommerce/plenty/customer_export_response.log`
+   - Check `var/log/plenty/customer_export_response.log`
    - Look for API error codes (400, 401, 403, 404, 500) or validation errors
 
 6. **Verify Client Configuration**
    ```bash
    # Test API connection
-   bin/magento softcommerce:plenty:customer:test-connection --profile-id=4
+   bin/magento byte8:plenty:customer:test-connection --profile-id=4
    ```
    - Ensure client has valid credentials
    - Check API token hasn't expired
@@ -1171,7 +1171,7 @@ bin/magento softcommerce:plenty:customer:check-mapping --customer-id=123
 4. **Check Configuration Data Collection**
    ```bash
    # Re-collect configuration data
-   bin/magento softcommerce:plenty:customer:collect-config --client-id=1
+   bin/magento byte8:plenty:customer:collect-config --client-id=1
    ```
    - PlentyONE classes must be collected for mappings to work
    - Outdated collection data may not include new classes
@@ -1197,7 +1197,7 @@ bin/magento softcommerce:plenty:customer:check-mapping --customer-id=123
 3. **Re-Export Affected Customers**
    ```bash
    # Re-export customers with force flag
-   bin/magento softcommerce:plenty:customer:export --profile-id=4 --force --entity-ids=100,101,102
+   bin/magento byte8:plenty:customer:export --profile-id=4 --force --entity-ids=100,101,102
    ```
    - Force flag overwrites existing contact data
    - Verify correct class after re-export
@@ -1249,7 +1249,7 @@ bin/magento softcommerce:plenty:customer:check-mapping --customer-id=123
 5. **Enable Request Logging**
    - Enable request logging in profile configuration
    - Execute export manually
-   - Check `var/log/softcommerce/plenty/customer_export_request.log`
+   - Check `var/log/plenty/customer_export_request.log`
    - Verify address data is being sent in request
 
 6. **Review PlentyONE Address Requirements**
@@ -1288,7 +1288,7 @@ bin/magento softcommerce:plenty:customer:check-mapping --customer-id=123
 4. **Re-Export with Address Creation**
    ```bash
    # Re-export customers to create addresses
-   bin/magento softcommerce:plenty:customer:export --profile-id=4 --force
+   bin/magento byte8:plenty:customer:export --profile-id=4 --force
    ```
    - Addresses should be created/updated on re-export
    - Verify in PlentyONE after completion
@@ -1335,7 +1335,7 @@ bin/magento softcommerce:plenty:customer:check-mapping --customer-id=123
    - Missing contact ID may cause duplicate creation
    ```bash
    # Check customer plenty contact ID
-   bin/magento softcommerce:plenty:customer:check-mapping --customer-id=123
+   bin/magento byte8:plenty:customer:check-mapping --customer-id=123
    ```
 
 **Solutions**:
@@ -1358,7 +1358,7 @@ bin/magento softcommerce:plenty:customer:check-mapping --customer-id=123
 3. **Re-Export with Correct Mapping**
    ```bash
    # Re-export will update existing contact, not create duplicate
-   bin/magento softcommerce:plenty:customer:export --profile-id=4 --entity-ids=123
+   bin/magento byte8:plenty:customer:export --profile-id=4 --entity-ids=123
    ```
 
 4. **Implement Email Uniqueness**
@@ -1436,7 +1436,7 @@ bin/magento softcommerce:plenty:customer:check-mapping --customer-id=123
    - CLI has higher default timeout limits
    - Run manual exports via CLI instead of admin panel
    ```bash
-   bin/magento softcommerce:plenty:customer:export --profile-id=4
+   bin/magento byte8:plenty:customer:export --profile-id=4
    ```
    - Schedule using system cron instead of Magento cron
 
@@ -1449,10 +1449,10 @@ bin/magento softcommerce:plenty:customer:check-mapping --customer-id=123
    - Export by customer segments
    ```bash
    # Export customers 1-1000
-   bin/magento softcommerce:plenty:customer:export --profile-id=4 --entity-ids=1-1000
+   bin/magento byte8:plenty:customer:export --profile-id=4 --entity-ids=1-1000
 
    # Export customers 1001-2000
-   bin/magento softcommerce:plenty:customer:export --profile-id=4 --entity-ids=1001-2000
+   bin/magento byte8:plenty:customer:export --profile-id=4 --entity-ids=1001-2000
    ```
 
 6. **Schedule During Off-Peak**
@@ -1484,7 +1484,7 @@ bin/magento softcommerce:plenty:customer:check-mapping --customer-id=123
 3. **Monitor Response Times**
    ```bash
    # Enable response logging and check times
-   tail -f var/log/softcommerce/plenty/customer_export_response.log | grep "response_time"
+   tail -f var/log/plenty/customer_export_response.log | grep "response_time"
    ```
 
 **Solutions**:
@@ -1550,7 +1550,7 @@ bin/magento softcommerce:plenty:customer:check-mapping --customer-id=123
 1. **Monitor Export Queue**
    - Regularly check queue size and status
    ```bash
-   bin/magento softcommerce:plenty:customer:queue --stats
+   bin/magento byte8:plenty:customer:queue --stats
    ```
    - Clear stuck items and resolve issues
    - Don't let queue grow unbounded
@@ -1558,7 +1558,7 @@ bin/magento softcommerce:plenty:customer:check-mapping --customer-id=123
 2. **Review Execution History**
    - Periodically check profile history for errors
    ```bash
-   bin/magento softcommerce:profile:history --profile-id=4 --limit=20
+   bin/magento byte8:profile:history --profile-id=4 --limit=20
    ```
    - Set up email notifications for failures
    - Track execution times for performance trends
@@ -1569,7 +1569,7 @@ bin/magento softcommerce:plenty:customer:check-mapping --customer-id=123
    - Rotate or clear old log files
    ```bash
    # Clear logs older than 30 days
-   find var/log/softcommerce/plenty/ -name "customer_*" -mtime +30 -delete
+   find var/log/plenty/ -name "customer_*" -mtime +30 -delete
    ```
 
 4. **Optimize Schedule Frequency**

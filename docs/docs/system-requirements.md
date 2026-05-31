@@ -28,7 +28,7 @@ Ensure you have purchased and installed the latest [Mage2Plenty](https://mage2pl
 After purchasing, you'll receive access credentials to our private repository. See the [Installation Guide](/docs/installation/composer-installation) for detailed setup instructions.
 
 :::info Need Help?
-If you require further help, contact us at **support@softcommerce.io** or give us a call on **+44 2080 587 795** during working hours (GMT).
+If you require further help, contact us at **support@byte8.io** or give us a call on **+44 2080 587 795** during working hours (GMT).
 :::
 
 ## Magento 2.x Release

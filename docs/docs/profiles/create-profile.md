@@ -16,7 +16,7 @@ Before creating a profile, ensure you have:
 2. ✅ **Configured Authentication** - Set up [Client Configuration](/docs/configuration/client-configuration)
 3. ✅ **Tested Connection** - Verified API connectivity to PlentyONE
 4. ✅ **Collected Configuration** - Warehouses, shipping methods, payment methods imported
-5. ✅ **Admin Permissions** - Access to **SoftCommerce → PlentyONE → Profiles**
+5. ✅ **Admin Permissions** - Access to **Byte8 → PlentyONE → Profiles**
 
 :::info Profile Uniqueness
 Remember: You can only create **ONE profile of each type**. Profiles are unique by their type ID (e.g., only one "Product Import" profile can exist).
@@ -25,10 +25,10 @@ Remember: You can only create **ONE profile of each type**. Profiles are unique 
 ## Accessing Profile Management
 
 1. Log in to your Magento Admin panel
-2. Navigate to **SoftCommerce → PlentyONE → Profiles**
+2. Navigate to **Byte8 → PlentyONE → Profiles**
 3. You'll see the Profile Management grid showing all existing profiles
 
-**Navigation Path**: **SoftCommerce → PlentyONE → Profiles**
+**Navigation Path**: **Byte8 → PlentyONE → Profiles**
 
 ## Profile Management Grid
 
@@ -58,7 +58,7 @@ The Profile Management page displays all profiles in a searchable grid:
 2. The "New Profile" form page opens
 
 :::tip Quick Access
-You can also create a profile directly via URL: `admin/softcommerce/profile/new`
+You can also create a profile directly via URL: `admin/byte8/profile/new`
 :::
 
 ### Step 2: Configure Profile Information
@@ -150,7 +150,7 @@ For new profiles, use **Save & Continue** so you can immediately configure profi
 :::
 
 **What Happens on Save**:
-- Profile record created in database (`softcommerce_profile_entity` table)
+- Profile record created in database (`byte8_profile_entity` table)
 - Unique profile ID assigned
 - Configuration tabs become available
 - Profile appears in management grid
@@ -472,20 +472,20 @@ Auto-configuration can also be triggered via CLI:
 
 ```bash
 # Auto-configure a profile
-bin/magento softcommerce:profile:auto-config --id=1
+bin/magento byte8:profile:auto-config --id=1
 
 # Auto-configure with specific source
-bin/magento softcommerce:profile:auto-config \
+bin/magento byte8:profile:auto-config \
     --id=1 \
     --source-profile-id=2
 
 # Preview suggestions without applying
-bin/magento softcommerce:profile:auto-config \
+bin/magento byte8:profile:auto-config \
     --id=1 \
     --dry-run
 
 # Force configuration even if already configured
-bin/magento softcommerce:profile:auto-config \
+bin/magento byte8:profile:auto-config \
     --id=1 \
     --force
 ```
@@ -575,7 +575,7 @@ Log Level: Info
 **Settings**:
 - **Enable Schedule**: Activate automatic execution
 - **Cron Expression**: When to run (e.g., `*/15 * * * *`)
-- **Cron Group**: Execution group (default: `softcommerce`)
+- **Cron Group**: Execution group (default: `byte8`)
 - **Time Zone**: Execution timezone
 
 **Cron Expression Examples**:
@@ -593,7 +593,7 @@ Log Level: Info
 ```
 Enable Schedule: Yes
 Cron Expression: */30 * * * *  (Every 30 minutes)
-Cron Group: softcommerce
+Cron Group: byte8
 Time Zone: UTC
 ```
 
@@ -679,7 +679,7 @@ Let's walk through creating a complete product import profile:
 
 ### Step 1: Create Profile
 
-1. Go to **SoftCommerce → PlentyONE → Profiles**
+1. Go to **Byte8 → PlentyONE → Profiles**
 2. Click **Create New Profile**
 3. Enter:
    - **Name**: `Product Import - Main Catalog`
@@ -837,7 +837,7 @@ Store: German
 
 To create a similar profile quickly:
 
-1. Go to **SoftCommerce → PlentyONE → Profiles**
+1. Go to **Byte8 → PlentyONE → Profiles**
 2. Find the profile to clone
 3. Click **Actions → Clone**
 4. Enter new profile name
@@ -853,7 +853,7 @@ You can clone a profile but must select a different profile type since each type
 
 To remove a profile:
 
-1. Go to **SoftCommerce → PlentyONE → Profiles**
+1. Go to **Byte8 → PlentyONE → Profiles**
 2. Find the profile to delete
 3. Click **Actions → Delete**
 4. Confirm deletion
@@ -975,28 +975,28 @@ Create and manage profiles via command line:
 
 ```bash
 # List all profiles
-bin/magento softcommerce:profile:list
+bin/magento byte8:profile:list
 
 # Create a new profile
-bin/magento softcommerce:profile:create \
+bin/magento byte8:profile:create \
     --name="Product Import CLI" \
     --type="plenty_item_import" \
     --status=1
 
 # Update profile configuration
-bin/magento softcommerce:profile:config:set \
+bin/magento byte8:profile:config:set \
     --id=1 \
     --key="batch_size" \
     --value=50
 
 # Clone existing profile
-bin/magento softcommerce:profile:clone \
+bin/magento byte8:profile:clone \
     --id=1 \
     --name="Cloned Profile" \
     --type="plenty_item_export"
 
 # Delete profile
-bin/magento softcommerce:profile:delete --id=1
+bin/magento byte8:profile:delete --id=1
 ```
 
 ## Next Steps

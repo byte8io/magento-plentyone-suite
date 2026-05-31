@@ -109,7 +109,7 @@ This is useful for:
 
 ### Via Admin Panel
 
-1. Navigate to **SoftCommerce → PlentyONE → Manage Client Connection**
+1. Navigate to **Byte8 → PlentyONE → Manage Client Connection**
 2. Click **Test Connection** button
 3. Check status indicators:
    - 🟢 Green = Connection successful

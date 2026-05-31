@@ -97,26 +97,26 @@ sudo yum update ca-certificates
 
 **Symptoms:**
 ```
-Module 'SoftCommerce_PlentyProfile' is not enabled
+Module 'Byte8_PlentyProfile' is not enabled
 ```
 
 **Solutions:**
 
 1. **Check module status:**
    ```bash
-   bin/magento module:status | grep SoftCommerce
+   bin/magento module:status | grep Byte8
    ```
 
 2. **Enable modules:**
    ```bash
-   bin/magento module:enable SoftCommerce_PlentyProfile
+   bin/magento module:enable Byte8_PlentyProfile
    bin/magento setup:upgrade
    bin/magento cache:flush
    ```
 
 3. **Verify installation:**
    ```bash
-   composer show softcommerce/* | grep softcommerce
+   composer show byte8/* | grep byte8
    ```
 
 ### Issue: "Client ID Not Configured"
@@ -210,7 +210,7 @@ bin/magento plenty:item:export --sku=TEST-SKU
 bin/magento plenty:item:map
 
 # Verify mapping
-mysql> SELECT * FROM softcommerce_plenty_item_relation;
+mysql> SELECT * FROM plenty_item_relation;
 ```
 
 ## Performance Issues
@@ -230,8 +230,8 @@ mysql> SELECT * FROM softcommerce_plenty_item_relation;
 
 3. **Optimize MySQL:**
    ```sql
-   OPTIMIZE TABLE softcommerce_plenty_item;
-   OPTIMIZE TABLE softcommerce_plenty_order;
+   OPTIMIZE TABLE plenty_item;
+   OPTIMIZE TABLE plenty_order;
    ```
 
 4. **Increase PHP memory:**
@@ -383,16 +383,16 @@ tail -f var/log/plenty_stock.log
 
 ```sql
 -- Check profile history
-SELECT * FROM softcommerce_profile_history
+SELECT * FROM byte8_profile_history
 WHERE profile_id = 1
 ORDER BY created_at DESC LIMIT 10;
 
 -- Check item mappings
-SELECT * FROM softcommerce_plenty_item_relation
+SELECT * FROM plenty_item_relation
 WHERE magento_product_id = 123;
 
 -- Check order mappings
-SELECT * FROM softcommerce_plenty_order_relation
+SELECT * FROM plenty_order_relation
 WHERE magento_order_id = 456;
 ```
 

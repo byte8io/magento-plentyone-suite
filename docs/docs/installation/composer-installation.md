@@ -6,35 +6,30 @@ description: A guide to help you install PlentyONE Integration extension for Mag
 
 # Install Extension Using Composer
 
-This guide will help you install the Mage2Plenty extension for Magento 2 using Composer with our private Packagist repository.
+This guide will help you install the Mage2Plenty extension for Magento 2 using Composer with our Byte8 Cargoman registry.
 
 :::info Marketplace Purchase?
 If the extension was purchased from [Magento Marketplace](https://marketplace.magento.com/), please refer to [Commerce Marketplace Composer Installation](/docs/installation/marketplace-composer-installation) instead.
 :::
 
-## About Composer and Private Packagist
+## About Composer and the Byte8 Cargoman Registry
 
-We use [Composer](https://getcomposer.org/) to manage components and their dependencies. Our composer packages are hosted by [Private Packagist](https://packagist.com/), which is a fast, reliable and secure composer repository for PHP packages.
+We use [Composer](https://getcomposer.org/) to manage components and their dependencies. Our composer packages are hosted on the Byte8 [Cargoman](https://cargoman.io/) registry — a fast, reliable and secure composer repository for PHP packages.
 
-After you purchase the extension, a private repository will be created, and you'll be provided with:
-- Repository name
-- Authentication token to access it
+After you purchase the extension, you'll be provided with:
+- An authentication token to access the registry
 
 ## Installation Steps
 
 ### 1. Add Composer Repository
 
-First, add your private repository to composer.json and setup authentication to access the required packages.
+First, add the Byte8 Cargoman repository to your `composer.json` and set up authentication to access the required packages.
 
 #### Option A: Using Composer Command (Recommended)
 
 ```bash
-composer config repositories.private-packagist composer https://softcommerce.repo.packagist.com/repository-name/
+composer config repositories.cargoman '{"type":"composer","url":"https://byte8.packages.cargoman.io"}'
 ```
-
-:::tip Replace Repository Name
-Replace `repository-name` with the actual repository name provided in your purchase confirmation email.
-:::
 
 #### Option B: Manual Configuration
 
@@ -42,12 +37,12 @@ Alternatively, manually edit the `composer.json` file and add the following cust
 
 ```json
 {
-    "repositories": [
-        {
+    "repositories": {
+        "cargoman": {
             "type": "composer",
-            "url": "https://softcommerce.repo.packagist.com/repository-name/"
+            "url": "https://byte8.packages.cargoman.io"
         }
-    ]
+    }
 }
 ```
 
@@ -55,25 +50,31 @@ Alternatively, manually edit the `composer.json` file and add the following cust
 
 You can setup authentication in one of the following three ways:
 
-#### Method 1: Global Authentication (Recommended)
+#### Method 1: Project Authentication (Recommended)
 
-Store the authentication credentials in your global Composer auth.json:
+Store the authentication credentials in your project's `auth.json`:
 
 ```bash
-composer config --global --auth http-basic.softcommerce.repo.packagist.com token your-access-token
+composer config http-basic.byte8.packages.cargoman.io token YOUR_TOKEN
 ```
 
 :::info Replace Credentials
-- Replace `token` with the literal word "token"
-- Replace `your-access-token` with the actual access token provided
+- Use the literal word `token` as the username
+- Replace `YOUR_TOKEN` with the actual access token provided in your purchase confirmation email
 :::
+
+To store credentials in your global Composer `auth.json` instead, add the `--global --auth` flags:
+
+```bash
+composer config --global --auth http-basic.byte8.packages.cargoman.io token YOUR_TOKEN
+```
 
 #### Method 2: Environment Variable
 
 Store the authentication credentials using an environment variable:
 
 ```bash
-export COMPOSER_AUTH='{"http-basic": {"softcommerce.repo.packagist.com": {"username": "token", "password": "your-access-token"}}}'
+export COMPOSER_AUTH='{"http-basic": {"byte8.packages.cargoman.io": {"username": "token", "password": "YOUR_TOKEN"}}}'
 ```
 
 This is particularly useful for CI/CD environments.
@@ -83,12 +84,12 @@ This is particularly useful for CI/CD environments.
 Run any Composer command and Composer will automatically prompt you to enter authentication credentials if no authentication is configured:
 
 ```bash
-Authentication required (softcommerce.repo.packagist.com):
-Username: your-order-number
-Password: your-access-token
+Authentication required (byte8.packages.cargoman.io):
+Username: token
+Password: YOUR_TOKEN
 ```
 
-The credentials will then be stored in your global Composer auth.json.
+The credentials will then be stored in your Composer `auth.json`.
 
 :::warning Keep Credentials Secure
 - Never commit your auth.json file to version control
@@ -103,13 +104,13 @@ Now you're ready to install the Mage2Plenty extension.
 #### For Magento Open Source
 
 ```bash
-composer require softcommerce/mage2plenty-os
+composer require byte8/magento-plentyone-suite
 ```
 
-#### For Adobe Commerce
+#### For Adobe Commerce (Cloud and On-Premises)
 
 ```bash
-composer require softcommerce/mage2plenty-ac
+composer require byte8/magento-plentyone-suite-ac
 ```
 
 :::info Latest Compatible Version
@@ -122,13 +123,13 @@ To install an extension compatible with a specific Magento version, append the a
 
 ```bash
 # For Magento 2.4.7
-composer require softcommerce/mage2plenty-os ~1.15.0
+composer require byte8/magento-plentyone-suite ~1.15.0
 
 # For Magento 2.4.6
-composer require softcommerce/mage2plenty-os ~1.14.0
+composer require byte8/magento-plentyone-suite ~1.14.0
 
 # For Magento 2.4.4
-composer require softcommerce/mage2plenty-os ~1.13.0
+composer require byte8/magento-plentyone-suite ~1.13.0
 ```
 
 :::warning System Requirements
@@ -174,7 +175,7 @@ bin/magento cache:flush
 Check that the module is installed and enabled:
 
 ```bash
-bin/magento module:status SoftCommerce_PlentyCore
+bin/magento module:status Byte8_PlentyCore
 ```
 
 You should see output confirming the module is enabled.
@@ -196,7 +197,7 @@ If you encounter memory limit errors:
 
 ```bash
 # Increase memory limit for this command only
-php -d memory_limit=-1 /usr/bin/composer require softcommerce/mage2plenty-os
+php -d memory_limit=-1 /usr/bin/composer require byte8/magento-plentyone-suite
 ```
 
 ### Version Conflicts
@@ -220,7 +221,7 @@ Now that you have Mage2Plenty installed, you can proceed to configure your conne
 
 If you encounter any issues during installation:
 
-- 📧 **Email Support**: support@softcommerce.io
+- 📧 **Email Support**: support@byte8.io
 - 📞 **Phone**: +44 2080 587 795 (GMT working hours)
 - 📖 **Documentation**: Browse this site for guides
 - 🐛 **Bug Reports**: [GitHub Issues](https://github.com/byte8/mage2plenty/issues)

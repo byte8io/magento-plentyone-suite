@@ -84,13 +84,13 @@ Now you can install the Mage2Plenty extension.
 #### For Magento Open Source
 
 ```bash
-composer require softcommerce/mage2plenty-os
+composer require byte8/magento-plentyone-suite
 ```
 
-#### For Adobe Commerce
+#### For Adobe Commerce (Cloud and On-Premises)
 
 ```bash
-composer require softcommerce/mage2plenty-ac
+composer require byte8/magento-plentyone-suite-ac
 ```
 
 :::info Latest Compatible Version
@@ -103,13 +103,13 @@ To install an extension compatible with a specific Magento version, append the a
 
 ```bash
 # For Magento 2.4.7
-composer require softcommerce/mage2plenty-os ~1.15.0
+composer require byte8/magento-plentyone-suite ~1.15.0
 
 # For Magento 2.4.6
-composer require softcommerce/mage2plenty-os ~1.14.0
+composer require byte8/magento-plentyone-suite ~1.14.0
 
 # For Magento 2.4.4
-composer require softcommerce/mage2plenty-os ~1.13.0
+composer require byte8/magento-plentyone-suite ~1.13.0
 ```
 
 :::warning System Requirements
@@ -155,7 +155,7 @@ bin/magento cache:flush
 Check that the module is installed and enabled:
 
 ```bash
-bin/magento module:status SoftCommerce_PlentyCore
+bin/magento module:status Byte8_PlentyCore
 ```
 
 You should see output confirming the module is enabled.
@@ -166,7 +166,7 @@ You should see output confirming the module is enabled.
 
 | Aspect | Marketplace | Direct Purchase |
 |--------|-------------|-----------------|
-| **Repository** | repo.magento.com | Private Packagist |
+| **Repository** | repo.magento.com | Byte8 Cargoman |
 | **Authentication** | Marketplace Access Keys | Custom Access Token |
 | **Updates** | Through Marketplace | Through Private Repo |
 | **Support** | Via Marketplace | Direct Support |
@@ -175,7 +175,7 @@ You should see output confirming the module is enabled.
 ### Which Should I Use?
 
 - **Use Marketplace Installation** if you purchased through Commerce Marketplace
-- **Use Direct Installation** if you purchased directly from SoftCommerce website
+- **Use Direct Installation** if you purchased directly from the Byte8 (former SoftCommerce) website
 
 Both methods install the same extension with identical functionality.
 
@@ -214,7 +214,7 @@ If you encounter memory limit errors during installation:
 
 ```bash
 # Increase memory limit temporarily
-php -d memory_limit=-1 /usr/bin/composer require softcommerce/mage2plenty-os
+php -d memory_limit=-1 /usr/bin/composer require byte8/magento-plentyone-suite
 ```
 
 ## Updating from Marketplace
@@ -222,7 +222,7 @@ php -d memory_limit=-1 /usr/bin/composer require softcommerce/mage2plenty-os
 To update the extension to the latest version:
 
 ```bash
-composer update softcommerce/mage2plenty-os  # or mage2plenty-ac
+composer update byte8/magento-plentyone-suite  # or byte8/magento-plentyone-suite-ac
 bin/magento setup:upgrade
 bin/magento setup:di:compile
 bin/magento cache:flush
@@ -245,7 +245,7 @@ Now that you have Mage2Plenty installed, you can proceed to configure your conne
 
 If you encounter any issues during installation:
 
-- 📧 **Email Support**: support@softcommerce.io
+- 📧 **Email Support**: support@byte8.io
 - 📞 **Phone**: +44 2080 587 795 (GMT working hours)
 - 🛒 **Marketplace Support**: Through your Marketplace account
 - 📖 **Documentation**: Browse this site for comprehensive guides

@@ -27,12 +27,12 @@ Each module can have its own logging configuration, allowing you to enable detai
 
 1. Log in to your Magento Admin panel
 2. Navigate to **Stores → Configuration**
-3. In the left panel, expand **Soft Commerce**
+3. In the left panel, expand **Byte8**
 4. Select **PlentyONE Integration**
 5. Scroll to the specific module section (e.g., "Item REST API Settings", "Order REST API Settings")
 
 :::tip Navigation Path
-**Stores → Configuration → Soft Commerce → PlentyONE Integration → [Module] REST API Settings**
+**Stores → Configuration → Byte8 → PlentyONE Integration → [Module] REST API Settings**
 :::
 
 ## Common Configuration Options
@@ -60,7 +60,7 @@ Enables or disables REST API request/response logging for the specific module.
 
 **Log File Locations**:
 ```
-var/log/softcommerce/plenty/
+var/log/plenty/
 ├── api.log                    # Main API log (all modules)
 ├── api_attribute.log          # Attribute-specific logging
 ├── api_category.log           # Category-specific logging
@@ -236,7 +236,7 @@ Customer API logs contain personally identifiable information (PII) including na
 1. Enable customer logging only when necessary
 2. Disable after troubleshooting
 3. Implement log rotation with short retention
-4. Restrict file permissions: `chmod 600 var/log/softcommerce/plenty/api_customer.log`
+4. Restrict file permissions: `chmod 600 var/log/plenty/api_customer.log`
 5. Consider log encryption for compliance
 
 ### Item REST API Settings
@@ -277,7 +277,7 @@ Product synchronization generates the most API calls. A typical product import p
 With logging enabled, this can generate **10-100 MB of logs per sync** in high-volume stores.
 
 :::danger Disk Space
-Product API logging can consume significant disk space. Monitor `var/log/softcommerce/plenty/` directory size and implement log rotation.
+Product API logging can consume significant disk space. Monitor `var/log/plenty/` directory size and implement log rotation.
 :::
 
 ### Log REST API Settings
@@ -458,29 +458,29 @@ bin/magento cache:flush
 
 ```bash
 # View last 100 lines of item API log
-tail -100 var/log/softcommerce/plenty/api_item.log
+tail -100 var/log/plenty/api_item.log
 
 # View all errors (HTTP 4xx, 5xx)
-grep -E "(HTTP/[0-9\.]+ [45][0-9]{2}|Error|Failed)" var/log/softcommerce/plenty/api_item.log
+grep -E "(HTTP/[0-9\.]+ [45][0-9]{2}|Error|Failed)" var/log/plenty/api_item.log
 
 # Count API calls by endpoint
-grep "API REQUEST" var/log/softcommerce/plenty/api_item.log | cut -d' ' -f4 | sort | uniq -c | sort -rn
+grep "API REQUEST" var/log/plenty/api_item.log | cut -d' ' -f4 | sort | uniq -c | sort -rn
 
 # View API calls in last hour
-grep "$(date -d '1 hour ago' '+%Y-%m-%d %H')" var/log/softcommerce/plenty/api_item.log
+grep "$(date -d '1 hour ago' '+%Y-%m-%d %H')" var/log/plenty/api_item.log
 ```
 
 ### Identifying Performance Issues
 
 ```bash
 # Find slow API calls (response time > 5 seconds)
-grep -B2 "Response time: [5-9]\|Response time: [0-9]\{2,\}" var/log/softcommerce/plenty/api.log
+grep -B2 "Response time: [5-9]\|Response time: [0-9]\{2,\}" var/log/plenty/api.log
 
 # Count errors by type
-grep "Error" var/log/softcommerce/plenty/api.log | cut -d':' -f3 | sort | uniq -c | sort -rn
+grep "Error" var/log/plenty/api.log | cut -d':' -f3 | sort | uniq -c | sort -rn
 
 # Find authentication failures
-grep -i "auth\|401\|403" var/log/softcommerce/plenty/api.log
+grep -i "auth\|401\|403" var/log/plenty/api.log
 ```
 
 ### Common Error Patterns
@@ -520,7 +520,7 @@ grep -i "auth\|401\|403" var/log/softcommerce/plenty/api.log
 If you enabled log rotation in [Core Configuration](/docs/configuration/core-configuration#enable-log-rotation), API logs are automatically rotated:
 
 ```
-var/log/softcommerce/plenty/
+var/log/plenty/
 ├── api_item.log              # Current
 ├── api_item.log.1.gz         # Yesterday
 ├── api_item.log.2.gz         # 2 days ago
@@ -531,28 +531,28 @@ var/log/softcommerce/plenty/
 
 ```bash
 # Remove logs older than 7 days
-find var/log/softcommerce/plenty/ -name "*.log*" -mtime +7 -delete
+find var/log/plenty/ -name "*.log*" -mtime +7 -delete
 
 # Archive logs before deletion
-tar -czf api_logs_backup_$(date +%Y%m%d).tar.gz var/log/softcommerce/plenty/api*.log
-find var/log/softcommerce/plenty/ -name "*.log" -mtime +7 -delete
+tar -czf api_logs_backup_$(date +%Y%m%d).tar.gz var/log/plenty/api*.log
+find var/log/plenty/ -name "*.log" -mtime +7 -delete
 
 # Clear all API logs (caution!)
-rm -f var/log/softcommerce/plenty/api*.log
+rm -f var/log/plenty/api*.log
 ```
 
 ### Monitor Disk Usage
 
 ```bash
 # Check log directory size
-du -sh var/log/softcommerce/plenty/
+du -sh var/log/plenty/
 
 # Find largest log files
-find var/log/softcommerce/plenty/ -type f -exec ls -lh {} \; | sort -k5 -hr | head -10
+find var/log/plenty/ -type f -exec ls -lh {} \; | sort -k5 -hr | head -10
 
 # Set up monitoring alert (example with cron)
 # Alert if log directory exceeds 1GB
-0 * * * * [ $(du -s /var/www/magento/var/log/softcommerce/plenty/ | cut -f1) -gt 1048576 ] && echo "PlentyONE logs exceeding 1GB" | mail -s "Log Alert" admin@example.com
+0 * * * * [ $(du -s /var/www/magento/var/log/plenty/ | cut -f1) -gt 1048576 ] && echo "PlentyONE logs exceeding 1GB" | mail -s "Log Alert" admin@example.com
 ```
 
 ## Security Considerations
@@ -564,11 +564,11 @@ API logs contain sensitive information. Implement these security measures:
 **1. File Permissions**:
 ```bash
 # Restrict access to logs
-chmod 700 var/log/softcommerce/plenty/
-chmod 600 var/log/softcommerce/plenty/*.log
+chmod 700 var/log/plenty/
+chmod 600 var/log/plenty/*.log
 
 # Set ownership
-chown -R www-data:www-data var/log/softcommerce/plenty/
+chown -R www-data:www-data var/log/plenty/
 ```
 
 **2. Web Server Protection**:
@@ -591,14 +591,14 @@ location ~* ^/var/log {
 **3. Exclude from Version Control**:
 ```bash
 # Add to .gitignore
-var/log/softcommerce/plenty/*.log
-var/log/softcommerce/plenty/*.log.*
+var/log/plenty/*.log
+var/log/plenty/*.log.*
 ```
 
 **4. Regular Cleanup**:
 ```bash
 # Implement automated cleanup
-0 2 * * * find /var/www/magento/var/log/softcommerce/plenty/ -name "*.log*" -mtime +7 -delete
+0 2 * * * find /var/www/magento/var/log/plenty/ -name "*.log*" -mtime +7 -delete
 ```
 
 ## Troubleshooting
@@ -609,10 +609,10 @@ var/log/softcommerce/plenty/*.log.*
 
 **Solutions**:
 1. Verify logging is enabled: `bin/magento config:show plenty/item_config/is_active_api_log`
-2. Check directory permissions: `ls -la var/log/softcommerce/plenty/`
-3. Create directory if missing: `mkdir -p var/log/softcommerce/plenty && chmod 777 var/log/softcommerce/plenty`
+2. Check directory permissions: `ls -la var/log/plenty/`
+3. Create directory if missing: `mkdir -p var/log/byte8/plenty && chmod 777 var/log/byte8/plenty`
 4. Check PHP error logs: `tail -f var/log/system.log`
-5. Verify profile is running: `bin/magento softcommerce:profile:list`
+5. Verify profile is running: `bin/magento byte8:profile:list`
 
 ### Log Files Too Large
 
@@ -630,10 +630,10 @@ var/log/softcommerce/plenty/*.log.*
 **Problem**: Permission denied when accessing logs
 
 **Solutions**:
-1. Check file permissions: `ls -l var/log/softcommerce/plenty/`
-2. Adjust permissions: `chmod 644 var/log/softcommerce/plenty/*.log`
-3. Verify ownership: `chown www-data:www-data var/log/softcommerce/plenty/*`
-4. Use sudo if necessary: `sudo tail -f var/log/softcommerce/plenty/api.log`
+1. Check file permissions: `ls -l var/log/plenty/`
+2. Adjust permissions: `chmod 644 var/log/plenty/*.log`
+3. Verify ownership: `chown www-data:www-data var/log/plenty/*`
+4. Use sudo if necessary: `sudo tail -f var/log/plenty/api.log`
 
 ## Performance Impact
 

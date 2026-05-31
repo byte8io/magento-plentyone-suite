@@ -55,7 +55,7 @@ mysql> SELECT * FROM plenty_client_config WHERE config_source = 'payment_method'
 
 #### Via Admin Panel
 
-1. Navigate to **SoftCommerce → Profiles → Manage Profiles**
+1. Navigate to **Byte8 → Profiles → Manage Profiles**
 2. Select your **Order Export** profile
 3. Go to **Configuration → Payment Method Mapping**
 4. Map each Magento payment method to PlentyONE payment method ID
@@ -248,7 +248,7 @@ mysql> SELECT * FROM plenty_client_config WHERE config_source = 'shipping_profil
 
 #### Via Admin Panel
 
-1. Navigate to **SoftCommerce → Profiles → Manage Profiles**
+1. Navigate to **Byte8 → Profiles → Manage Profiles**
 2. Select your **Order Export** profile
 3. Go to **Configuration → Shipping Method Mapping**
 4. Map each Magento shipping method to PlentyONE shipping profile ID
@@ -497,7 +497,7 @@ Map Magento order statuses to PlentyONE order statuses:
 
 ### Status Mapping Configuration
 
-1. **SoftCommerce → Profiles → Manage Profiles → [Order Profile]**
+1. **Byte8 → Profiles → Manage Profiles → [Order Profile]**
 2. **Configuration → Status Mapping**
 3. Map each status bidirectionally
 

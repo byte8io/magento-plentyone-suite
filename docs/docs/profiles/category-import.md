@@ -456,7 +456,7 @@ Plenty Property: "is_active" → Magento Attribute: "is_active"
 
 Enable logging of all API request data sent to PlentyONE to file system.
 
-**Log Location**: `var/log/softcommerce/plenty/category_import_request.log`
+**Log Location**: `var/log/plenty/category_import_request.log`
 
 **What Gets Logged**:
 - Complete API request URLs
@@ -491,7 +491,7 @@ Request logs contain API authentication tokens and potentially sensitive data. E
 
 Enable logging of all API response data received from PlentyONE to file system.
 
-**Log Location**: `var/log/softcommerce/plenty/category_import_response.log`
+**Log Location**: `var/log/plenty/category_import_response.log`
 
 **What Gets Logged**:
 - Complete API response body
@@ -661,65 +661,65 @@ Schedule Configuration:
 
 ```bash
 # Execute category import profile manually
-bin/magento softcommerce:plenty:category:import --profile-id=1
+bin/magento byte8:plenty:category:import --profile-id=1
 
 # Import specific categories by ID (comma-separated)
-bin/magento softcommerce:plenty:category:import --profile-id=1 --entity-ids=5,12,18
+bin/magento byte8:plenty:category:import --profile-id=1 --entity-ids=5,12,18
 
 # Force re-import of all categories (ignores previous import status)
-bin/magento softcommerce:plenty:category:import --profile-id=1 --force
+bin/magento byte8:plenty:category:import --profile-id=1 --force
 
 # Import with verbose output for debugging
-bin/magento softcommerce:plenty:category:import --profile-id=1 -vvv
+bin/magento byte8:plenty:category:import --profile-id=1 -vvv
 
 # Import for specific store view
-bin/magento softcommerce:plenty:category:import --profile-id=1 --store-id=1
+bin/magento byte8:plenty:category:import --profile-id=1 --store-id=1
 ```
 
 ### Manage Configuration Data
 
 ```bash
 # Collect category configuration data from PlentyONE
-bin/magento softcommerce:plenty:category:collect-config --client-id=1
+bin/magento byte8:plenty:category:collect-config --client-id=1
 
 # Force re-collection of configuration data
-bin/magento softcommerce:plenty:category:collect-config --client-id=1 --force
+bin/magento byte8:plenty:category:collect-config --client-id=1 --force
 
 # Delete configuration data
-bin/magento softcommerce:plenty:category:delete-config --client-id=1
+bin/magento byte8:plenty:category:delete-config --client-id=1
 ```
 
 ### Profile Management
 
 ```bash
 # List all category import profiles
-bin/magento softcommerce:profile:list --type=plenty_category_import
+bin/magento byte8:profile:list --type=plenty_category_import
 
 # View profile configuration
-bin/magento softcommerce:profile:info --profile-id=1
+bin/magento byte8:profile:info --profile-id=1
 
 # Enable/disable profile scheduling
-bin/magento softcommerce:profile:schedule:enable --profile-id=1
-bin/magento softcommerce:profile:schedule:disable --profile-id=1
+bin/magento byte8:profile:schedule:enable --profile-id=1
+bin/magento byte8:profile:schedule:disable --profile-id=1
 ```
 
 ### Debugging and Diagnostics
 
 ```bash
 # Validate profile configuration
-bin/magento softcommerce:plenty:category:validate --profile-id=1
+bin/magento byte8:plenty:category:validate --profile-id=1
 
 # Test API connection for profile
-bin/magento softcommerce:plenty:category:test-connection --profile-id=1
+bin/magento byte8:plenty:category:test-connection --profile-id=1
 
 # View recent import history
-bin/magento softcommerce:profile:history --profile-id=1 --limit=10
+bin/magento byte8:profile:history --profile-id=1 --limit=10
 
 # View import history with errors only
-bin/magento softcommerce:profile:history --profile-id=1 --status=error
+bin/magento byte8:profile:history --profile-id=1 --status=error
 
 # Clear category import history
-bin/magento softcommerce:profile:history:clear --profile-id=1 --older-than=30
+bin/magento byte8:profile:history:clear --profile-id=1 --older-than=30
 ```
 
 ---
@@ -749,7 +749,7 @@ bin/magento softcommerce:profile:history:clear --profile-id=1 --older-than=30
 3. **Verify Configuration Data**
    ```bash
    # Check if configuration data exists
-   bin/magento softcommerce:plenty:category:collect-config --client-id=1
+   bin/magento byte8:plenty:category:collect-config --client-id=1
    ```
    - If no data or outdated, re-collect configuration data
    - Verify PlentyONE categories appear in dropdown after collection
@@ -757,7 +757,7 @@ bin/magento softcommerce:profile:history:clear --profile-id=1 --older-than=30
 4. **Review API Response Logs**
    - Enable response logging in profile configuration
    - Execute import manually
-   - Check `var/log/softcommerce/plenty/category_import_response.log`
+   - Check `var/log/plenty/category_import_response.log`
    - Look for API error codes (400, 401, 403, 500) or empty responses
 
 5. **Check API Collection Size**
@@ -768,7 +768,7 @@ bin/magento softcommerce:profile:history:clear --profile-id=1 --older-than=30
 6. **Verify Client Configuration**
    ```bash
    # Test API connection
-   bin/magento softcommerce:plenty:category:test-connection --profile-id=1
+   bin/magento byte8:plenty:category:test-connection --profile-id=1
    ```
    - Ensure client has valid credentials
    - Check API token hasn't expired
@@ -812,13 +812,13 @@ bin/magento softcommerce:profile:history:clear --profile-id=1 --older-than=30
 4. **Check Import Logs**
    - Enable request logging
    - Execute import manually
-   - Check `var/log/softcommerce/plenty/category_import_request.log`
+   - Check `var/log/plenty/category_import_request.log`
    - Verify correct locale parameter in API requests
 
 5. **Verify Locale Code Matching**
    ```bash
    # Check collected locale configuration
-   bin/magento softcommerce:plenty:category:collect-config --client-id=1
+   bin/magento byte8:plenty:category:collect-config --client-id=1
    ```
    - Ensure PlentyONE locale codes match Magento expectations
    - Common formats: "en", "de", "fr" (not "en_US", "de_DE")
@@ -849,7 +849,7 @@ bin/magento softcommerce:profile:history:clear --profile-id=1 --older-than=30
 4. **Re-Import with Force Flag**
    ```bash
    # Force re-import all categories
-   bin/magento softcommerce:plenty:category:import --profile-id=1 --force
+   bin/magento byte8:plenty:category:import --profile-id=1 --force
    ```
    - Ignores previous import status
    - Re-fetches all category data including translations
@@ -899,7 +899,7 @@ bin/magento softcommerce:profile:history:clear --profile-id=1 --older-than=30
 2. **Reset Category Mappings**
    ```bash
    # Clear category mappings (will trigger full re-import)
-   bin/magento softcommerce:plenty:category:mapping:reset --profile-id=1
+   bin/magento byte8:plenty:category:mapping:reset --profile-id=1
    ```
    - Clears PlentyONE-to-Magento category ID mappings
    - Next import will re-establish correct mappings
@@ -959,7 +959,7 @@ bin/magento softcommerce:profile:history:clear --profile-id=1 --older-than=30
    ```bash
    # Use Replace mode to rebuild entire tree
    # First, set API Behaviour to "Replace" in profile
-   bin/magento softcommerce:plenty:category:import --profile-id=1
+   bin/magento byte8:plenty:category:import --profile-id=1
    ```
    - Clears existing structure
    - Rebuilds hierarchy from scratch
@@ -1043,7 +1043,7 @@ bin/magento softcommerce:profile:history:clear --profile-id=1 --older-than=30
    - CLI has higher default timeout limits
    - Run manual imports via CLI instead of admin panel
    ```bash
-   bin/magento softcommerce:plenty:category:import --profile-id=1
+   bin/magento byte8:plenty:category:import --profile-id=1
    ```
    - Schedule using system cron instead of Magento cron for better resource allocation
 
@@ -1090,7 +1090,7 @@ bin/magento softcommerce:profile:history:clear --profile-id=1 --older-than=30
 1. **Monitor Execution History**
    - Regularly check profile history for errors
    ```bash
-   bin/magento softcommerce:profile:history --profile-id=1 --limit=10
+   bin/magento byte8:profile:history --profile-id=1 --limit=10
    ```
    - Set up email notifications for import failures
    - Track execution times to identify performance degradation
@@ -1106,7 +1106,7 @@ bin/magento softcommerce:profile:history:clear --profile-id=1 --older-than=30
    - Rotate or clear old log files to manage disk space
    ```bash
    # Clear logs older than 30 days
-   find var/log/softcommerce/plenty/ -name "category_*" -mtime +30 -delete
+   find var/log/plenty/ -name "category_*" -mtime +30 -delete
    ```
 
 4. **Optimize Schedule Frequency**

@@ -12,13 +12,13 @@ Profile Configuration controls how Mage2Plenty manages synchronization profiles,
 
 1. Log in to your Magento Admin panel
 2. Navigate to **Stores → Configuration**
-3. In the left panel, expand **Soft Commerce**
+3. In the left panel, expand **Byte8**
 4. Select **Profile Configuration** for general settings
 5. Select **Profile Notifications** for notification settings
 
 :::tip Navigation Paths
-- **Profile Settings**: **Stores → Configuration → Soft Commerce → Profile Configuration**
-- **Profile Notifications**: **Stores → Configuration → Soft Commerce → Profile Notifications**
+- **Profile Settings**: **Stores → Configuration → Byte8 → Profile Configuration**
+- **Profile Notifications**: **Stores → Configuration → Byte8 → Profile Notifications**
 :::
 
 ## Profile Settings
@@ -26,7 +26,7 @@ Profile Configuration controls how Mage2Plenty manages synchronization profiles,
 ### Profile History Lifetime
 
 **Field**: `history_lifetime`
-**Path**: `softcommerce_profile/profile_config/history_lifetime`
+**Path**: `byte8_profile/profile_config/history_lifetime`
 **Type**: Text (numeric)
 **Default**: 7 days
 **Scope**: Global
@@ -37,7 +37,7 @@ Controls how long profile execution history is retained in the database.
 
 **Configuration Steps**:
 
-1. Navigate to **Stores → Configuration → Soft Commerce → Profile Configuration**
+1. Navigate to **Stores → Configuration → Byte8 → Profile Configuration**
 2. Expand the **Profile Settings** section
 3. Enter the number of days in **Profile history lifetime** field
 4. Click **Save Config**
@@ -79,13 +79,13 @@ For compliance or audit requirements, you can set longer retention periods (90-3
 
 ```bash
 # View profile history storage
-bin/magento softcommerce:profile:history:info
+bin/magento byte8:profile:history:info
 
 # Clean up old profile history manually
-bin/magento softcommerce:profile:history:cleanup --days=30
+bin/magento byte8:profile:history:cleanup --days=30
 
 # Clean up specific profile
-bin/magento softcommerce:profile:history:cleanup --profile-id=1 --days=7
+bin/magento byte8:profile:history:cleanup --profile-id=1 --days=7
 ```
 
 ## Profile Notifications
@@ -97,7 +97,7 @@ Profile Notifications allow you to monitor profile executions and receive alerts
 #### Enable Notifications
 
 **Field**: `enabled`
-**Path**: `softcommerce_profile_notification/general/enabled`
+**Path**: `byte8_profile_notification/general/enabled`
 **Type**: Yes/No
 **Default**: No
 **Scope**: Global
@@ -108,7 +108,7 @@ Master switch for the profile notification system.
 
 **Configuration Steps**:
 
-1. Navigate to **Stores → Configuration → Soft Commerce → Profile Notifications**
+1. Navigate to **Stores → Configuration → Byte8 → Profile Notifications**
 2. Expand the **General Settings** section
 3. Set **Enable Notifications** to **Yes**
 4. Configure other notification settings (see below)
@@ -117,7 +117,7 @@ Master switch for the profile notification system.
 #### Minimum Log Level
 
 **Field**: `log_level`
-**Path**: `softcommerce_profile_notification/general/log_level`
+**Path**: `byte8_profile_notification/general/log_level`
 **Type**: Select
 **Scope**: Global
 **Depends on**: `enabled` = Yes
@@ -157,7 +157,7 @@ Lower log levels (DEBUG, INFO) generate more database records. Use WARNING or ER
 #### Retention Period
 
 **Field**: `retention_days`
-**Path**: `softcommerce_profile_notification/general/retention_days`
+**Path**: `byte8_profile_notification/general/retention_days`
 **Type**: Text (numeric)
 **Default**: 30 days
 **Scope**: Global
@@ -190,7 +190,7 @@ High-volume environments can generate thousands of notifications daily. Monitor 
 #### Maximum Notifications
 
 **Field**: `max_notifications`
-**Path**: `softcommerce_profile_notification/general/max_notifications`
+**Path**: `byte8_profile_notification/general/max_notifications`
 **Type**: Text (numeric)
 **Default**: 10,000
 **Scope**: Global
@@ -232,7 +232,7 @@ Configure email alerts for profile execution events and errors.
 #### Enable Email Notifications
 
 **Field**: `enabled`
-**Path**: `softcommerce_profile_notification/email/enabled`
+**Path**: `byte8_profile_notification/email/enabled`
 **Type**: Yes/No
 **Default**: No
 **Scope**: Global
@@ -241,7 +241,7 @@ Enables sending email notifications for profile events.
 
 **Configuration Steps**:
 
-1. Navigate to **Stores → Configuration → Soft Commerce → Profile Notifications**
+1. Navigate to **Stores → Configuration → Byte8 → Profile Notifications**
 2. Expand the **Email Notifications** section
 3. Set **Enable Email Notifications** to **Yes**
 4. Configure recipient, sender, and threshold settings
@@ -250,7 +250,7 @@ Enables sending email notifications for profile events.
 #### Recipient Email(s)
 
 **Field**: `recipient`
-**Path**: `softcommerce_profile_notification/email/recipient`
+**Path**: `byte8_profile_notification/email/recipient`
 **Type**: Text (email)
 **Required**: Yes (when email notifications enabled)
 **Scope**: Global
@@ -279,7 +279,7 @@ Use email rules or distribution lists to route notifications to appropriate team
 #### Email Sender
 
 **Field**: `sender`
-**Path**: `softcommerce_profile_notification/email/sender`
+**Path**: `byte8_profile_notification/email/sender`
 **Type**: Select
 **Scope**: Global
 
@@ -302,7 +302,7 @@ To configure sender identities:
 #### Email Threshold
 
 **Field**: `threshold`
-**Path**: `softcommerce_profile_notification/email/threshold`
+**Path**: `byte8_profile_notification/email/threshold`
 **Type**: Select
 **Scope**: Global
 
@@ -339,7 +339,7 @@ Setting threshold too low (DEBUG, INFO, NOTICE) can result in hundreds of emails
 #### Send Critical Errors Immediately
 
 **Field**: `real_time_critical`
-**Path**: `softcommerce_profile_notification/email/real_time_critical`
+**Path**: `byte8_profile_notification/email/real_time_critical`
 **Type**: Yes/No
 **Default**: Yes
 **Scope**: Global
@@ -364,7 +364,7 @@ Sends critical errors immediately without waiting for batch interval.
 #### Enable Batch Email Summary
 
 **Field**: `batch_enabled`
-**Path**: `softcommerce_profile_notification/email/batch_enabled`
+**Path**: `byte8_profile_notification/email/batch_enabled`
 **Type**: Yes/No
 **Default**: No
 **Scope**: Global
@@ -403,7 +403,7 @@ View detailed logs: [Admin Panel Link]
 #### Batch Interval
 
 **Field**: `batch_interval`
-**Path**: `softcommerce_profile_notification/email/batch_interval`
+**Path**: `byte8_profile_notification/email/batch_interval`
 **Type**: Text (numeric)
 **Default**: 60 minutes
 **Scope**: Global
@@ -432,7 +432,7 @@ Optimize notification processing for high-volume environments.
 #### Batch Processing Size
 
 **Field**: `batch_size`
-**Path**: `softcommerce_profile_notification/performance/batch_size`
+**Path**: `byte8_profile_notification/performance/batch_size`
 **Type**: Text (numeric)
 **Default**: 100
 **Scope**: Global
@@ -472,7 +472,7 @@ Very large batch sizes (> 1000) can cause database locks affecting other operati
 #### Enable Asynchronous Logging
 
 **Field**: `enable_async`
-**Path**: `softcommerce_profile_notification/performance/enable_async`
+**Path**: `byte8_profile_notification/performance/enable_async`
 **Type**: Yes/No
 **Default**: Yes
 **Scope**: Global
@@ -517,39 +517,39 @@ Manage profile configuration via command line:
 
 ```bash
 # View all profile configuration
-bin/magento config:show softcommerce_profile
-bin/magento config:show softcommerce_profile_notification
+bin/magento config:show byte8_profile
+bin/magento config:show byte8_profile_notification
 
 # View specific settings
-bin/magento config:show softcommerce_profile/profile_config/history_lifetime
-bin/magento config:show softcommerce_profile_notification/general/enabled
+bin/magento config:show byte8_profile/profile_config/history_lifetime
+bin/magento config:show byte8_profile_notification/general/enabled
 ```
 
 ### Update Settings
 
 ```bash
 # Set profile history lifetime to 30 days
-bin/magento config:set softcommerce_profile/profile_config/history_lifetime 30
+bin/magento config:set byte8_profile/profile_config/history_lifetime 30
 
 # Enable notifications
-bin/magento config:set softcommerce_profile_notification/general/enabled 1
+bin/magento config:set byte8_profile_notification/general/enabled 1
 
 # Set minimum log level to WARNING
-bin/magento config:set softcommerce_profile_notification/general/log_level 300
+bin/magento config:set byte8_profile_notification/general/log_level 300
 
 # Set retention period
-bin/magento config:set softcommerce_profile_notification/general/retention_days 60
+bin/magento config:set byte8_profile_notification/general/retention_days 60
 
 # Enable email notifications
-bin/magento config:set softcommerce_profile_notification/email/enabled 1
-bin/magento config:set softcommerce_profile_notification/email/recipient "admin@example.com,devteam@example.com"
+bin/magento config:set byte8_profile_notification/email/enabled 1
+bin/magento config:set byte8_profile_notification/email/recipient "admin@example.com,devteam@example.com"
 
 # Enable batch email
-bin/magento config:set softcommerce_profile_notification/email/batch_enabled 1
-bin/magento config:set softcommerce_profile_notification/email/batch_interval 60
+bin/magento config:set byte8_profile_notification/email/batch_enabled 1
+bin/magento config:set byte8_profile_notification/email/batch_interval 60
 
 # Enable async processing
-bin/magento config:set softcommerce_profile_notification/performance/enable_async 1
+bin/magento config:set byte8_profile_notification/performance/enable_async 1
 
 # Clear cache
 bin/magento cache:flush
@@ -561,44 +561,44 @@ bin/magento cache:flush
 
 ```bash
 # Development settings - verbose logging, short retention
-bin/magento config:set softcommerce_profile/profile_config/history_lifetime 7
-bin/magento config:set softcommerce_profile_notification/general/enabled 1
-bin/magento config:set softcommerce_profile_notification/general/log_level 100  # DEBUG
-bin/magento config:set softcommerce_profile_notification/general/retention_days 7
-bin/magento config:set softcommerce_profile_notification/email/enabled 0
-bin/magento config:set softcommerce_profile_notification/performance/enable_async 0
+bin/magento config:set byte8_profile/profile_config/history_lifetime 7
+bin/magento config:set byte8_profile_notification/general/enabled 1
+bin/magento config:set byte8_profile_notification/general/log_level 100  # DEBUG
+bin/magento config:set byte8_profile_notification/general/retention_days 7
+bin/magento config:set byte8_profile_notification/email/enabled 0
+bin/magento config:set byte8_profile_notification/performance/enable_async 0
 ```
 
 ### Staging Environment
 
 ```bash
 # Staging settings - moderate logging, email alerts
-bin/magento config:set softcommerce_profile/profile_config/history_lifetime 14
-bin/magento config:set softcommerce_profile_notification/general/enabled 1
-bin/magento config:set softcommerce_profile_notification/general/log_level 200  # INFO
-bin/magento config:set softcommerce_profile_notification/general/retention_days 30
-bin/magento config:set softcommerce_profile_notification/email/enabled 1
-bin/magento config:set softcommerce_profile_notification/email/threshold 400  # ERROR
-bin/magento config:set softcommerce_profile_notification/email/batch_enabled 1
-bin/magento config:set softcommerce_profile_notification/performance/enable_async 1
+bin/magento config:set byte8_profile/profile_config/history_lifetime 14
+bin/magento config:set byte8_profile_notification/general/enabled 1
+bin/magento config:set byte8_profile_notification/general/log_level 200  # INFO
+bin/magento config:set byte8_profile_notification/general/retention_days 30
+bin/magento config:set byte8_profile_notification/email/enabled 1
+bin/magento config:set byte8_profile_notification/email/threshold 400  # ERROR
+bin/magento config:set byte8_profile_notification/email/batch_enabled 1
+bin/magento config:set byte8_profile_notification/performance/enable_async 1
 ```
 
 ### Production Environment
 
 ```bash
 # Production settings - critical errors only, async processing
-bin/magento config:set softcommerce_profile/profile_config/history_lifetime 60
-bin/magento config:set softcommerce_profile_notification/general/enabled 1
-bin/magento config:set softcommerce_profile_notification/general/log_level 300  # WARNING
-bin/magento config:set softcommerce_profile_notification/general/retention_days 60
-bin/magento config:set softcommerce_profile_notification/general/max_notifications 10000
-bin/magento config:set softcommerce_profile_notification/email/enabled 1
-bin/magento config:set softcommerce_profile_notification/email/threshold 400  # ERROR
-bin/magento config:set softcommerce_profile_notification/email/real_time_critical 1
-bin/magento config:set softcommerce_profile_notification/email/batch_enabled 1
-bin/magento config:set softcommerce_profile_notification/email/batch_interval 60
-bin/magento config:set softcommerce_profile_notification/performance/enable_async 1
-bin/magento config:set softcommerce_profile_notification/performance/batch_size 200
+bin/magento config:set byte8_profile/profile_config/history_lifetime 60
+bin/magento config:set byte8_profile_notification/general/enabled 1
+bin/magento config:set byte8_profile_notification/general/log_level 300  # WARNING
+bin/magento config:set byte8_profile_notification/general/retention_days 60
+bin/magento config:set byte8_profile_notification/general/max_notifications 10000
+bin/magento config:set byte8_profile_notification/email/enabled 1
+bin/magento config:set byte8_profile_notification/email/threshold 400  # ERROR
+bin/magento config:set byte8_profile_notification/email/real_time_critical 1
+bin/magento config:set byte8_profile_notification/email/batch_enabled 1
+bin/magento config:set byte8_profile_notification/email/batch_interval 60
+bin/magento config:set byte8_profile_notification/performance/enable_async 1
+bin/magento config:set byte8_profile_notification/performance/batch_size 200
 ```
 
 ## Monitoring and Maintenance
@@ -612,13 +612,13 @@ SELECT
     MIN(created_at) as oldest,
     MAX(created_at) as newest,
     ROUND(SUM(LENGTH(message))/1024/1024, 2) as size_mb
-FROM softcommerce_profile_notification;
+FROM byte8_profile_notification;
 
 # View notifications by level
 SELECT
     level,
     COUNT(*) as count
-FROM softcommerce_profile_notification
+FROM byte8_profile_notification
 GROUP BY level
 ORDER BY level DESC;
 ```
@@ -627,13 +627,13 @@ ORDER BY level DESC;
 
 ```bash
 # Clean old notifications
-bin/magento softcommerce:profile:notification:cleanup --days=30
+bin/magento byte8:profile:notification:cleanup --days=30
 
 # Clean by log level
-bin/magento softcommerce:profile:notification:cleanup --level=INFO --days=7
+bin/magento byte8:profile:notification:cleanup --level=INFO --days=7
 
 # View cleanup statistics
-bin/magento softcommerce:profile:notification:info
+bin/magento byte8:profile:notification:info
 ```
 
 ### Queue Monitoring
@@ -654,7 +654,7 @@ SELECT COUNT(*) FROM queue_message WHERE topic_name = 'profile.notification.log'
 **Problem**: Profile executions complete but no notifications in database
 
 **Solutions**:
-1. Verify notifications are enabled: `bin/magento config:show softcommerce_profile_notification/general/enabled`
+1. Verify notifications are enabled: `bin/magento config:show byte8_profile_notification/general/enabled`
 2. Check minimum log level isn't too high
 3. Verify profile is generating notifiable events
 4. Check database permissions
@@ -693,7 +693,7 @@ SELECT COUNT(*) FROM queue_message WHERE topic_name = 'profile.notification.log'
 2. Set maximum notification limit
 3. Increase minimum log level to WARNING or ERROR
 4. Disable DEBUG level in production
-5. Run manual cleanup: `bin/magento softcommerce:profile:notification:cleanup`
+5. Run manual cleanup: `bin/magento byte8:profile:notification:cleanup`
 6. Consider archiving old notifications before deletion
 
 ## Next Steps

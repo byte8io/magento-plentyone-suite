@@ -30,11 +30,11 @@ Before running the wizard, ensure you have:
 1. ✅ **Installed Mage2Plenty** - All modules installed and enabled
 2. ✅ **Created PlentyONE Admin User** - Admin user with English UI language
 3. ✅ **Collected Credentials** - URL, username, password, client ID, owner ID, store ID
-4. ✅ **Configured Authentication** - Entered credentials in **SoftCommerce → PlentyONE → Manage Client Connection**
+4. ✅ **Configured Authentication** - Entered credentials in **Byte8 → PlentyONE → Manage Client Connection**
 5. ✅ **Verified Network** - Confirmed Magento server can reach PlentyONE API
 
 :::warning Configure Authentication First
-The wizard requires valid authentication credentials to be configured before running. You can configure credentials via the UI at **SoftCommerce → PlentyONE → Manage Client Connection** or use the CLI wizard (see Method 3 below). See [Client Configuration](/docs/configuration/client-configuration) for credential setup.
+The wizard requires valid authentication credentials to be configured before running. You can configure credentials via the UI at **Byte8 → PlentyONE → Manage Client Connection** or use the CLI wizard (see Method 3 below). See [Client Configuration](/docs/configuration/client-configuration) for credential setup.
 :::
 
 ## Accessing the Wizard
@@ -43,7 +43,7 @@ The wizard requires valid authentication credentials to be configured before run
 
 1. Log in to Magento Admin panel
 2. Navigate to **Stores → Configuration**
-3. Expand **Soft Commerce** in the left sidebar
+3. Expand **Byte8** in the left sidebar
 4. Select **PlentyONE Integration**
 5. In the **Authentication Settings** section header, click the **Actions** dropdown button
 6. Select **Run Setup Wizard**
@@ -161,7 +161,7 @@ Connection failed!
 | SSL Certificate Error | Invalid/expired certificate | Check SSL certificate validity |
 
 :::tip If Test Fails
-Fix the error, update your credentials in **SoftCommerce → PlentyONE → Manage Client Connection** (or run `bin/magento plenty:setup:client` to reconfigure via CLI), then run the wizard again.
+Fix the error, update your credentials in **Byte8 → PlentyONE → Manage Client Connection** (or run `bin/magento plenty:setup:client` to reconfigure via CLI), then run the wizard again.
 :::
 
 ### Step 2: Collect Configuration Data
@@ -251,7 +251,7 @@ Most configuration collection errors are non-critical. You can proceed with the 
 #### Where Data Is Stored
 
 Collected configuration is stored in:
-- Database tables: `softcommerce_plenty_*_config`
+- Database tables: `plenty_*_config`
 - Cache: `var/cache/plenty/config/`
 - Configuration scope: Global (applies to all stores)
 
@@ -399,7 +399,7 @@ When you click "Complete Setup":
 1. **Mark Wizard Complete**: Sets setup status to "completed"
 2. **Clear Temporary Data**: Removes wizard progress data
 3. **Log Success**: Records successful setup in logs
-4. **Redirect**: Sends you to **SoftCommerce → PlentyONE → Profiles**
+4. **Redirect**: Sends you to **Byte8 → PlentyONE → Profiles**
 
 :::tip Post-Setup
 After completing the wizard, the next step is to create and configure your first synchronization profile. Start with a simple profile like "Category Import" to verify everything works.
@@ -451,7 +451,7 @@ Re-running the wizard updates existing configuration but does not delete synchro
 
 **Solutions**:
 1. Clear cache: `bin/magento cache:flush`
-2. Check module is enabled: `bin/magento module:status SoftCommerce_PlentyProfile`
+2. Check module is enabled: `bin/magento module:status Byte8_PlentyProfile`
 3. Verify admin user permissions
 4. Check browser console for JavaScript errors
 5. Review `var/log/system.log` for PHP errors
@@ -461,12 +461,12 @@ Re-running the wizard updates existing configuration but does not delete synchro
 **Problem**: Connection test fails repeatedly
 
 **Solutions**:
-1. Verify authentication credentials in **SoftCommerce → PlentyONE → Manage Client Connection**
+1. Verify authentication credentials in **Byte8 → PlentyONE → Manage Client Connection**
 2. Test connection via CLI: `bin/magento plenty:client:test`
 3. Test URL manually in browser: `https://your-url.com/rest`
 4. Check firewall allows HTTPS outbound connections
 5. Enable verbose cURL mode for detailed error in REST API settings
-6. Review `var/log/softcommerce/plenty/client.log`
+6. Review `var/log/plenty/client.log`
 
 ### Step 2 Collectors Failing
 
@@ -488,7 +488,7 @@ Re-running the wizard updates existing configuration but does not delete synchro
 2. Check for existing properties with same name in PlentyONE
 3. Manually create properties in PlentyONE backend
 4. Check PlentyONE API rate limits
-5. Review `var/log/softcommerce/plenty/property.log`
+5. Review `var/log/plenty/property.log`
 
 ### Wizard Hangs or Freezes
 
@@ -560,7 +560,7 @@ The `bin/magento plenty:setup:client` and `bin/magento plenty:setup:profile:syst
 
 If you prefer manual configuration:
 
-1. Configure authentication via CLI wizards: `bin/magento plenty:setup:client` and `bin/magento plenty:setup:profile:system`, or manually in **SoftCommerce → PlentyONE → Manage Client Connection**
+1. Configure authentication via CLI wizards: `bin/magento plenty:setup:client` and `bin/magento plenty:setup:profile:system`, or manually in **Byte8 → PlentyONE → Manage Client Connection**
 2. Run configuration collectors individually: `bin/magento plenty:config:collect --type=[type]`
 3. Create properties manually in PlentyONE backend or via CLI
 4. Skip wizard and proceed directly to profile configuration
@@ -570,7 +570,7 @@ If you prefer manual configuration:
 ### Log Locations
 
 ```
-var/log/softcommerce/plenty/
+var/log/plenty/
 ├── client.log           # Connection tests
 ├── config.log          # Configuration collection
 ├── property.log        # Property creation
@@ -581,13 +581,13 @@ var/log/softcommerce/plenty/
 
 ```bash
 # View recent wizard activity
-tail -f var/log/softcommerce/plenty/client.log
+tail -f var/log/plenty/client.log
 
 # Search for errors
-grep -i "error" var/log/softcommerce/plenty/*.log
+grep -i "error" var/log/plenty/*.log
 
 # View last 100 lines of all logs
-tail -100 var/log/softcommerce/plenty/*.log
+tail -100 var/log/plenty/*.log
 ```
 
 ## Security Considerations
@@ -596,7 +596,7 @@ tail -100 var/log/softcommerce/plenty/*.log
 
 The wizard requires specific admin permissions:
 
-- **ACL Resource**: `SoftCommerce_PlentyProfile::setup_wizard`
+- **ACL Resource**: `Byte8_PlentyProfile::setup_wizard`
 - **Required Role**: Admin
 
 **Restricting Access**:
@@ -604,7 +604,7 @@ The wizard requires specific admin permissions:
 1. Navigate to **System → Permissions → User Roles**
 2. Select role to configure
 3. Expand **Role Resources**
-4. Locate **Soft Commerce → PlentyONE Profile → Setup Wizard**
+4. Locate **Byte8 → PlentyONE Profile → Setup Wizard**
 5. Uncheck to deny access
 
 ### API Credentials Security
@@ -658,7 +658,7 @@ This video shows a previous version of the connection configuration. While the c
 
 **What's Changed:**
 - ❌ New CLI wizards available (`bin/magento plenty:setup:client` and `bin/magento plenty:setup:profile:system`)
-- ❌ Updated admin menu structure (**SoftCommerce → PlentyONE**)
+- ❌ Updated admin menu structure (**Byte8 → PlentyONE**)
 - ❌ Enhanced validation and error handling
 - ❌ Improved token management workflow
 :::
@@ -685,7 +685,7 @@ This video shows a previous version of the connection configuration. While the c
 
 If you encounter issues with the Initial Setup Wizard:
 
-- 📧 **Email Support**: support@softcommerce.io
+- 📧 **Email Support**: support@byte8.io
 - 📞 **Phone**: +44 2080 587 795 (GMT working hours)
 - 📖 **Documentation**: Browse this site for detailed guides
 - 🐛 **Bug Reports**: [GitHub Issues](https://github.com/byte8/mage2plenty/issues)
@@ -693,6 +693,6 @@ If you encounter issues with the Initial Setup Wizard:
 Include in your support request:
 - Wizard step where error occurred
 - Error message displayed
-- Contents of `var/log/softcommerce/plenty/` logs
+- Contents of `var/log/plenty/` logs
 - PHP version and Magento version
 - Screenshot of the error (if applicable)

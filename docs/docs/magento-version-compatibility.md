@@ -18,8 +18,8 @@ Mage2Plenty is available in two editions tailored to your Magento installation:
 
 | Edition | Package Name | Magento Version | PHP Versions |
 |---------|-------------|-----------------|--------------|
-| **Open Source** | `softcommerce/mage2plenty-os` | ≥ 2.4.4 | 8.1, 8.2, 8.3, 8.4 |
-| **Adobe Commerce** | `softcommerce/mage2plenty-ac` | ≥ 2.4.4 | 8.1, 8.2, 8.3, 8.4 |
+| **Open Source** | `byte8/magento-plentyone-suite` | ≥ 2.4.4 | 8.1, 8.2, 8.3, 8.4 |
+| **Adobe Commerce** | `byte8/magento-plentyone-suite-ac` | ≥ 2.4.4 | 8.1, 8.2, 8.3, 8.4 |
 
 ## Installation Commands
 
@@ -28,7 +28,7 @@ Mage2Plenty is available in two editions tailored to your Magento installation:
 For Magento Open Source (Community Edition):
 
 ```bash
-composer require softcommerce/mage2plenty-os
+composer require byte8/magento-plentyone-suite
 ```
 
 ### Adobe Commerce
@@ -36,7 +36,7 @@ composer require softcommerce/mage2plenty-os
 For Adobe Commerce (Enterprise Edition):
 
 ```bash
-composer require softcommerce/mage2plenty-ac
+composer require byte8/magento-plentyone-suite-ac
 ```
 
 ## Current Requirements
@@ -70,10 +70,10 @@ composer require softcommerce/mage2plenty-ac
 **Installation**:
 ```bash
 # Open Source
-composer require softcommerce/mage2plenty-os ^1.13.0
+composer require byte8/magento-plentyone-suite ^1.13.0
 
 # Adobe Commerce
-composer require softcommerce/mage2plenty-ac ^1.13.0
+composer require byte8/magento-plentyone-suite-ac ^1.13.0
 ```
 
 ### Magento 2.4.5
@@ -88,10 +88,10 @@ composer require softcommerce/mage2plenty-ac ^1.13.0
 **Installation**:
 ```bash
 # Open Source
-composer require softcommerce/mage2plenty-os ^1.14.0
+composer require byte8/magento-plentyone-suite ^1.14.0
 
 # Adobe Commerce
-composer require softcommerce/mage2plenty-ac ^1.14.0
+composer require byte8/magento-plentyone-suite-ac ^1.14.0
 ```
 
 ### Magento 2.4.6
@@ -106,10 +106,10 @@ composer require softcommerce/mage2plenty-ac ^1.14.0
 **Installation**:
 ```bash
 # Open Source
-composer require softcommerce/mage2plenty-os ^1.14.0
+composer require byte8/magento-plentyone-suite ^1.14.0
 
 # Adobe Commerce
-composer require softcommerce/mage2plenty-ac ^1.14.0
+composer require byte8/magento-plentyone-suite-ac ^1.14.0
 ```
 
 ### Magento 2.4.7
@@ -124,10 +124,10 @@ composer require softcommerce/mage2plenty-ac ^1.14.0
 **Installation**:
 ```bash
 # Open Source
-composer require softcommerce/mage2plenty-os ^1.15.0
+composer require byte8/magento-plentyone-suite ^1.15.0
 
 # Adobe Commerce
-composer require softcommerce/mage2plenty-ac ^1.15.0
+composer require byte8/magento-plentyone-suite-ac ^1.15.0
 ```
 
 ### Magento 2.4.8+
@@ -142,10 +142,10 @@ composer require softcommerce/mage2plenty-ac ^1.15.0
 **Installation**:
 ```bash
 # Open Source
-composer require softcommerce/mage2plenty-os
+composer require byte8/magento-plentyone-suite
 
 # Adobe Commerce
-composer require softcommerce/mage2plenty-ac
+composer require byte8/magento-plentyone-suite-ac
 ```
 
 ## PHP Version Support
@@ -237,7 +237,7 @@ The following versions are no longer supported and do not receive updates or sec
 
 ```bash
 # After Magento upgrade, install appropriate package
-composer require softcommerce/mage2plenty-os  # or mage2plenty-ac
+composer require byte8/magento-plentyone-suite  # or mage2plenty-ac
 ```
 
 ### From Magento 2.4.0-2.4.3
@@ -247,7 +247,7 @@ composer require softcommerce/mage2plenty-os  # or mage2plenty-ac
 3. 📦 Update to Mage2Plenty 1.13.x or higher
 
 ```bash
-composer require softcommerce/mage2plenty-os  # or mage2plenty-ac
+composer require byte8/magento-plentyone-suite  # or mage2plenty-ac
 ```
 
 ### Within Magento 2.4.4+
@@ -255,7 +255,7 @@ composer require softcommerce/mage2plenty-os  # or mage2plenty-ac
 Simply update Mage2Plenty to the version matching your Magento installation:
 
 ```bash
-composer update softcommerce/mage2plenty-os  # or mage2plenty-ac
+composer update byte8/magento-plentyone-suite  # or mage2plenty-ac
 bin/magento setup:upgrade
 bin/magento setup:di:compile
 bin/magento cache:flush
@@ -310,7 +310,7 @@ Before upgrading, always test in a staging environment:
 # Check current versions
 bin/magento --version
 php -v
-composer show softcommerce/mage2plenty-os  # or mage2plenty-ac
+composer show byte8/magento-plentyone-suite  # or mage2plenty-ac
 
 # Run system check
 bin/magento plenty:system:check
@@ -325,7 +325,7 @@ If you need assistance with version compatibility:
 
 - 📖 Check our [System Requirements](/docs/system-requirements)
 - 📘 Review the [Installation Guide](/docs/installation/composer-installation)
-- 📧 Contact support: support@softcommerce.io
+- 📧 Contact support: support@byte8.io
 - 📞 Call us: +44 2080 587 795 (GMT working hours)
 - 🐛 Report issues: [GitHub Issues](https://github.com/byte8/mage2plenty/issues)
 

@@ -215,10 +215,10 @@ Follow the [Composer Installation Guide](/docs/installation/composer-installatio
 
 ```bash
 # For Magento Open Source
-composer require softcommerce/mage2plenty-os
+composer require byte8/magento-plentyone-suite
 
 # For Adobe Commerce
-composer require softcommerce/mage2plenty-ac
+composer require byte8/magento-plentyone-suite-ac
 ```
 
 **Option B: Marketplace Purchase**
@@ -227,10 +227,10 @@ Follow the [Marketplace Composer Installation Guide](/docs/installation/marketpl
 
 ```bash
 # For Magento Open Source
-composer require softcommerce/mage2plenty-os
+composer require byte8/magento-plentyone-suite
 
 # For Adobe Commerce
-composer require softcommerce/mage2plenty-ac
+composer require byte8/magento-plentyone-suite-ac
 ```
 
 #### Post Installation
@@ -249,7 +249,7 @@ bin/magento cache:flush
 Check that the new modules are installed:
 
 ```bash
-bin/magento module:status SoftCommerce_PlentyCore
+bin/magento module:status Byte8_PlentyCore
 
 # Should show as enabled
 ```
@@ -258,7 +258,7 @@ bin/magento module:status SoftCommerce_PlentyCore
 
 After installation, configure the new connector:
 
-1. Navigate to **Stores → Configuration → SoftCommerce → PlentyONE Client**
+1. Navigate to **Stores → Configuration → Byte8 → PlentyONE Client**
 2. Enter your PlentyONE API credentials
 3. Configure connection settings
 4. Test the connection
@@ -273,7 +273,7 @@ Profile configurations from the old connector are **not compatible** with the ne
 
 For each profile you had configured:
 
-1. Navigate to **SoftCommerce → PlentyONE → Profiles**
+1. Navigate to **Byte8 → PlentyONE → Profiles**
 2. Create a new profile for each entity type (Products, Orders, Inventory, etc.)
 3. Configure the profile settings based on your previous configuration
 4. Set up field mappings and synchronization rules
@@ -398,7 +398,7 @@ Rollback should only be used as a last resort. The old connector will not receiv
 
 If you encounter issues during the upgrade:
 
-- 📧 **Email Support**: support@softcommerce.io
+- 📧 **Email Support**: support@byte8.io
 - 📞 **Phone**: +44 2080 587 795 (GMT working hours)
 - 📖 **Documentation**: Review our comprehensive guides
 - 🐛 **Bug Reports**: [GitHub Issues](https://github.com/byte8/mage2plenty/issues)
@@ -415,7 +415,7 @@ Need help with the upgrade? We offer professional migration services:
 - ✅ Training on new features
 - ✅ Post-migration support
 
-Contact us at **support@softcommerce.io** for a quote.
+Contact us at **support@byte8.io** for a quote.
 
 ## Next Steps
 

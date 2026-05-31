@@ -56,12 +56,12 @@ We strongly recommend testing this migration in a development or staging environ
 First, verify your current installation version:
 
 ```bash
-composer show softcommerce/mage2plenty-os
+composer show byte8/magento-plentyone-suite
 ```
 
 **Example Output:**
 ```
-name     : softcommerce/mage2plenty-os
+name     : byte8/magento-plentyone-suite
 versions : * 1.15.1
 ```
 
@@ -78,7 +78,7 @@ Your current `composer.json` likely has:
 ```json title="composer.json"
 {
     "require": {
-        "softcommerce/mage2plenty-os": "^1.8"
+        "byte8/magento-plentyone-suite": "^1.8"
     }
 }
 ```
@@ -101,7 +101,7 @@ You must explicitly update to v2.0.0.
 ```json title="composer.json"
 {
     "require": {
-        "softcommerce/mage2plenty-os": "2.0.0"
+        "byte8/magento-plentyone-suite": "2.0.0"
     }
 }
 ```
@@ -111,7 +111,7 @@ You must explicitly update to v2.0.0.
 ```json title="composer.json"
 {
     "require": {
-        "softcommerce/mage2plenty-os": "^2.0"
+        "byte8/magento-plentyone-suite": "^2.0"
     }
 }
 ```
@@ -137,22 +137,22 @@ If any of these are explicitly declared in your `composer.json`, **you must remo
 {
     "require": {
         // ❌ Remove these lines if present:
-        "softcommerce/module-plenty-client-rest-api": "*",
-        "softcommerce/module-plenty-rest-api": "*",
-        "softcommerce/module-plenty-attribute-rest-api": "*",
-        "softcommerce/module-plenty-category-rest-api": "*",
-        "softcommerce/module-plenty-customer-rest-api": "*",
-        "softcommerce/module-plenty-customer-client": "*",
-        "softcommerce/module-plenty-item-rest-api": "*",
-        "softcommerce/module-plenty-item-client": "*",
-        "softcommerce/module-plenty-order-rest-api": "*",
-        "softcommerce/module-plenty-order-client": "*",
-        "softcommerce/module-plenty-stock-rest-api": "*",
-        "softcommerce/module-plenty-stock-client": "*",
-        "softcommerce/module-plenty-property-rest-api": "*",
-        "softcommerce/module-plenty-category-profile-schedule": "*",
-        "softcommerce/module-plenty-item-profile-schedule": "*",
-        "softcommerce/module-plenty-order-profile-schedule": "*"
+        "byte8/module-plenty-client-rest-api": "*",
+        "byte8/module-plenty-rest-api": "*",
+        "byte8/module-plenty-attribute-rest-api": "*",
+        "byte8/module-plenty-category-rest-api": "*",
+        "byte8/module-plenty-customer-rest-api": "*",
+        "byte8/module-plenty-customer-client": "*",
+        "byte8/module-plenty-item-rest-api": "*",
+        "byte8/module-plenty-item-client": "*",
+        "byte8/module-plenty-order-rest-api": "*",
+        "byte8/module-plenty-order-client": "*",
+        "byte8/module-plenty-stock-rest-api": "*",
+        "byte8/module-plenty-stock-client": "*",
+        "byte8/module-plenty-property-rest-api": "*",
+        "byte8/module-plenty-category-profile-schedule": "*",
+        "byte8/module-plenty-item-profile-schedule": "*",
+        "byte8/module-plenty-order-profile-schedule": "*"
     }
 }
 ```
@@ -199,7 +199,7 @@ composer clear-cache
 ### Update Dependencies
 
 ```bash
-composer update softcommerce/mage2plenty-os --with-all-dependencies
+composer update byte8/magento-plentyone-suite --with-all-dependencies
 ```
 
 ### Expected Output
@@ -208,12 +208,12 @@ composer update softcommerce/mage2plenty-os --with-all-dependencies
 Loading composer repositories with package information
 Updating dependencies
 Lock file operations: 0 installs, 37 updates, 16 removals
-  - Removing softcommerce/module-plenty-client-rest-api (1.3.3)
-  - Removing softcommerce/module-plenty-rest-api (1.3.10)
-  - Removing softcommerce/module-plenty-attribute-rest-api (1.2.10)
+  - Removing byte8/module-plenty-client-rest-api (1.3.3)
+  - Removing byte8/module-plenty-rest-api (1.3.10)
+  - Removing byte8/module-plenty-attribute-rest-api (1.2.10)
   ... (13 more removals)
-  - Updating softcommerce/mage2plenty-os (1.15.1 => 2.0.0)
-  - Updating softcommerce/module-core (1.6.1 => 2.0.0)
+  - Updating byte8/magento-plentyone-suite (1.15.1 => 2.0.0)
+  - Updating byte8/module-core (1.6.1 => 2.0.0)
   ... (35 more updates)
 Writing lock file
 ```
@@ -227,7 +227,7 @@ rm -rf vendor/ composer.lock
 composer install
 
 # Option 2: Update composer.json first
-composer require softcommerce/mage2plenty-os:^2.0 --no-update
+composer require byte8/magento-plentyone-suite:^2.0 --no-update
 composer update
 ```
 :::
@@ -291,41 +291,41 @@ php bin/magento maintenance:disable
 ### Check Module Status
 
 ```bash
-php bin/magento module:status | grep SoftCommerce
+php bin/magento module:status | grep Byte8
 ```
 
 **Expected Modules (v2.0.0):**
 
 ```
 List of enabled modules:
-SoftCommerce_Core
-SoftCommerce_PlentyAttribute
-SoftCommerce_PlentyCategory
-SoftCommerce_PlentyCategoryProfile
-SoftCommerce_PlentyClient
-SoftCommerce_PlentyCustomer
-SoftCommerce_PlentyCustomerProfile
-SoftCommerce_PlentyItem
-SoftCommerce_PlentyItemProfile
-SoftCommerce_PlentyLog
-SoftCommerce_PlentyOrder
-SoftCommerce_PlentyOrderProfile
-SoftCommerce_PlentyProfile
-SoftCommerce_PlentyProperty
-SoftCommerce_PlentyStock
-SoftCommerce_PlentyStockProfile
-SoftCommerce_Profile
-SoftCommerce_ProfileConfig
-SoftCommerce_ProfileHistory
-SoftCommerce_ProfileQueue
-SoftCommerce_ProfileSchedule
+Byte8_Core
+Byte8_PlentyAttribute
+Byte8_PlentyCategory
+Byte8_PlentyCategoryProfile
+Byte8_PlentyClient
+Byte8_PlentyCustomer
+Byte8_PlentyCustomerProfile
+Byte8_PlentyItem
+Byte8_PlentyItemProfile
+Byte8_PlentyLog
+Byte8_PlentyOrder
+Byte8_PlentyOrderProfile
+Byte8_PlentyProfile
+Byte8_PlentyProperty
+Byte8_PlentyStock
+Byte8_PlentyStockProfile
+Byte8_Profile
+Byte8_ProfileConfig
+Byte8_ProfileHistory
+Byte8_ProfileQueue
+Byte8_ProfileSchedule
 ```
 
 :::danger These Should NOT Appear
 ```
-SoftCommerce_PlentyClientRestApi
-SoftCommerce_PlentyRestApi
-SoftCommerce_PlentyAttributeRestApi
+Byte8_PlentyClientRestApi
+Byte8_PlentyRestApi
+Byte8_PlentyAttributeRestApi
 ... (and 13 other removed modules)
 ```
 :::
@@ -333,7 +333,7 @@ SoftCommerce_PlentyAttributeRestApi
 ### Verify Version
 
 ```bash
-composer show softcommerce/mage2plenty-os
+composer show byte8/magento-plentyone-suite
 ```
 
 **Expected:**
@@ -344,7 +344,7 @@ versions : * 2.0.0
 ### Test Admin Panel
 
 1. Log into **Magento Admin**
-2. Navigate to: **Stores → Configuration → SoftCommerce → PlentyONE Client**
+2. Navigate to: **Stores → Configuration → Byte8 → PlentyONE Client**
 3. Verify all settings are preserved
 4. Check: **System → Mage2Plenty**
 5. Confirm version shows `2.0.0`
@@ -426,18 +426,18 @@ A comprehensive notification and monitoring system for all profile operations:
 
 **Access:**
 - **Admin Panel:** System → Profile Notifications
-- **Configuration:** Stores → Configuration → SoftCommerce → Profile Notifications
+- **Configuration:** Stores → Configuration → Byte8 → Profile Notifications
 
 **CLI Commands:**
 ```bash
 # Send batch notification emails
-bin/magento softcommerce:notification:send-batch-emails
+bin/magento byte8:notification:send-batch-emails
 
 # Preview emails without sending
-bin/magento softcommerce:notification:send-batch-emails --preview
+bin/magento byte8:notification:send-batch-emails --preview
 
 # Send only critical notifications
-bin/magento softcommerce:notification:send-batch-emails --severity=critical
+bin/magento byte8:notification:send-batch-emails --severity=critical
 ```
 
 ### 4. Enhanced CLI Commands
@@ -465,7 +465,7 @@ Choose which product attribute to use as the **identifier** for matching PlentyO
 
 **What it does:** Instead of always using SKU to match products with PlentyONE variations, you can now select any product attribute as the primary identifier.
 
-**Configure:** Admin → Stores → Configuration → SoftCommerce → Item Profile → Product Mapping → Product Mapping Identifier
+**Configure:** Admin → Stores → Configuration → Byte8 → Item Profile → Product Mapping → Product Mapping Identifier
 
 **Use Cases:**
 - **Manufacturer Part Number:** Use `manufacturer_part_number` attribute instead of SKU
@@ -483,7 +483,7 @@ Choose which product attribute to use as the **identifier** for matching PlentyO
 
 ## Troubleshooting
 
-### ❌ "Module 'SoftCommerce_PlentyClientRestApi' not found"
+### ❌ "Module 'Byte8_PlentyClientRestApi' not found"
 
 **Cause:** Old module still registered in database
 
@@ -500,7 +500,7 @@ php bin/magento cache:flush
 
 **Solution:** Remove all 15 deprecated modules from `composer.json` (see Step 4)
 
-### ❌ "Class SoftCommerce\PlentyClientRestApi\... not found"
+### ❌ "Class Byte8\PlentyClientRestApi\... not found"
 
 **Cause:** Old generated code cached
 
@@ -589,20 +589,20 @@ Update your custom module's `etc/module.xml`:
 
 ```xml
 <!-- Before -->
-<module name="SoftCommerce_PlentyClientRestApi" />
+<module name="Byte8_PlentyClientRestApi" />
 
 <!-- After -->
-<module name="SoftCommerce_PlentyClient" />
+<module name="Byte8_PlentyClient" />
 ```
 
 Update your custom module's use statements:
 
 ```php
 // Before
-use SoftCommerce\PlentyClientRestApi\Model\Something;
+use Byte8\PlentyClientRestApi\Model\Something;
 
 // After
-use SoftCommerce\PlentyClient\RestApi\Something;
+use Byte8\PlentyClient\RestApi\Something;
 ```
 
 ### Do I need RabbitMQ?
@@ -630,9 +630,9 @@ use SoftCommerce\PlentyClient\RestApi\Something;
 
 ### Support Channels
 
-- **GitHub Issues:** [Report a bug or request help](https://github.com/softcommerceltd/mage2plenty-os/issues)
+- **GitHub Issues:** [Report a bug or request help](https://github.com/byte8/mage2plenty/issues)
 - **Documentation:** Check module-specific docs in `docs/` folders
-- **Email Support:** support@softcommerce.io
+- **Email Support:** support@byte8.io
 
 ### When Reporting Issues
 
@@ -643,7 +643,7 @@ Please include:
 - ✅ Previous Mage2Plenty version
 - ✅ Error messages from logs
 - ✅ Steps to reproduce the issue
-- ✅ Output of `composer show | grep softcommerce`
+- ✅ Output of `composer show | grep byte8`
 
 ---
 
@@ -655,16 +655,16 @@ Please include:
 
 1. ✅ Backup database and files
 2. ✅ Enable maintenance mode
-3. ✅ Update `composer.json`: `"softcommerce/mage2plenty-os": "^2.0"`
+3. ✅ Update `composer.json`: `"byte8/magento-plentyone-suite": "^2.0"`
 4. ✅ Remove 15 deprecated modules from `composer.json`
 5. ✅ Run: `composer clear-cache`
-6. ✅ Run: `composer update softcommerce/mage2plenty-os --with-all-dependencies`
+6. ✅ Run: `composer update byte8/magento-plentyone-suite --with-all-dependencies`
 7. ✅ Run: `bin/magento setup:upgrade`
 8. ✅ Run: `bin/magento setup:di:compile`
 9. ✅ Run: `bin/magento setup:static-content:deploy -f`
 10. ✅ Run: `bin/magento cache:flush`
 11. ✅ Disable maintenance mode
-12. ✅ Verify: `composer show softcommerce/mage2plenty-os` = v2.0.0
+12. ✅ Verify: `composer show byte8/magento-plentyone-suite` = v2.0.0
 13. ✅ Test: Item collect/import works
 14. ✅ Verify: Admin configuration preserved
 

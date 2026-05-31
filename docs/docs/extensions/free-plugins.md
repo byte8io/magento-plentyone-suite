@@ -88,7 +88,7 @@ These plugins extend Mage2Plenty to support popular Amasty extensions, ensuring 
 
 #### Amasty Gift Card
 
-**Package**: `softcommerce/module-plenty-amasty-giftcard`
+**Package**: `byte8/module-plenty-amasty-giftcard`
 
 Integrates Amasty Gift Card extension with PlentyONE order export.
 
@@ -102,11 +102,11 @@ Integrates Amasty Gift Card extension with PlentyONE order export.
 
 **Requirements:**
 - `amasty/giftcard` - Amasty Gift Card extension
-- `softcommerce/module-plenty-order-profile`
+- `byte8/module-plenty-order-profile`
 
 **Installation:**
 ```bash
-composer require softcommerce/module-plenty-amasty-giftcard
+composer require byte8/module-plenty-amasty-giftcard
 bin/magento setup:upgrade
 bin/magento cache:flush
 ```
@@ -115,7 +115,7 @@ bin/magento cache:flush
 
 #### Amasty Promo
 
-**Package**: `softcommerce/module-plenty-amasty-promo`
+**Package**: `byte8/module-plenty-amasty-promo`
 
 Integrates Amasty Special Promotions (Free Gifts) extension with PlentyONE order export.
 
@@ -129,11 +129,11 @@ Integrates Amasty Special Promotions (Free Gifts) extension with PlentyONE order
 
 **Requirements:**
 - `amasty/promo` - Amasty Special Promotions extension
-- `softcommerce/module-plenty-order-profile`
+- `byte8/module-plenty-order-profile`
 
 **Installation:**
 ```bash
-composer require softcommerce/module-plenty-amasty-promo
+composer require byte8/module-plenty-amasty-promo
 bin/magento setup:upgrade
 bin/magento cache:flush
 ```
@@ -142,7 +142,7 @@ bin/magento cache:flush
 
 #### Amasty Rewards
 
-**Package**: `softcommerce/module-plenty-amasty-rewards`
+**Package**: `byte8/module-plenty-amasty-rewards`
 
 Integrates Amasty Reward Points extension with PlentyONE order synchronization.
 
@@ -156,11 +156,11 @@ Integrates Amasty Reward Points extension with PlentyONE order synchronization.
 
 **Requirements:**
 - `amasty/rewards` - Amasty Reward Points extension
-- `softcommerce/module-plenty-profile`
+- `byte8/module-plenty-profile`
 
 **Installation:**
 ```bash
-composer require softcommerce/module-plenty-amasty-rewards
+composer require byte8/module-plenty-amasty-rewards
 bin/magento setup:upgrade
 bin/magento cache:flush
 ```
@@ -169,7 +169,7 @@ bin/magento cache:flush
 
 #### Amasty Cash on Delivery
 
-**Package**: `softcommerce/module-plenty-amasty-cashondelivery`
+**Package**: `byte8/module-plenty-amasty-cashondelivery`
 
 Integrates Amasty Cash on Delivery Fee extension with PlentyONE order export.
 
@@ -183,11 +183,11 @@ Integrates Amasty Cash on Delivery Fee extension with PlentyONE order export.
 
 **Requirements:**
 - `amasty/cashondelivery` - Amasty Cash on Delivery extension
-- `softcommerce/module-plenty-order-profile`
+- `byte8/module-plenty-order-profile`
 
 **Installation:**
 ```bash
-composer require softcommerce/module-plenty-amasty-cashondelivery
+composer require byte8/module-plenty-amasty-cashondelivery
 bin/magento setup:upgrade
 bin/magento cache:flush
 ```
@@ -200,7 +200,7 @@ These plugins handle special shipping scenarios common in European e-commerce, p
 
 #### DHL Packstation Support
 
-**Package**: `softcommerce/module-plenty-packstation`
+**Package**: `byte8/module-plenty-packstation`
 
 Handles DHL Packstation, Postfiliale, and Paketbox delivery addresses for German customers.
 
@@ -228,15 +228,15 @@ Handles DHL Packstation, Postfiliale, and Paketbox delivery addresses for German
 
 **Configuration:**
 Email alerts can be configured at:
-**Stores → Configuration → Soft Commerce → Developer → Email Logs**
+**Stores → Configuration → Byte8 → Developer → Email Logs**
 
 **Requirements:**
-- `softcommerce/module-plenty-customer-profile`
-- `softcommerce/module-plenty-order-profile`
+- `byte8/module-plenty-customer-profile`
+- `byte8/module-plenty-order-profile`
 
 **Installation:**
 ```bash
-composer require softcommerce/module-plenty-packstation
+composer require byte8/module-plenty-packstation
 bin/magento setup:upgrade
 bin/magento cache:flush
 ```
@@ -250,7 +250,7 @@ See `/packages/modules/module-plenty-packstation/README-ADDRESS-ISSUE.md` for de
 
 #### Swissup Checkout Fields
 
-**Package**: `softcommerce/module-plenty-swissup-checkout-fields`
+**Package**: `byte8/module-plenty-swissup-checkout-fields`
 
 Integrates Swissup Checkout Fields extension with PlentyONE order export.
 
@@ -264,11 +264,11 @@ Integrates Swissup Checkout Fields extension with PlentyONE order export.
 
 **Requirements:**
 - `swissup/module-checkout-fields` - Swissup Checkout Fields extension
-- `softcommerce/module-plenty-order-profile`
+- `byte8/module-plenty-order-profile`
 
 **Installation:**
 ```bash
-composer require softcommerce/module-plenty-swissup-checkout-fields
+composer require byte8/module-plenty-swissup-checkout-fields
 bin/magento setup:upgrade
 bin/magento cache:flush
 ```
@@ -279,7 +279,7 @@ bin/magento cache:flush
 
 #### PlentyONE Storefront
 
-**Package**: `softcommerce/module-plenty-storefront`
+**Package**: `byte8/module-plenty-storefront`
 
 Provides frontend display enhancements for PlentyONE-specific data on your Magento storefront.
 
@@ -293,7 +293,7 @@ Provides frontend display enhancements for PlentyONE-specific data on your Magen
 **Use Case:** Displays PlentyONE-specific product information (availability, shipping profiles, manufacturer data) on your Magento storefront, giving customers visibility into ERP-managed data.
 
 **Configuration:**
-Navigate to **Stores → Configuration → Soft Commerce → Storefront Configuration**
+Navigate to **Stores → Configuration → Byte8 → Storefront Configuration**
 
 Available Options:
 - **Enable Item Availability**: Show/hide item availability status
@@ -306,19 +306,19 @@ The module includes data patches that:
 - Configure attribute display in product admin form
 
 **Requirements:**
-- `softcommerce/module-core`
+- `byte8/module-core`
 - Standard Magento catalog modules
 
 **Installation:**
 ```bash
-composer require softcommerce/module-plenty-storefront
+composer require byte8/module-plenty-storefront
 bin/magento setup:upgrade
 bin/magento cache:flush
 ```
 
 **Admin Configuration:**
 After installation, configure which PlentyONE attributes to display:
-1. Navigate to **Stores → Configuration → Soft Commerce → Storefront Configuration → Catalog Settings**
+1. Navigate to **Stores → Configuration → Byte8 → Storefront Configuration → Catalog Settings**
 2. Enable/disable Item Availability display
 3. Enable/disable Manufacturer Details display
 4. Clear cache
@@ -333,7 +333,7 @@ All free plugins follow the same installation pattern:
 
 1. **Install via Composer:**
    ```bash
-   composer require softcommerce/module-[plugin-name]
+   composer require byte8/module-[plugin-name]
    ```
 
 2. **Run Magento Setup:**
@@ -350,7 +350,7 @@ All free plugins follow the same installation pattern:
 
 4. **Verify Installation:**
    ```bash
-   bin/magento module:status | grep SoftCommerce
+   bin/magento module:status | grep Byte8
    ```
 
 ### Install Multiple Plugins
@@ -359,9 +359,9 @@ To install multiple plugins at once:
 
 ```bash
 composer require \
-  softcommerce/module-plenty-amasty-giftcard \
-  softcommerce/module-plenty-amasty-promo \
-  softcommerce/module-plenty-packstation
+  byte8/module-plenty-amasty-giftcard \
+  byte8/module-plenty-amasty-promo \
+  byte8/module-plenty-packstation
 
 bin/magento setup:upgrade
 bin/magento cache:flush
@@ -373,7 +373,7 @@ To remove a plugin:
 
 ```bash
 # Remove via Composer
-composer remove softcommerce/module-[plugin-name]
+composer remove byte8/module-[plugin-name]
 
 # Run setup
 bin/magento setup:upgrade
@@ -388,14 +388,14 @@ Most plugins work out-of-the-box and don't require additional configuration. How
 
 ### Storefront Configuration
 
-**Location**: Stores → Configuration → Soft Commerce → Storefront Configuration
+**Location**: Stores → Configuration → Byte8 → Storefront Configuration
 
 - **Item Availability**: Enable/disable PlentyONE availability display on product pages
 - **Manufacturer Details**: Show manufacturer information from PlentyONE
 
 ### Packstation Email Alerts
 
-**Location**: Stores → Configuration → Soft Commerce → Developer → Email Logs
+**Location**: Stores → Configuration → Byte8 → Developer → Email Logs
 
 - **Enable Email Logs**: Turn on email alerts for critical events
 - **Recipient Email**: Email address for receiving alerts
@@ -444,7 +444,7 @@ If you encounter issues with any free plugin:
 - 📧 **Email**: support@byte8.io
 - 📞 **Phone**: +44 2080 587 795 (GMT working hours)
 - 📖 **Documentation**: Browse this site for guides
-- 🐛 **Bug Reports**: [GitHub Issues](https://github.com/softcommerceltd/mage2plenty-os/issues)
+- 🐛 **Bug Reports**: [GitHub Issues](https://github.com/byte8/mage2plenty/issues)
 
 ### Source Code
 
@@ -457,7 +457,7 @@ All free plugins are open source:
 
 Check plugin versions:
 ```bash
-composer show softcommerce/* | grep plenty
+composer show byte8/* | grep plenty
 ```
 
 ---

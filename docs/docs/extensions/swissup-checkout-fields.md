@@ -10,7 +10,7 @@ The **Swissup Checkout Fields plugin** integrates Swissup's Checkout Fields exte
 
 ## Overview
 
-**Package**: `softcommerce/module-plenty-swissup-checkout-fields`
+**Package**: `byte8/module-plenty-swissup-checkout-fields`
 **Category**: Checkout & Forms
 **License**: OSL-3.0 / AFL-3.0
 **Status**: Production Ready
@@ -98,7 +98,7 @@ Validation: Must be future date
 - **Swissup Checkout Fields** (`swissup/module-checkout-fields`) - Required
 
 ### Mage2Plenty Modules
-- `softcommerce/module-plenty-order-profile` - Required for order export
+- `byte8/module-plenty-order-profile` - Required for order export
 
 ### System Requirements
 - Magento 2.4.4 - 2.4.8
@@ -111,7 +111,7 @@ Validation: Must be future date
 
 ```bash
 # Install the plugin
-composer require softcommerce/module-plenty-swissup-checkout-fields
+composer require byte8/module-plenty-swissup-checkout-fields
 
 # Run Magento setup
 bin/magento setup:upgrade
@@ -126,7 +126,7 @@ bin/magento setup:static-content:deploy
 
 ```bash
 # Check module status
-bin/magento module:status SoftCommerce_PlentySwissupCheckoutFields
+bin/magento module:status Byte8_PlentySwissupCheckoutFields
 
 # Should show as enabled
 ```
@@ -212,7 +212,7 @@ Export to PlentyONE
 **Solutions**:
 1. Verify plugin is enabled:
    ```bash
-   bin/magento module:status SoftCommerce_PlentySwissupCheckoutFields
+   bin/magento module:status Byte8_PlentySwissupCheckoutFields
    ```
 
 2. Check Swissup extension is installed:
@@ -227,7 +227,7 @@ Export to PlentyONE
 
 4. Review order export logs:
    ```bash
-   tail -f var/log/softcommerce/plenty/order.log
+   tail -f var/log/plenty/order.log
    ```
 
 5. Ensure field mapping is configured
@@ -357,7 +357,7 @@ If you encounter issues:
 
 - 📧 **Email**: support@byte8.io
 - 📞 **Phone**: +44 2080 587 795 (GMT working hours)
-- 🐛 **Bug Reports**: [GitHub Issues](https://github.com/softcommerceltd/mage2plenty-os/issues)
+- 🐛 **Bug Reports**: [GitHub Issues](https://github.com/byte8/mage2plenty/issues)
 
 ### Swissup Resources
 - **Swissup Documentation**: [docs.swissuplabs.com](https://docs.swissuplabs.com/)
@@ -373,7 +373,7 @@ If you encounter issues:
 
 Check current version:
 ```bash
-composer show softcommerce/module-plenty-swissup-checkout-fields
+composer show byte8/module-plenty-swissup-checkout-fields
 ```
 
 ## Related Documentation

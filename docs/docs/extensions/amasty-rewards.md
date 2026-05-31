@@ -10,7 +10,7 @@ The **Amasty Rewards plugin** integrates Amasty Reward Points extension with Mag
 
 ## Overview
 
-**Package**: `softcommerce/module-plenty-amasty-rewards`
+**Package**: `byte8/module-plenty-amasty-rewards`
 **Category**: Amasty Integrations
 **License**: OSL-3.0 / AFL-3.0
 **Status**: Production Ready
@@ -74,7 +74,7 @@ The **Amasty Rewards plugin** integrates Amasty Reward Points extension with Mag
 - **Amasty Reward Points** (`amasty/rewards`) - Required
 
 ### Mage2Plenty Modules
-- `softcommerce/module-plenty-profile` - Required for synchronization
+- `byte8/module-plenty-profile` - Required for synchronization
 
 ### System Requirements
 - Magento 2.4.4 - 2.4.8
@@ -87,7 +87,7 @@ The **Amasty Rewards plugin** integrates Amasty Reward Points extension with Mag
 
 ```bash
 # Install the plugin
-composer require softcommerce/module-plenty-amasty-rewards
+composer require byte8/module-plenty-amasty-rewards
 
 # Run Magento setup
 bin/magento setup:upgrade
@@ -102,7 +102,7 @@ bin/magento setup:static-content:deploy
 
 ```bash
 # Check module status
-bin/magento module:status SoftCommerce_PlentyAmastyRewards
+bin/magento module:status Byte8_PlentyAmastyRewards
 
 # Should show as enabled
 ```
@@ -158,7 +158,7 @@ Export to PlentyONE
 **Solutions**:
 1. Verify plugin is enabled:
    ```bash
-   bin/magento module:status SoftCommerce_PlentyAmastyRewards
+   bin/magento module:status Byte8_PlentyAmastyRewards
    ```
 
 2. Check reward points were actually applied:
@@ -168,7 +168,7 @@ Export to PlentyONE
 
 3. Review order export logs:
    ```bash
-   tail -f var/log/softcommerce/plenty/order.log
+   tail -f var/log/plenty/order.log
    ```
 
 4. Verify order export profile includes all totals
@@ -267,7 +267,7 @@ If you encounter issues:
 
 - 📧 **Email**: support@byte8.io
 - 📞 **Phone**: +44 2080 587 795 (GMT working hours)
-- 🐛 **Bug Reports**: [GitHub Issues](https://github.com/softcommerceltd/mage2plenty-os/issues)
+- 🐛 **Bug Reports**: [GitHub Issues](https://github.com/byte8/mage2plenty/issues)
 
 ### Source Code
 
@@ -279,7 +279,7 @@ If you encounter issues:
 
 Check current version:
 ```bash
-composer show softcommerce/module-plenty-amasty-rewards
+composer show byte8/module-plenty-amasty-rewards
 ```
 
 ## Related Documentation

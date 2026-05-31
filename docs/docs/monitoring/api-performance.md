@@ -141,7 +141,7 @@ $url = '/rest/items/100?with[]=texts&with[]=variations.base&lang=en';
 ```
 
 **Configuration:**
-- **SoftCommerce → Profiles → Manage Profiles → [Profile]**
+- **Byte8 → Profiles → Manage Profiles → [Profile]**
 - **Configuration → API Configuration**
 - Configure `fields_to_fetch` to include only necessary fields
 

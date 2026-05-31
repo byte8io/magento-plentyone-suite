@@ -9,7 +9,7 @@ description: Release history for Mage2Plenty connector
 All notable changes to the Mage2Plenty connector. This project follows [Semantic Versioning](https://semver.org/).
 
 :::tip Latest Release
-**v3.4.0** - 2026-05-13 | [object Object]
+**v3.6.0** - 2026-05-30 | [object Object]
 :::
 
 
@@ -78,6 +78,110 @@ All notable changes to the Mage2Plenty connector. This project follows [Semantic
 
 
 
+## module-plenty-stock-profile v2.3.0
+
+**Released:** 2026-05-30
+
+### ✨ New Features
+
+- delta correction mode with channel-safe bootstrap policies
+- stock export queue producers, MQ consumer, cron, and drift reconciler
+
+### 🐛 Bug Fixes
+
+- persist processed_at and per-SKU status in stock export SaveEntity
+
+[View Release on GitHub](https://github.com/byte8/mage2plenty/releases/tag/v2.3.0)
+
+---
+
+## module-plenty-stock v2.2.0
+
+**Released:** 2026-05-30
+
+### ✨ New Features
+
+- explicit --all / --older-than flags on stock export queue CLI
+- stock export queue + Plenty booking endpoints for delta corrections
+
+[View Release on GitHub](https://github.com/byte8/mage2plenty/releases/tag/v2.2.0)
+
+---
+
+## module-plenty-item-profile v3.4.1
+
+**Released:** 2026-05-30
+
+### 🐛 Bug Fixes
+
+- disable gc_collect_cycles in item import batch cleanup
+
+[View Release on GitHub](https://github.com/byte8/mage2plenty/releases/tag/v3.4.1)
+
+---
+
+## module-plenty-customer-profile v2.1.3
+
+**Released:** 2026-05-30
+
+### 🐛 Bug Fixes
+
+- disable gc_collect_cycles in customer service batch cleanup
+
+[View Release on GitHub](https://github.com/byte8/mage2plenty/releases/tag/v2.1.3)
+
+---
+
+## module-plenty-stock-profile v2.2.0
+
+**Released:** 2026-05-20
+
+### ✨ New Features
+
+- stock data integrity hardening — self-healing pre-processors, variation rename cascade, source-assignment notice, reconcile command, variation_id-anchored orphan cleanup
+
+[View Release on GitHub](https://github.com/byte8/mage2plenty/releases/tag/v2.2.0)
+
+---
+
+## module-plenty-stock v2.1.0
+
+**Released:** 2026-05-20
+
+### ✨ New Features
+
+- add invalidateMappingByVariationIds helper to Inventory resource
+
+[View Release on GitHub](https://github.com/byte8/mage2plenty/releases/tag/v2.1.0)
+
+---
+
+## module-plenty-item-profile v3.4.0
+
+**Released:** 2026-05-20
+
+### ✨ New Features
+
+- configurable placeholder SKU quarantine + use variation.number across import pipeline
+
+### 🐛 Bug Fixes
+
+- use '0' instead of null for None option value in price attribute dropdown
+
+[View Release on GitHub](https://github.com/byte8/mage2plenty/releases/tag/v3.4.0)
+
+---
+
+## module-plenty-item v2.4.2
+
+**Released:** 2026-05-20
+
+_Internal changes and maintenance updates._
+
+[View Release on GitHub](https://github.com/byte8/mage2plenty/releases/tag/v2.4.2)
+
+---
+
 ## module-plenty-stock-profile v2.1.0
 
 **Released:** 2026-05-13
@@ -91,7 +195,7 @@ All notable changes to the Mage2Plenty connector. This project follows [Semantic
 - always create inventory_source_item row on initial stock import even at qty 0
 - detect orphaned client reservations from unassigned warehouses
 
-[View Release on GitHub](https://github.com/softcommerceltd/mage2plenty-os/releases/tag/v2.1.0)
+[View Release on GitHub](https://github.com/byte8/mage2plenty/releases/tag/v2.1.0)
 
 ---
 
@@ -103,7 +207,7 @@ All notable changes to the Mage2Plenty connector. This project follows [Semantic
 
 - add scheduled cleanup for plenty_order_entity storage
 
-[View Release on GitHub](https://github.com/softcommerceltd/mage2plenty-os/releases/tag/v2.5.0)
+[View Release on GitHub](https://github.com/byte8/mage2plenty/releases/tag/v2.5.0)
 
 ---
 
@@ -121,7 +225,7 @@ All notable changes to the Mage2Plenty connector. This project follows [Semantic
 - align export response to commands by SKU/externalId, not array index
 - drain plenty_item_export_queue and honour process_batch_size
 
-[View Release on GitHub](https://github.com/softcommerceltd/mage2plenty-os/releases/tag/v3.3.0)
+[View Release on GitHub](https://github.com/byte8/mage2plenty/releases/tag/v3.3.0)
 
 ---
 
@@ -133,7 +237,7 @@ All notable changes to the Mage2Plenty connector. This project follows [Semantic
 
 - advance REQUEST_INDEX per response item in non-associative batch bodies
 
-[View Release on GitHub](https://github.com/softcommerceltd/mage2plenty-os/releases/tag/v2.1.4)
+[View Release on GitHub](https://github.com/byte8/mage2plenty/releases/tag/v2.1.4)
 
 ---
 
@@ -145,7 +249,7 @@ All notable changes to the Mage2Plenty connector. This project follows [Semantic
 
 - propagate profile ID to collect service in StockCollect
 
-[View Release on GitHub](https://github.com/softcommerceltd/mage2plenty-os/releases/tag/v2.0.8)
+[View Release on GitHub](https://github.com/byte8/mage2plenty/releases/tag/v2.0.8)
 
 ---
 
@@ -157,7 +261,7 @@ All notable changes to the Mage2Plenty connector. This project follows [Semantic
 
 - honor per-mapping locale in StoreConfig::buildStoreData
 
-[View Release on GitHub](https://github.com/softcommerceltd/mage2plenty-os/releases/tag/v2.2.1)
+[View Release on GitHub](https://github.com/byte8/mage2plenty/releases/tag/v2.2.1)
 
 ---
 
@@ -174,7 +278,7 @@ All notable changes to the Mage2Plenty connector. This project follows [Semantic
 - prevent duplicate order export via atomic claim
 - propagate profile ID to collect service in OrderCollect
 
-[View Release on GitHub](https://github.com/softcommerceltd/mage2plenty-os/releases/tag/v2.4.4)
+[View Release on GitHub](https://github.com/byte8/mage2plenty/releases/tag/v2.4.4)
 
 ---
 
@@ -190,7 +294,7 @@ All notable changes to the Mage2Plenty connector. This project follows [Semantic
 
 - add atomic compare-and-swap to UpdateSalesOrderStatus
 
-[View Release on GitHub](https://github.com/softcommerceltd/mage2plenty-os/releases/tag/v2.1.0)
+[View Release on GitHub](https://github.com/byte8/mage2plenty/releases/tag/v2.1.0)
 
 ---
 
@@ -209,7 +313,7 @@ All notable changes to the Mage2Plenty connector. This project follows [Semantic
 - resolve image ID lookup failures during variation image assignment
 - resolve DELETE batch validation errors on PIM variation endpoints
 
-[View Release on GitHub](https://github.com/softcommerceltd/mage2plenty-os/releases/tag/v3.2.0)
+[View Release on GitHub](https://github.com/byte8/mage2plenty/releases/tag/v3.2.0)
 
 ---
 
@@ -221,7 +325,7 @@ All notable changes to the Mage2Plenty connector. This project follows [Semantic
 
 - propagate profile ID to collect service in CategoryCollect
 
-[View Release on GitHub](https://github.com/softcommerceltd/mage2plenty-os/releases/tag/v2.0.4)
+[View Release on GitHub](https://github.com/byte8/mage2plenty/releases/tag/v2.0.4)
 
 ---
 
@@ -233,7 +337,7 @@ All notable changes to the Mage2Plenty connector. This project follows [Semantic
 
 - resolve email template rendering crash and broken conditional directives
 
-[View Release on GitHub](https://github.com/softcommerceltd/mage2plenty-os/releases/tag/v2.1.2)
+[View Release on GitHub](https://github.com/byte8/mage2plenty/releases/tag/v2.1.2)
 
 ---
 
@@ -245,7 +349,7 @@ All notable changes to the Mage2Plenty connector. This project follows [Semantic
 
 - prevent json_extract errors on corrupt inventory_reservation metadata
 
-[View Release on GitHub](https://github.com/softcommerceltd/mage2plenty-os/releases/tag/v2.0.7)
+[View Release on GitHub](https://github.com/byte8/mage2plenty/releases/tag/v2.0.7)
 
 ---
 
@@ -260,7 +364,7 @@ All notable changes to the Mage2Plenty connector. This project follows [Semantic
 - resolve back-shipment stock deficit for duplicate SKU order lines
 - allow follow-up shipments when conditional rules are active
 
-[View Release on GitHub](https://github.com/softcommerceltd/mage2plenty-os/releases/tag/v2.4.3)
+[View Release on GitHub](https://github.com/byte8/mage2plenty/releases/tag/v2.4.3)
 
 ---
 
@@ -272,7 +376,7 @@ All notable changes to the Mage2Plenty connector. This project follows [Semantic
 
 - add JSON_VALID guard to inventory_reservation metadata queries
 
-[View Release on GitHub](https://github.com/softcommerceltd/mage2plenty-os/releases/tag/v2.0.7)
+[View Release on GitHub](https://github.com/byte8/mage2plenty/releases/tag/v2.0.7)
 
 ---
 
@@ -284,7 +388,7 @@ All notable changes to the Mage2Plenty connector. This project follows [Semantic
 
 - preserve parent request data for post-processors in configurable import
 
-[View Release on GitHub](https://github.com/softcommerceltd/mage2plenty-os/releases/tag/v3.1.1)
+[View Release on GitHub](https://github.com/byte8/mage2plenty/releases/tag/v3.1.1)
 
 ---
 
@@ -299,7 +403,7 @@ All notable changes to the Mage2Plenty connector. This project follows [Semantic
 - respect "Enable Notifications" config toggle for all write operations
 - resolve notification table bloat causing disk exhaustion and cleanup failure
 
-[View Release on GitHub](https://github.com/softcommerceltd/mage2plenty-os/releases/tag/v2.1.1)
+[View Release on GitHub](https://github.com/byte8/mage2plenty/releases/tag/v2.1.1)
 
 ---
 
@@ -309,7 +413,7 @@ All notable changes to the Mage2Plenty connector. This project follows [Semantic
 
 _Internal changes and maintenance updates._
 
-[View Release on GitHub](https://github.com/softcommerceltd/mage2plenty-os/releases/tag/v3.0.5)
+[View Release on GitHub](https://github.com/byte8/mage2plenty/releases/tag/v3.0.5)
 
 ---
 
@@ -321,7 +425,7 @@ _Internal changes and maintenance updates._
 
 - Performance: add sleep interval to stock reservation queue consumer
 
-[View Release on GitHub](https://github.com/softcommerceltd/mage2plenty-os/releases/tag/v2.0.6)
+[View Release on GitHub](https://github.com/byte8/mage2plenty/releases/tag/v2.0.6)
 
 ---
 
@@ -331,7 +435,7 @@ _Internal changes and maintenance updates._
 
 _Internal changes and maintenance updates._
 
-[View Release on GitHub](https://github.com/softcommerceltd/mage2plenty-os/releases/tag/v2.0.2)
+[View Release on GitHub](https://github.com/byte8/mage2plenty/releases/tag/v2.0.2)
 
 ---
 
@@ -343,7 +447,7 @@ _Internal changes and maintenance updates._
 
 - Performance: add sleep interval to message queue consumers
 
-[View Release on GitHub](https://github.com/softcommerceltd/mage2plenty-os/releases/tag/v2.0.5)
+[View Release on GitHub](https://github.com/byte8/mage2plenty/releases/tag/v2.0.5)
 
 ---
 
@@ -360,7 +464,7 @@ _Internal changes and maintenance updates._
 - add missing composer dependency on module-profile-notification
 - Performance: add sleep interval to setup queue consumers
 
-[View Release on GitHub](https://github.com/softcommerceltd/mage2plenty-os/releases/tag/v2.2.0)
+[View Release on GitHub](https://github.com/byte8/mage2plenty/releases/tag/v2.2.0)
 
 ---
 
@@ -374,7 +478,7 @@ _Internal changes and maintenance updates._
 - Performance: add sleep interval to order collect queue consumer
 - resolve creditmemo not created for canceled orders with status condition
 
-[View Release on GitHub](https://github.com/softcommerceltd/mage2plenty-os/releases/tag/v2.4.2)
+[View Release on GitHub](https://github.com/byte8/mage2plenty/releases/tag/v2.4.2)
 
 ---
 
@@ -384,7 +488,7 @@ _Internal changes and maintenance updates._
 
 _Internal changes and maintenance updates._
 
-[View Release on GitHub](https://github.com/softcommerceltd/mage2plenty-os/releases/tag/v2.0.6)
+[View Release on GitHub](https://github.com/byte8/mage2plenty/releases/tag/v2.0.6)
 
 ---
 
@@ -406,7 +510,7 @@ _Internal changes and maintenance updates._
 - allow post-processors to save error results when SKU is available
 - Performance: add sleep interval to item collect queue consumer
 
-[View Release on GitHub](https://github.com/softcommerceltd/mage2plenty-os/releases/tag/v3.1.0)
+[View Release on GitHub](https://github.com/byte8/mage2plenty/releases/tag/v3.1.0)
 
 ---
 
@@ -416,7 +520,7 @@ _Internal changes and maintenance updates._
 
 _Internal changes and maintenance updates._
 
-[View Release on GitHub](https://github.com/softcommerceltd/mage2plenty-os/releases/tag/v2.4.1)
+[View Release on GitHub](https://github.com/byte8/mage2plenty/releases/tag/v2.4.1)
 
 ---
 
@@ -426,7 +530,7 @@ _Internal changes and maintenance updates._
 
 _Internal changes and maintenance updates._
 
-[View Release on GitHub](https://github.com/softcommerceltd/mage2plenty-os/releases/tag/v2.1.3)
+[View Release on GitHub](https://github.com/byte8/mage2plenty/releases/tag/v2.1.3)
 
 ---
 
@@ -438,7 +542,7 @@ _Internal changes and maintenance updates._
 
 - exclude request payload from API error logs unless verbose mode is enabled
 
-[View Release on GitHub](https://github.com/softcommerceltd/mage2plenty-os/releases/tag/v2.1.3)
+[View Release on GitHub](https://github.com/byte8/mage2plenty/releases/tag/v2.1.3)
 
 ---
 
@@ -448,7 +552,7 @@ _Internal changes and maintenance updates._
 
 _Internal changes and maintenance updates._
 
-[View Release on GitHub](https://github.com/softcommerceltd/mage2plenty-os/releases/tag/v2.2.2)
+[View Release on GitHub](https://github.com/byte8/mage2plenty/releases/tag/v2.2.2)
 
 ---
 
@@ -460,7 +564,7 @@ _Internal changes and maintenance updates._
 
 - Performance: add sleep interval to message queue consumers
 
-[View Release on GitHub](https://github.com/softcommerceltd/mage2plenty-os/releases/tag/v2.0.4)
+[View Release on GitHub](https://github.com/byte8/mage2plenty/releases/tag/v2.0.4)
 
 ---
 
@@ -470,7 +574,7 @@ _Internal changes and maintenance updates._
 
 _Internal changes and maintenance updates._
 
-[View Release on GitHub](https://github.com/softcommerceltd/mage2plenty-os/releases/tag/v2.4.1)
+[View Release on GitHub](https://github.com/byte8/mage2plenty/releases/tag/v2.4.1)
 
 ---
 
@@ -480,7 +584,7 @@ _Internal changes and maintenance updates._
 
 _Internal changes and maintenance updates._
 
-[View Release on GitHub](https://github.com/softcommerceltd/mage2plenty-os/releases/tag/v2.0.1)
+[View Release on GitHub](https://github.com/byte8/mage2plenty/releases/tag/v2.0.1)
 
 ---
 
@@ -490,7 +594,7 @@ _Internal changes and maintenance updates._
 
 _Internal changes and maintenance updates._
 
-[View Release on GitHub](https://github.com/softcommerceltd/mage2plenty-os/releases/tag/v2.0.1)
+[View Release on GitHub](https://github.com/byte8/mage2plenty/releases/tag/v2.0.1)
 
 ---
 
@@ -500,7 +604,7 @@ _Internal changes and maintenance updates._
 
 _Internal changes and maintenance updates._
 
-[View Release on GitHub](https://github.com/softcommerceltd/mage2plenty-os/releases/tag/v2.0.3)
+[View Release on GitHub](https://github.com/byte8/mage2plenty/releases/tag/v2.0.3)
 
 ---
 
@@ -510,7 +614,7 @@ _Internal changes and maintenance updates._
 
 _Internal changes and maintenance updates._
 
-[View Release on GitHub](https://github.com/softcommerceltd/mage2plenty-os/releases/tag/v2.0.1)
+[View Release on GitHub](https://github.com/byte8/mage2plenty/releases/tag/v2.0.1)
 
 ---
 
@@ -527,7 +631,7 @@ _Internal changes and maintenance updates._
 - improve notification batching and context enrichment
 - suppress duplicate batch notification emails
 
-[View Release on GitHub](https://github.com/softcommerceltd/mage2plenty-os/releases/tag/v2.1.0)
+[View Release on GitHub](https://github.com/byte8/mage2plenty/releases/tag/v2.1.0)
 
 ---
 
@@ -537,7 +641,7 @@ _Internal changes and maintenance updates._
 
 _Internal changes and maintenance updates._
 
-[View Release on GitHub](https://github.com/softcommerceltd/mage2plenty-os/releases/tag/v2.0.1)
+[View Release on GitHub](https://github.com/byte8/mage2plenty/releases/tag/v2.0.1)
 
 ---
 
@@ -547,7 +651,7 @@ _Internal changes and maintenance updates._
 
 _Internal changes and maintenance updates._
 
-[View Release on GitHub](https://github.com/softcommerceltd/mage2plenty-os/releases/tag/v3.0.4)
+[View Release on GitHub](https://github.com/byte8/mage2plenty/releases/tag/v3.0.4)
 
 ---
 
@@ -557,7 +661,7 @@ _Internal changes and maintenance updates._
 
 _Internal changes and maintenance updates._
 
-[View Release on GitHub](https://github.com/softcommerceltd/mage2plenty-os/releases/tag/v2.0.5)
+[View Release on GitHub](https://github.com/byte8/mage2plenty/releases/tag/v2.0.5)
 
 ---
 
@@ -567,7 +671,7 @@ _Internal changes and maintenance updates._
 
 _Internal changes and maintenance updates._
 
-[View Release on GitHub](https://github.com/softcommerceltd/mage2plenty-os/releases/tag/v2.0.1)
+[View Release on GitHub](https://github.com/byte8/mage2plenty/releases/tag/v2.0.1)
 
 ---
 
@@ -577,7 +681,7 @@ _Internal changes and maintenance updates._
 
 _Internal changes and maintenance updates._
 
-[View Release on GitHub](https://github.com/softcommerceltd/mage2plenty-os/releases/tag/v2.0.4)
+[View Release on GitHub](https://github.com/byte8/mage2plenty/releases/tag/v2.0.4)
 
 ---
 
@@ -587,7 +691,7 @@ _Internal changes and maintenance updates._
 
 _Internal changes and maintenance updates._
 
-[View Release on GitHub](https://github.com/softcommerceltd/mage2plenty-os/releases/tag/v2.1.2)
+[View Release on GitHub](https://github.com/byte8/mage2plenty/releases/tag/v2.1.2)
 
 ---
 
@@ -601,7 +705,7 @@ _Internal changes and maintenance updates._
 - add name fallback for guest orders with missing customer name
 - mark non-retryable error orders as SKIPPED in database
 
-[View Release on GitHub](https://github.com/softcommerceltd/mage2plenty-os/releases/tag/v2.4.1)
+[View Release on GitHub](https://github.com/byte8/mage2plenty/releases/tag/v2.4.1)
 
 ---
 
@@ -611,7 +715,7 @@ _Internal changes and maintenance updates._
 
 _Internal changes and maintenance updates._
 
-[View Release on GitHub](https://github.com/softcommerceltd/mage2plenty-os/releases/tag/v2.0.5)
+[View Release on GitHub](https://github.com/byte8/mage2plenty/releases/tag/v2.0.5)
 
 ---
 
@@ -621,7 +725,7 @@ _Internal changes and maintenance updates._
 
 _Internal changes and maintenance updates._
 
-[View Release on GitHub](https://github.com/softcommerceltd/mage2plenty-os/releases/tag/v2.0.2)
+[View Release on GitHub](https://github.com/byte8/mage2plenty/releases/tag/v2.0.2)
 
 ---
 
@@ -633,7 +737,7 @@ _Internal changes and maintenance updates._
 
 - prevent post-processors from running when type processor fails or is skipped
 
-[View Release on GitHub](https://github.com/softcommerceltd/mage2plenty-os/releases/tag/v3.0.2)
+[View Release on GitHub](https://github.com/byte8/mage2plenty/releases/tag/v3.0.2)
 
 ---
 
@@ -645,7 +749,7 @@ _Internal changes and maintenance updates._
 
 - add plenty_variation_entity lookup for SKU to variation ID resolution
 
-[View Release on GitHub](https://github.com/softcommerceltd/mage2plenty-os/releases/tag/v2.4.0)
+[View Release on GitHub](https://github.com/byte8/mage2plenty/releases/tag/v2.4.0)
 
 ---
 
@@ -657,7 +761,7 @@ _Internal changes and maintenance updates._
 
 - resolve customer class ID from group mapping during contact export
 
-[View Release on GitHub](https://github.com/softcommerceltd/mage2plenty-os/releases/tag/v2.1.2)
+[View Release on GitHub](https://github.com/byte8/mage2plenty/releases/tag/v2.1.2)
 
 ---
 
@@ -667,7 +771,7 @@ _Internal changes and maintenance updates._
 
 _Internal changes and maintenance updates._
 
-[View Release on GitHub](https://github.com/softcommerceltd/mage2plenty-os/releases/tag/v2.1.2)
+[View Release on GitHub](https://github.com/byte8/mage2plenty/releases/tag/v2.1.2)
 
 ---
 
@@ -677,7 +781,7 @@ _Internal changes and maintenance updates._
 
 _Internal changes and maintenance updates._
 
-[View Release on GitHub](https://github.com/softcommerceltd/mage2plenty-os/releases/tag/v2.1.2)
+[View Release on GitHub](https://github.com/byte8/mage2plenty/releases/tag/v2.1.2)
 
 ---
 
@@ -687,7 +791,7 @@ _Internal changes and maintenance updates._
 
 _Internal changes and maintenance updates._
 
-[View Release on GitHub](https://github.com/softcommerceltd/mage2plenty-os/releases/tag/v2.0.3)
+[View Release on GitHub](https://github.com/byte8/mage2plenty/releases/tag/v2.0.3)
 
 ---
 
@@ -697,7 +801,7 @@ _Internal changes and maintenance updates._
 
 _Internal changes and maintenance updates._
 
-[View Release on GitHub](https://github.com/softcommerceltd/mage2plenty-os/releases/tag/v2.2.1)
+[View Release on GitHub](https://github.com/byte8/mage2plenty/releases/tag/v2.2.1)
 
 ---
 
@@ -707,7 +811,7 @@ _Internal changes and maintenance updates._
 
 _Internal changes and maintenance updates._
 
-[View Release on GitHub](https://github.com/softcommerceltd/mage2plenty-os/releases/tag/v2.0.3)
+[View Release on GitHub](https://github.com/byte8/mage2plenty/releases/tag/v2.0.3)
 
 ---
 
@@ -719,7 +823,7 @@ _Internal changes and maintenance updates._
 
 - add rebrand notice and update copyright headers to Byte8 Ltd
 
-[View Release on GitHub](https://github.com/softcommerceltd/mage2plenty-os/releases/tag/v2.4.0)
+[View Release on GitHub](https://github.com/byte8/mage2plenty/releases/tag/v2.4.0)
 
 ---
 
@@ -731,7 +835,7 @@ _Internal changes and maintenance updates._
 
 - skip new non-visible child products from export queue in observer
 
-[View Release on GitHub](https://github.com/softcommerceltd/mage2plenty-os/releases/tag/v3.0.1)
+[View Release on GitHub](https://github.com/byte8/mage2plenty/releases/tag/v3.0.1)
 
 ---
 
@@ -743,7 +847,7 @@ _Internal changes and maintenance updates._
 
 - remove @media-common guard from adminhtml LESS
 
-[View Release on GitHub](https://github.com/softcommerceltd/mage2plenty-os/releases/tag/v2.0.1)
+[View Release on GitHub](https://github.com/byte8/mage2plenty/releases/tag/v2.0.1)
 
 ---
 
@@ -755,7 +859,7 @@ _Internal changes and maintenance updates._
 
 - remove @media-common guard from adminhtml LESS
 
-[View Release on GitHub](https://github.com/softcommerceltd/mage2plenty-os/releases/tag/v3.0.3)
+[View Release on GitHub](https://github.com/byte8/mage2plenty/releases/tag/v3.0.3)
 
 ---
 
@@ -767,7 +871,7 @@ _Internal changes and maintenance updates._
 
 - remove @media-common guard from adminhtml LESS
 
-[View Release on GitHub](https://github.com/softcommerceltd/mage2plenty-os/releases/tag/v2.0.4)
+[View Release on GitHub](https://github.com/byte8/mage2plenty/releases/tag/v2.0.4)
 
 ---
 
@@ -780,7 +884,7 @@ _Internal changes and maintenance updates._
 - skip redundant property group export when groups already exist
 - save property data immediately after export for product export availability
 
-[View Release on GitHub](https://github.com/softcommerceltd/mage2plenty-os/releases/tag/v2.0.3)
+[View Release on GitHub](https://github.com/byte8/mage2plenty/releases/tag/v2.0.3)
 
 ---
 
@@ -792,7 +896,7 @@ _Internal changes and maintenance updates._
 
 - improve system property setup command output and status tracking
 
-[View Release on GitHub](https://github.com/softcommerceltd/mage2plenty-os/releases/tag/v2.1.1)
+[View Release on GitHub](https://github.com/byte8/mage2plenty/releases/tag/v2.1.1)
 
 ---
 
@@ -817,7 +921,7 @@ _Internal changes and maintenance updates._
 - return null early when shipping package ID is zero
 - add validation to prevent duplicate plenty_order_id assignment
 
-[View Release on GitHub](https://github.com/softcommerceltd/mage2plenty-os/releases/tag/v2.4.0)
+[View Release on GitHub](https://github.com/byte8/mage2plenty/releases/tag/v2.4.0)
 
 ---
 
@@ -829,7 +933,7 @@ _Internal changes and maintenance updates._
 
 - resolve incorrect null return for zero quantity in order item model
 
-[View Release on GitHub](https://github.com/softcommerceltd/mage2plenty-os/releases/tag/v2.0.4)
+[View Release on GitHub](https://github.com/byte8/mage2plenty/releases/tag/v2.0.4)
 
 ---
 
@@ -852,7 +956,7 @@ _Internal changes and maintenance updates._
 - align CLI progress bar with export service callback events
 - use existing Magento SKU when product found during custom attribute mapping
 
-[View Release on GitHub](https://github.com/softcommerceltd/mage2plenty-os/releases/tag/v3.0.0)
+[View Release on GitHub](https://github.com/byte8/mage2plenty/releases/tag/v3.0.0)
 
 ---
 
@@ -873,7 +977,7 @@ _Internal changes and maintenance updates._
 - correct shipping profile query filter and code style
 - resolve order import failure when custom attribute mapping is enabled
 
-[View Release on GitHub](https://github.com/softcommerceltd/mage2plenty-os/releases/tag/v2.3.0)
+[View Release on GitHub](https://github.com/byte8/mage2plenty/releases/tag/v2.3.0)
 
 ---
 
@@ -886,7 +990,7 @@ _Internal changes and maintenance updates._
 - update setup command default timeouts to match API client defaults
 - set sensible default API timeouts instead of unlimited
 
-[View Release on GitHub](https://github.com/softcommerceltd/mage2plenty-os/releases/tag/v2.1.1)
+[View Release on GitHub](https://github.com/byte8/mage2plenty/releases/tag/v2.1.1)
 
 ---
 
@@ -898,7 +1002,7 @@ _Internal changes and maintenance updates._
 
 - save attribute data immediately after export to PlentyONE
 
-[View Release on GitHub](https://github.com/softcommerceltd/mage2plenty-os/releases/tag/v2.0.2)
+[View Release on GitHub](https://github.com/byte8/mage2plenty/releases/tag/v2.0.2)
 
 ---
 
@@ -914,7 +1018,7 @@ _Internal changes and maintenance updates._
 
 - remove @media-common guard from adminhtml LESS
 
-[View Release on GitHub](https://github.com/softcommerceltd/mage2plenty-os/releases/tag/v2.3.0)
+[View Release on GitHub](https://github.com/byte8/mage2plenty/releases/tag/v2.3.0)
 
 ---
 
@@ -1077,7 +1181,7 @@ _Internal changes and maintenance updates._
 
 - add missing model property declaration in Save controller
 
-[View Release on GitHub](https://github.com/softcommerceltd/mage2plenty-os/releases/tag/v2.0.2)
+[View Release on GitHub](https://github.com/byte8/mage2plenty/releases/tag/v2.0.2)
 
 ---
 
@@ -1087,7 +1191,7 @@ _Internal changes and maintenance updates._
 
 _Internal changes and maintenance updates._
 
-[View Release on GitHub](https://github.com/softcommerceltd/mage2plenty-os/releases/tag/v3.0.2)
+[View Release on GitHub](https://github.com/byte8/mage2plenty/releases/tag/v3.0.2)
 
 ---
 
@@ -1097,7 +1201,7 @@ _Internal changes and maintenance updates._
 
 _Internal changes and maintenance updates._
 
-[View Release on GitHub](https://github.com/softcommerceltd/mage2plenty-os/releases/tag/v2.0.3)
+[View Release on GitHub](https://github.com/byte8/mage2plenty/releases/tag/v2.0.3)
 
 ---
 
@@ -1109,7 +1213,7 @@ _Internal changes and maintenance updates._
 
 - improve FlushData controller to properly delete property data
 
-[View Release on GitHub](https://github.com/softcommerceltd/mage2plenty-os/releases/tag/v2.0.2)
+[View Release on GitHub](https://github.com/byte8/mage2plenty/releases/tag/v2.0.2)
 
 ---
 
@@ -1121,7 +1225,7 @@ _Internal changes and maintenance updates._
 
 - add TagOptions UI component and comprehensive documentation
 
-[View Release on GitHub](https://github.com/softcommerceltd/mage2plenty-os/releases/tag/v2.1.0)
+[View Release on GitHub](https://github.com/byte8/mage2plenty/releases/tag/v2.1.0)
 
 ---
 
@@ -1133,7 +1237,7 @@ _Internal changes and maintenance updates._
 
 - add order tag management and enhance export configuration
 
-[View Release on GitHub](https://github.com/softcommerceltd/mage2plenty-os/releases/tag/v2.3.0)
+[View Release on GitHub](https://github.com/byte8/mage2plenty/releases/tag/v2.3.0)
 
 ---
 
@@ -1143,7 +1247,7 @@ _Internal changes and maintenance updates._
 
 _Internal changes and maintenance updates._
 
-[View Release on GitHub](https://github.com/softcommerceltd/mage2plenty-os/releases/tag/v2.0.3)
+[View Release on GitHub](https://github.com/byte8/mage2plenty/releases/tag/v2.0.3)
 
 ---
 
@@ -1155,7 +1259,7 @@ _Internal changes and maintenance updates._
 
 - add product export infrastructure and image checksum computation
 
-[View Release on GitHub](https://github.com/softcommerceltd/mage2plenty-os/releases/tag/v2.1.0)
+[View Release on GitHub](https://github.com/byte8/mage2plenty/releases/tag/v2.1.0)
 
 ---
 
@@ -1167,7 +1271,7 @@ _Internal changes and maintenance updates._
 
 - add ItemDataProvider, VariationDataProvider and batch response handling
 
-[View Release on GitHub](https://github.com/softcommerceltd/mage2plenty-os/releases/tag/v2.2.0)
+[View Release on GitHub](https://github.com/byte8/mage2plenty/releases/tag/v2.2.0)
 
 ---
 
@@ -1177,7 +1281,7 @@ _Internal changes and maintenance updates._
 
 _Internal changes and maintenance updates._
 
-[View Release on GitHub](https://github.com/softcommerceltd/mage2plenty-os/releases/tag/v2.1.1)
+[View Release on GitHub](https://github.com/byte8/mage2plenty/releases/tag/v2.1.1)
 
 ---
 
@@ -1187,7 +1291,7 @@ _Internal changes and maintenance updates._
 
 _Internal changes and maintenance updates._
 
-[View Release on GitHub](https://github.com/softcommerceltd/mage2plenty-os/releases/tag/v2.1.1)
+[View Release on GitHub](https://github.com/byte8/mage2plenty/releases/tag/v2.1.1)
 
 ---
 
@@ -1199,7 +1303,7 @@ _Internal changes and maintenance updates._
 
 - add Tag management system for PlentyONE tags
 
-[View Release on GitHub](https://github.com/softcommerceltd/mage2plenty-os/releases/tag/v2.1.0)
+[View Release on GitHub](https://github.com/byte8/mage2plenty/releases/tag/v2.1.0)
 
 ---
 
@@ -1211,7 +1315,7 @@ _Internal changes and maintenance updates._
 
 - use getDefaultName for category path resolution
 
-[View Release on GitHub](https://github.com/softcommerceltd/mage2plenty-os/releases/tag/v2.0.2)
+[View Release on GitHub](https://github.com/byte8/mage2plenty/releases/tag/v2.0.2)
 
 ---
 
@@ -1223,7 +1327,7 @@ _Internal changes and maintenance updates._
 
 - add getDefaultName method to Category and improve CategoryIdCache
 
-[View Release on GitHub](https://github.com/softcommerceltd/mage2plenty-os/releases/tag/v2.2.0)
+[View Release on GitHub](https://github.com/byte8/mage2plenty/releases/tag/v2.2.0)
 
 ---
 
@@ -1235,7 +1339,7 @@ _Internal changes and maintenance updates._
 
 - add MediaChecksumComputeService and memory reset for MediaManagement
 
-[View Release on GitHub](https://github.com/softcommerceltd/mage2plenty-os/releases/tag/v2.2.0)
+[View Release on GitHub](https://github.com/byte8/mage2plenty/releases/tag/v2.2.0)
 
 ---
 
@@ -1247,7 +1351,7 @@ _Internal changes and maintenance updates._
 
 - add explicit string cast for SKU in reservation processing
 
-[View Release on GitHub](https://github.com/softcommerceltd/mage2plenty-os/releases/tag/v2.0.2)
+[View Release on GitHub](https://github.com/byte8/mage2plenty/releases/tag/v2.0.2)
 
 ---
 
@@ -1259,7 +1363,7 @@ _Internal changes and maintenance updates._
 
 - correct time duration formatting for float values
 
-[View Release on GitHub](https://github.com/softcommerceltd/mage2plenty-os/releases/tag/v2.0.2)
+[View Release on GitHub](https://github.com/byte8/mage2plenty/releases/tag/v2.0.2)
 
 ---
 
@@ -1275,7 +1379,7 @@ _Internal changes and maintenance updates._
 
 - prevent order address entity_id mutation breaking PackStation plugin
 
-[View Release on GitHub](https://github.com/softcommerceltd/mage2plenty-os/releases/tag/v2.2.0)
+[View Release on GitHub](https://github.com/byte8/mage2plenty/releases/tag/v2.2.0)
 
 ---
 
@@ -1287,7 +1391,7 @@ _Internal changes and maintenance updates._
 
 - improve type safety in order address and metadata handling
 
-[View Release on GitHub](https://github.com/softcommerceltd/mage2plenty-os/releases/tag/v2.0.2)
+[View Release on GitHub](https://github.com/byte8/mage2plenty/releases/tag/v2.0.2)
 
 ---
 
@@ -1299,7 +1403,7 @@ _Internal changes and maintenance updates._
 
 - add validated SKU to item/variation resolver
 
-[View Release on GitHub](https://github.com/softcommerceltd/mage2plenty-os/releases/tag/v2.1.0)
+[View Release on GitHub](https://github.com/byte8/mage2plenty/releases/tag/v2.1.0)
 
 ---
 
@@ -1311,7 +1415,7 @@ _Internal changes and maintenance updates._
 
 - refactor address relation enrichment and improve contact export
 
-[View Release on GitHub](https://github.com/softcommerceltd/mage2plenty-os/releases/tag/v2.1.0)
+[View Release on GitHub](https://github.com/byte8/mage2plenty/releases/tag/v2.1.0)
 
 ---
 
@@ -1327,7 +1431,7 @@ _Internal changes and maintenance updates._
 
 - improve address matching with street, company and normalization
 
-[View Release on GitHub](https://github.com/softcommerceltd/mage2plenty-os/releases/tag/v2.1.0)
+[View Release on GitHub](https://github.com/byte8/mage2plenty/releases/tag/v2.1.0)
 
 ---
 
@@ -1339,7 +1443,7 @@ _Internal changes and maintenance updates._
 
 - add CronHeartbeat service for monitoring cron system health
 
-[View Release on GitHub](https://github.com/softcommerceltd/mage2plenty-os/releases/tag/v2.1.0)
+[View Release on GitHub](https://github.com/byte8/mage2plenty/releases/tag/v2.1.0)
 
 ---
 
@@ -1349,7 +1453,7 @@ _Internal changes and maintenance updates._
 
 _Internal changes and maintenance updates._
 
-[View Release on GitHub](https://github.com/softcommerceltd/mage2plenty-os/releases/tag/v2.0.1)
+[View Release on GitHub](https://github.com/byte8/mage2plenty/releases/tag/v2.0.1)
 
 ---
 
@@ -1361,7 +1465,7 @@ _Internal changes and maintenance updates._
 
 - remove typed class constants for PHP 8.1/8.2 compatibility
 
-[View Release on GitHub](https://github.com/softcommerceltd/mage2plenty-os/releases/tag/v3.0.1)
+[View Release on GitHub](https://github.com/byte8/mage2plenty/releases/tag/v3.0.1)
 
 ---
 
@@ -1374,7 +1478,7 @@ _Internal changes and maintenance updates._
 - remove typed class constants for PHP 8.1/8.2 compatibility
 - **stock**: use resolved profile ID in stock collection queue handler
 
-[View Release on GitHub](https://github.com/softcommerceltd/mage2plenty-os/releases/tag/v2.0.1)
+[View Release on GitHub](https://github.com/byte8/mage2plenty/releases/tag/v2.0.1)
 
 ---
 
@@ -1386,7 +1490,7 @@ _Internal changes and maintenance updates._
 
 - remove typed class constants for PHP 8.1/8.2 compatibility
 
-[View Release on GitHub](https://github.com/softcommerceltd/mage2plenty-os/releases/tag/v2.0.1)
+[View Release on GitHub](https://github.com/byte8/mage2plenty/releases/tag/v2.0.1)
 
 ---
 
@@ -1398,7 +1502,7 @@ _Internal changes and maintenance updates._
 
 - remove typed class constants for PHP 8.1/8.2 compatibility
 
-[View Release on GitHub](https://github.com/softcommerceltd/mage2plenty-os/releases/tag/v2.0.1)
+[View Release on GitHub](https://github.com/byte8/mage2plenty/releases/tag/v2.0.1)
 
 ---
 
@@ -1419,7 +1523,7 @@ _Internal changes and maintenance updates._
 
 - remove typed class constants for PHP 8.1/8.2 compatibility
 
-[View Release on GitHub](https://github.com/softcommerceltd/mage2plenty-os/releases/tag/v2.1.0)
+[View Release on GitHub](https://github.com/byte8/mage2plenty/releases/tag/v2.1.0)
 
 ---
 
@@ -1432,7 +1536,7 @@ _Internal changes and maintenance updates._
 - remove typed class constants for PHP 8.1/8.2 compatibility
 - Performance: **database**: add composite index for order detection queries
 
-[View Release on GitHub](https://github.com/softcommerceltd/mage2plenty-os/releases/tag/v2.0.1)
+[View Release on GitHub](https://github.com/byte8/mage2plenty/releases/tag/v2.0.1)
 
 ---
 
@@ -1444,7 +1548,7 @@ _Internal changes and maintenance updates._
 
 - remove typed class constants for PHP 8.1/8.2 compatibility
 
-[View Release on GitHub](https://github.com/softcommerceltd/mage2plenty-os/releases/tag/v2.0.1)
+[View Release on GitHub](https://github.com/byte8/mage2plenty/releases/tag/v2.0.1)
 
 ---
 
@@ -1456,7 +1560,7 @@ _Internal changes and maintenance updates._
 
 - remove typed class constants for PHP 8.1/8.2 compatibility
 
-[View Release on GitHub](https://github.com/softcommerceltd/mage2plenty-os/releases/tag/v2.0.1)
+[View Release on GitHub](https://github.com/byte8/mage2plenty/releases/tag/v2.0.1)
 
 ---
 
@@ -1468,7 +1572,7 @@ _Internal changes and maintenance updates._
 
 - remove typed class constants for PHP 8.1/8.2 compatibility
 
-[View Release on GitHub](https://github.com/softcommerceltd/mage2plenty-os/releases/tag/v2.0.1)
+[View Release on GitHub](https://github.com/byte8/mage2plenty/releases/tag/v2.0.1)
 
 ---
 
@@ -1480,7 +1584,7 @@ _Internal changes and maintenance updates._
 
 - remove typed class constants for PHP 8.1/8.2 compatibility
 
-[View Release on GitHub](https://github.com/softcommerceltd/mage2plenty-os/releases/tag/v2.0.1)
+[View Release on GitHub](https://github.com/byte8/mage2plenty/releases/tag/v2.0.1)
 
 ---
 
@@ -1492,7 +1596,7 @@ _Internal changes and maintenance updates._
 
 - remove typed class constants for PHP 8.1/8.2 compatibility
 
-[View Release on GitHub](https://github.com/softcommerceltd/mage2plenty-os/releases/tag/v2.0.1)
+[View Release on GitHub](https://github.com/byte8/mage2plenty/releases/tag/v2.0.1)
 
 ---
 
@@ -1505,7 +1609,7 @@ _Internal changes and maintenance updates._
 - remove typed class constants for PHP 8.1/8.2 compatibility
 - Performance: **category-export**: optimize export process and improve status reporting
 
-[View Release on GitHub](https://github.com/softcommerceltd/mage2plenty-os/releases/tag/v2.0.1)
+[View Release on GitHub](https://github.com/byte8/mage2plenty/releases/tag/v2.0.1)
 
 ---
 
@@ -1517,7 +1621,7 @@ _Internal changes and maintenance updates._
 
 - **category**: add runtime cache and mapping for category IDs
 
-[View Release on GitHub](https://github.com/softcommerceltd/mage2plenty-os/releases/tag/v2.1.0)
+[View Release on GitHub](https://github.com/byte8/mage2plenty/releases/tag/v2.1.0)
 
 ---
 
@@ -1529,7 +1633,7 @@ _Internal changes and maintenance updates._
 
 - remove typed class constants for PHP 8.1/8.2 compatibility
 
-[View Release on GitHub](https://github.com/softcommerceltd/mage2plenty-os/releases/tag/v2.0.1)
+[View Release on GitHub](https://github.com/byte8/mage2plenty/releases/tag/v2.0.1)
 
 ---
 
@@ -1542,7 +1646,7 @@ _Internal changes and maintenance updates._
 - replace union type with mixed for laminas-code compatibility
 - remove typed class constants for PHP 8.1/8.2 compatibility
 
-[View Release on GitHub](https://github.com/softcommerceltd/mage2plenty-os/releases/tag/v2.0.1)
+[View Release on GitHub](https://github.com/byte8/mage2plenty/releases/tag/v2.0.1)
 
 ---
 
@@ -1614,4 +1718,4 @@ _Internal changes and maintenance updates._
 
 ---
 
-For detailed release information, see our [blog posts](/blog/tags/release) or [GitHub releases](https://github.com/softcommerceltd/mage2plenty-os/releases).
+For detailed release information, see our [blog posts](/blog/tags/release) or [GitHub releases](https://github.com/byte8/mage2plenty/releases).

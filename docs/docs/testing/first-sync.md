@@ -327,7 +327,7 @@ bin/magento config:set plenty/client_config/client_id <your_client_id>
 **Cause:** Profile mappings not configured
 
 **Solution:**
-1. Go to **SoftCommerce → Profiles → Manage Profiles → [Profile] → Configuration**
+1. Go to **Byte8 → Profiles → Manage Profiles → [Profile] → Configuration**
 2. Complete all required mapping sections
 3. Save and retry
 

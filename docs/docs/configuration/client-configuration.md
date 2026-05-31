@@ -20,11 +20,11 @@ Before configuring the connection, ensure you have:
 
 1. Log in to your Magento Admin panel
 2. Navigate to **Stores → Configuration**
-3. In the left panel, expand **Soft Commerce**
+3. In the left panel, expand **Byte8**
 4. Select **PlentyONE Integration**
 
 :::tip Navigation Path
-**Stores → Configuration → Soft Commerce → PlentyONE Integration**
+**Stores → Configuration → Byte8 → PlentyONE Integration**
 :::
 
 ## Quick Setup Options
@@ -38,7 +38,7 @@ Before manually configuring settings, you have two convenient options available 
 The Initial Setup Wizard provides a step-by-step guide to configure your PlentyONE connection and collect essential configuration data.
 
 **How to Access**:
-1. Navigate to **Stores → Configuration → Soft Commerce → PlentyONE Integration**
+1. Navigate to **Stores → Configuration → Byte8 → PlentyONE Integration**
 2. In the **Authentication Settings** section header, click the **Actions** dropdown button
 3. Select **Run Setup Wizard**
 
@@ -61,7 +61,7 @@ If this is your first time setting up Mage2Plenty, we strongly recommend using t
 The Purge All Data function removes all synchronized data and configuration collected from PlentyONE, allowing you to start fresh.
 
 **How to Access**:
-1. Navigate to **Stores → Configuration → Soft Commerce → PlentyONE Integration**
+1. Navigate to **Stores → Configuration → Byte8 → PlentyONE Integration**
 2. In the **Authentication Settings** section header, click the **Actions** dropdown button
 3. Select **Purge All Data**
 4. Confirm the action
@@ -190,7 +190,7 @@ A friendly name for this connection (for your reference only).
 **Example**: `Magento Production` or `Mage2Plenty Connection`
 
 **Configuration**:
-1. Navigate to **Stores → Configuration → Soft Commerce → PlentyONE Integration**
+1. Navigate to **Stores → Configuration → Byte8 → PlentyONE Integration**
 2. Expand **Authentication Settings**
 3. Enter a descriptive name in **Client Name**
 
@@ -513,10 +513,10 @@ Enable logging of API request and response data to files.
 - Request and response data recorded
 - Timestamps and durations captured
 - Error details preserved
-- Logged to `var/log/softcommerce/plenty/api.log`
+- Logged to `var/log/plenty/api.log`
 
 **Configuration**:
-1. Navigate to **Stores → Configuration → Soft Commerce → PlentyONE Integration**
+1. Navigate to **Stores → Configuration → Byte8 → PlentyONE Integration**
 2. Expand **Client REST API Settings**
 3. Set **Log REST API** to **Yes**
 4. Configure **Log contents** (see below)
@@ -527,7 +527,7 @@ Enable logging of API request and response data to files.
 **Field**: `api_log_content_filter`
 **Path**: `plenty/developer_config/api_log_content_filter`
 **Type**: Multiselect
-**Source Model**: `SoftCommerce\PlentyClient\Model\Source\ApiLogContentsFilter`
+**Source Model**: `Byte8\PlentyClient\Model\Source\ApiLogContentsFilter`
 **Depends On**: `is_active_api_log` = Yes
 **Scope**: Global
 
@@ -702,7 +702,7 @@ bin/magento cache:flush
 **Solutions**:
 1. Check system time is synchronized (NTP)
 2. Verify refresh token is being saved
-3. Review `var/log/softcommerce/plenty/client.log`
+3. Review `var/log/plenty/client.log`
 4. Clear Magento cache
 5. Reconfigure authentication settings
 

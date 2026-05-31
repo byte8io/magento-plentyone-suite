@@ -290,7 +290,7 @@ Create a new cron schedule directly from the stock import profile form.
 
 **Modal**: `create_schedule_modal`
 **Title**: Schedule Management
-**Form**: `softcommerce_profile_schedule_form`
+**Form**: `byte8_profile_schedule_form`
 
 Inline schedule creation/editing for seamless configuration workflow.
 
@@ -1015,7 +1015,7 @@ Records Fetched: 50
    # Admin: Stores → Configuration → PlentyMarkets → Client
 
    # Test connection
-   bin/magento softcommerce:plenty:client:test
+   bin/magento byte8:plenty:client:test
    ```
 
 2. **Create Stock Import Profile**:
@@ -1575,7 +1575,7 @@ FROM plenty_stock
 WHERE status = 'FAILED';"
 
 # Check mapping configuration
-bin/magento config:show softcommerce_plenty/plenty_stock_import/stock_source_mapping
+bin/magento config:show plenty/plenty_stock_import/stock_source_mapping
 ```
 
 **Solution**:
@@ -1635,7 +1635,7 @@ ORDER BY scheduled_at DESC
 LIMIT 5;"
 
 # Check profile schedule enabled
-bin/magento config:show softcommerce_plenty/plenty_stock_import/schedule_config/status
+bin/magento config:show plenty/plenty_stock_import/schedule_config/status
 ```
 
 **Solution**:
@@ -1825,16 +1825,16 @@ mysql -e "SELECT variation_id, message FROM plenty_stock WHERE status = 'ERROR' 
 
 ```bash
 # View stock import configuration
-bin/magento config:show softcommerce_plenty/plenty_stock_import
+bin/magento config:show plenty/plenty_stock_import
 
 # Check schedule status
-bin/magento config:show softcommerce_plenty/plenty_stock_import/schedule_config/status
+bin/magento config:show plenty/plenty_stock_import/schedule_config/status
 
 # View warehouse mappings
-bin/magento config:show softcommerce_plenty/plenty_stock_import/stock_source_mapping
+bin/magento config:show plenty/plenty_stock_import/stock_source_mapping
 
 # Check reservation settings
-bin/magento config:show softcommerce_plenty/plenty_stock_import/is_active_reservation
+bin/magento config:show plenty/plenty_stock_import/is_active_reservation
 ```
 
 ### Indexing Commands
@@ -1953,7 +1953,7 @@ bin/magento plenty:stock:map --id=12345 --dry-run
 **3. Warehouse Not Mapped**
 ```bash
 # Check warehouse mappings
-bin/magento config:show softcommerce_plenty/plenty_stock_import/stock_source_mapping
+bin/magento config:show plenty/plenty_stock_import/stock_source_mapping
 
 # Solution: Add warehouse mapping
 # Admin: Profile → Stock Configuration → Stock Source Mapping
@@ -1966,7 +1966,7 @@ mysql -e "SELECT warehouse_id, COUNT(*) FROM plenty_stock WHERE status = 'FAILED
 **4. Stock Import Disabled**
 ```bash
 # Check if stock import enabled
-bin/magento config:show softcommerce_plenty/plenty_stock_import/stock_config/is_active
+bin/magento config:show plenty/plenty_stock_import/stock_config/is_active
 
 # Should return: 1
 
@@ -2012,7 +2012,7 @@ bin/magento inventory:status:list --sku="PROBLEM-SKU"
 **1. Reservation Mode Issue**
 ```bash
 # Check reservation setting
-bin/magento config:show softcommerce_plenty/plenty_stock_import/is_active_reservation
+bin/magento config:show plenty/plenty_stock_import/is_active_reservation
 
 # If disabled (0), Magento shows net stock (physical - reserved)
 # If enabled (1), Magento shows physical, with reservations created
@@ -2042,7 +2042,7 @@ bin/magento inventory:source-items:list --sku="PROBLEM-SKU"
 # Total: 100 (not 50!)
 
 # Verify mapping
-bin/magento config:show softcommerce_plenty/plenty_stock_import/stock_source_mapping
+bin/magento config:show plenty/plenty_stock_import/stock_source_mapping
 
 # Ensure all warehouses mapped correctly
 ```
@@ -2084,7 +2084,7 @@ mysql -e "SELECT variation_id, warehouse_id, stock_physical FROM plenty_stock WH
 # Check PlentyONE admin for expected warehouse
 
 # If wrong warehouse, check mapping
-bin/magento config:show softcommerce_plenty/plenty_stock_import/stock_source_mapping
+bin/magento config:show plenty/plenty_stock_import/stock_source_mapping
 ```
 
 ---
@@ -2184,7 +2184,7 @@ bin/magento plenty:item:import --profile-id=1 --skus="PROBLEM-SKU" --force
 **1. Warehouse Mapping Missing**
 ```bash
 # Check all warehouse mappings
-bin/magento config:show softcommerce_plenty/plenty_stock_import/stock_source_mapping
+bin/magento config:show plenty/plenty_stock_import/stock_source_mapping
 
 # Should show multiple rows like:
 # [main_warehouse] => 101
@@ -2212,12 +2212,12 @@ mysql -e "SELECT warehouse_id, COUNT(*) as items, SUM(stock_physical) as total_s
 **3. Main Warehouse Fallback**
 ```bash
 # Check main warehouse configuration
-bin/magento config:show softcommerce_plenty/plenty_stock_import/main_warehouse_id
+bin/magento config:show plenty/plenty_stock_import/main_warehouse_id
 
 # If all stock going to one source, may be using fallback
 # Check for unmapped warehouses in plenty_stock table
 
-mysql -e "SELECT DISTINCT s.warehouse_id, s.sku FROM plenty_stock s LEFT JOIN (SELECT JSON_EXTRACT(value, '$.plenty_source') as warehouse FROM core_config_data WHERE path = 'softcommerce_plenty/plenty_stock_import/stock_source_mapping') m ON s.warehouse_id = m.warehouse WHERE m.warehouse IS NULL LIMIT 10;"
+mysql -e "SELECT DISTINCT s.warehouse_id, s.sku FROM plenty_stock s LEFT JOIN (SELECT JSON_EXTRACT(value, '$.plenty_source') as warehouse FROM core_config_data WHERE path = 'plenty/plenty_stock_import/stock_source_mapping') m ON s.warehouse_id = m.warehouse WHERE m.warehouse IS NULL LIMIT 10;"
 
 # If rows returned, these warehouses are unmapped
 # Add mappings for these warehouses
@@ -2226,7 +2226,7 @@ mysql -e "SELECT DISTINCT s.warehouse_id, s.sku FROM plenty_stock s LEFT JOIN (S
 **4. Source Assignment Algorithm Issue**
 ```bash
 # Check source selection algorithm
-bin/magento config:show softcommerce_plenty/plenty_stock_import/source_selection_algorithm
+bin/magento config:show plenty/plenty_stock_import/source_selection_algorithm
 
 # Ensure correct algorithm selected (Priority or Distance)
 
@@ -2252,7 +2252,7 @@ bin/magento plenty:stock:import --profile-id=1 --warehouse-id=102 --force
 **1. Schedule Disabled**
 ```bash
 # Check if schedule enabled
-bin/magento config:show softcommerce_plenty/plenty_stock_import/schedule_config/status
+bin/magento config:show plenty/plenty_stock_import/schedule_config/status
 
 # Should return: 1
 
@@ -2277,7 +2277,7 @@ tail -50 var/log/plenty_stock_import.log
 **3. Schedule Not Selected**
 ```bash
 # Check schedule ID
-bin/magento config:show softcommerce_plenty/plenty_stock_import/schedule_config/schedule_id
+bin/magento config:show plenty/plenty_stock_import/schedule_config/schedule_id
 
 # Should return schedule ID (not empty)
 
@@ -2288,7 +2288,7 @@ bin/magento config:show softcommerce_plenty/plenty_stock_import/schedule_config/
 **4. Cron Expression Invalid**
 ```bash
 # Check cron expression for schedule
-mysql -e "SELECT * FROM softcommerce_profile_schedule WHERE entity_id = (SELECT JSON_UNQUOTE(JSON_EXTRACT(value, '$')) FROM core_config_data WHERE path = 'softcommerce_plenty/plenty_stock_import/schedule_config/schedule_id');"
+mysql -e "SELECT * FROM byte8_profile_schedule WHERE entity_id = (SELECT JSON_UNQUOTE(JSON_EXTRACT(value, '$')) FROM core_config_data WHERE path = 'plenty/plenty_stock_import/schedule_config/schedule_id');"
 
 # Verify cron_expr column is valid (e.g., */15 * * * *)
 

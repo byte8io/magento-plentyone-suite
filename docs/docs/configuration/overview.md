@@ -14,19 +14,19 @@ Mage2Plenty configuration is organized into several main sections:
 
 ### 1. Core Configuration
 
-Located at: **Stores → Configuration → Soft Commerce → Core Configuration**
+Located at: **Stores → Configuration → Byte8 → Core Configuration**
 
 This section includes global settings that affect the entire Mage2Plenty extension:
 
 - **Developer Settings**: Logging, debugging, and email notifications
 - **UI Settings**: Interface customization options
-- **Module List**: View all installed Soft Commerce modules
+- **Module List**: View all installed Byte8 modules
 
 See [Core Configuration](/docs/configuration/core-configuration) for details.
 
 ### 2. PlentyONE Integration
 
-Located at: **Stores → Configuration → Soft Commerce → PlentyONE Integration**
+Located at: **Stores → Configuration → Byte8 → PlentyONE Integration**
 
 This section contains PlentyONE-specific settings:
 
@@ -38,7 +38,7 @@ See [Client Configuration](/docs/configuration/client-configuration) for details
 
 ### 3. Profile Configuration
 
-Located at: **SoftCommerce → PlentyONE → Profiles**
+Located at: **Byte8 → PlentyONE → Profiles**
 
 Individual profiles for managing synchronization:
 
@@ -108,27 +108,38 @@ Configuration is stored in Magento's database:
 
 | Table | Contents |
 |-------|----------|
-| `core_config_data` | System configuration values |
-| `softcommerce_plenty_profile` | Profile configurations |
-| `softcommerce_plenty_profile_entity` | Profile entity data |
+| `core_config_data` | System configuration values (including `plenty/client_config/*`) |
+| `byte8_profile_entity` | Profile records (one row per sync profile) |
+| `byte8_profile_config` | Per-profile configuration values |
+| `byte8_profile_history` | Profile execution history |
+| `byte8_profile_schedule` | Profile cron schedule settings |
+| `byte8_profile_notification` | Profile notification log |
+| `byte8_profile_notification_summary` | Aggregated notification summaries |
+| `plenty_client_config` | PlentyONE client connection record |
 
 ## Configuration Commands
 
 Use these CLI commands to manage configuration:
 
 ```bash
-# View configuration
-bin/magento config:show plenty
+# View a specific configuration value (must be a full leaf path)
+bin/magento config:show plenty/client_config/url
+bin/magento config:show plenty/client_config/username
+bin/magento config:show plenty/client_config/client_id
 
-# Set configuration value
+# Set a configuration value
 bin/magento config:set plenty/client_config/url "https://your-plenty-url.com"
 
-# Show sensitive configuration (encrypted)
+# Prompt for sensitive values that need to be configured
 bin/magento config:sensitive:set
 
 # Clear configuration cache
 bin/magento cache:clean config
 ```
+
+:::tip `config:show` requires a full leaf path
+Magento's `config:show` does **not** list values under a section or group — it only prints the value at one exact path. Partial paths like `plenty`, `plenty/client_config`, or `byte8_core` all return `The "<path>" path doesn't exist`. To inspect a setting you must pass its full `section/group/field` path, e.g. `plenty/client_config/url`.
+:::
 
 ## Configuration Best Practices
 
@@ -271,7 +282,7 @@ Now that you understand the configuration overview, proceed to:
 
 If you need assistance with configuration:
 
-- 📧 **Email Support**: support@softcommerce.io
+- 📧 **Email Support**: support@byte8.io
 - 📞 **Phone**: +44 2080 587 795 (GMT working hours)
 - 📖 **Documentation**: Browse this site for detailed guides
 - 🐛 **Bug Reports**: [GitHub Issues](https://github.com/byte8/mage2plenty/issues)

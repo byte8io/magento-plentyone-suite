@@ -61,7 +61,7 @@ bin/magento plenty:attribute:collect --verbose
 # Output:
 # ✓ Collected 45 product attributes
 # ✓ Collected 12 attribute sets
-# ✓ Stored in softcommerce_plenty_attribute table
+# ✓ Stored in plenty_attribute table
 ```
 
 **What gets collected:**
@@ -102,7 +102,7 @@ bin/magento plenty:property:import --verbose
 
 ### Configure Mapping in Profile
 
-1. Navigate to **SoftCommerce → Profiles → Manage Profiles**
+1. Navigate to **Byte8 → Profiles → Manage Profiles**
 2. Select your **Item Import** or **Item Export** profile
 3. Go to **Configuration → Attribute Mapping**
 
@@ -477,7 +477,7 @@ SELECT
 FROM catalog_product_entity p
 JOIN catalog_product_entity_varchar pv ON p.entity_id = pv.entity_id
 JOIN eav_attribute a ON pv.attribute_id = a.attribute_id
-JOIN softcommerce_plenty_attribute pa ON a.attribute_id = pa.magento_attribute_id
+JOIN plenty_attribute pa ON a.attribute_id = pa.magento_attribute_id
 WHERE p.sku = 'TEST-SKU'
 AND pa.sync_direction IN ('export', 'bidirectional');
 ```

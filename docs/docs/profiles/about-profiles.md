@@ -188,12 +188,12 @@ Profiles store data in several database tables:
 
 | Table | Purpose |
 |-------|---------|
-| `softcommerce_profile_entity` | Main profile records |
-| `softcommerce_profile_config` | Profile configuration |
-| `softcommerce_profile_schedule` | Cron schedule settings |
-| `softcommerce_profile_history` | Execution history |
-| `softcommerce_profile_queue` | Async queue messages |
-| `softcommerce_plenty_*_entity` | Synced entity data (products, orders, etc.) |
+| `byte8_profile_entity` | Main profile records |
+| `byte8_profile_config` | Profile configuration |
+| `byte8_profile_schedule` | Cron schedule settings |
+| `byte8_profile_history` | Execution history |
+| `byte8_profile_queue` | Async queue messages |
+| `plenty_*_entity` | Synced entity data (products, orders, etc.) |
 
 ## Profile Features
 
@@ -403,7 +403,7 @@ For example, you cannot create two "Product Import" profiles. If you need differ
 
 ### Admin Interface
 
-Access profiles via: **SoftCommerce → PlentyONE → Profiles**
+Access profiles via: **Byte8 → PlentyONE → Profiles**
 
 **Available Actions**:
 - **View**: See profile details
@@ -421,23 +421,23 @@ Profiles can be managed via CLI:
 
 ```bash
 # List all profiles
-bin/magento softcommerce:profile:list
+bin/magento byte8:profile:list
 
 # View profile details
-bin/magento softcommerce:profile:info --id=1
+bin/magento byte8:profile:info --id=1
 
 # Execute profile manually
-bin/magento softcommerce:profile:run --id=1
+bin/magento byte8:profile:run --id=1
 
 # Enable/disable profile
-bin/magento softcommerce:profile:enable --id=1
-bin/magento softcommerce:profile:disable --id=1
+bin/magento byte8:profile:enable --id=1
+bin/magento byte8:profile:disable --id=1
 
 # View execution history
-bin/magento softcommerce:profile:history --id=1 --limit=10
+bin/magento byte8:profile:history --id=1 --limit=10
 
 # Clear profile history
-bin/magento softcommerce:profile:history:clean --days=30
+bin/magento byte8:profile:history:clean --days=30
 ```
 
 ## Best Practices

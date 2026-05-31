@@ -10,7 +10,7 @@ The **Amasty Gift Card plugin** integrates the popular Amasty Gift Card extensio
 
 ## Overview
 
-**Package**: `softcommerce/module-plenty-amasty-giftcard`
+**Package**: `byte8/module-plenty-amasty-giftcard`
 **Category**: Amasty Integrations
 **License**: OSL-3.0 / AFL-3.0
 **Status**: Production Ready
@@ -52,7 +52,7 @@ Orders containing both regular products and gift cards:
 - **Amasty Gift Card** (`amasty/giftcard`) - Required
 
 ### Mage2Plenty Modules
-- `softcommerce/module-plenty-order-profile` - Required for order export
+- `byte8/module-plenty-order-profile` - Required for order export
 
 ### System Requirements
 - Magento 2.4.4 - 2.4.8
@@ -65,7 +65,7 @@ Orders containing both regular products and gift cards:
 
 ```bash
 # Install the plugin
-composer require softcommerce/module-plenty-amasty-giftcard
+composer require byte8/module-plenty-amasty-giftcard
 
 # Run Magento setup
 bin/magento setup:upgrade
@@ -80,7 +80,7 @@ bin/magento setup:static-content:deploy
 
 ```bash
 # Check module status
-bin/magento module:status SoftCommerce_PlentyAmastyGiftCard
+bin/magento module:status Byte8_PlentyAmastyGiftCard
 
 # Should show as enabled
 ```
@@ -133,7 +133,7 @@ Export with Gift Card Data
 **Solutions**:
 1. Verify plugin is enabled:
    ```bash
-   bin/magento module:status SoftCommerce_PlentyAmastyGiftCard
+   bin/magento module:status Byte8_PlentyAmastyGiftCard
    ```
 
 2. Check Amasty Gift Card is installed:
@@ -143,7 +143,7 @@ Export with Gift Card Data
 
 3. Review order export logs:
    ```bash
-   tail -f var/log/softcommerce/plenty/order.log
+   tail -f var/log/plenty/order.log
    ```
 
 4. Ensure order export profile is configured correctly
@@ -207,7 +207,7 @@ If you encounter issues:
 
 - 📧 **Email**: support@byte8.io
 - 📞 **Phone**: +44 2080 587 795 (GMT working hours)
-- 🐛 **Bug Reports**: [GitHub Issues](https://github.com/softcommerceltd/mage2plenty-os/issues)
+- 🐛 **Bug Reports**: [GitHub Issues](https://github.com/byte8/mage2plenty/issues)
 
 ### Source Code
 
@@ -219,7 +219,7 @@ If you encounter issues:
 
 Check current version:
 ```bash
-composer show softcommerce/module-plenty-amasty-giftcard
+composer show byte8/module-plenty-amasty-giftcard
 ```
 
 ## Related Documentation

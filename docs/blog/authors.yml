@@ -1,14 +1,7 @@
 byte8:
   name: Byte8 Team
-  title: Magento + commerce specialists
-  url: https://byte8.io
-  page: false
-
-# Legacy author retained so historical blog posts authored before the byte8
-# brand migration still build. New release notes should use the `byte8` author.
-softcommerce:
-  name: Soft Commerce Team
   title: PlentyONE Connector Development Team
-  url: https://softcommerce.io
-  image_url: https://github.com/softcommerceltd.png
-  email: support@softcommerce.io
+  url: https://byte8.io
+  image_url: https://github.com/byte8.png
+  email: support@byte8.io
+  page: false

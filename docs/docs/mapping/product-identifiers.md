@@ -379,8 +379,8 @@ SkuPool (Fast Lookups with EAV Support)
 
 #### Layer 1: Configuration Service
 
-**Interface:** `SoftCommerce\PlentyItem\Api\ProductMappingConfigInterface`
-**Implementation:** `SoftCommerce\PlentyItem\Model\ProductMappingConfig`
+**Interface:** `Byte8\PlentyItem\Api\ProductMappingConfigInterface`
+**Implementation:** `Byte8\PlentyItem\Model\ProductMappingConfig`
 
 **Methods:**
 ```php
@@ -402,8 +402,8 @@ public function isSoftFallbackEnabled(): bool;
 
 #### Layer 2: Mapping Strategy
 
-**Interface:** `SoftCommerce\PlentyItem\Api\ProductMappingStrategyInterface`
-**Implementation:** `SoftCommerce\PlentyItem\Model\ProductMappingStrategy`
+**Interface:** `Byte8\PlentyItem\Api\ProductMappingStrategyInterface`
+**Implementation:** `Byte8\PlentyItem\Model\ProductMappingStrategy`
 
 **Methods:**
 ```php
@@ -435,8 +435,8 @@ public function getProductIdsByIdentifiers(array $identifiers): array;
 
 #### Layer 3: Data Storage
 
-**Interface:** `SoftCommerce\PlentyItem\Api\SkuPoolInterface`
-**Implementation:** `SoftCommerce\PlentyItem\Model\SkuPool`
+**Interface:** `Byte8\PlentyItem\Api\SkuPoolInterface`
+**Implementation:** `Byte8\PlentyItem\Model\SkuPool`
 
 **Features:**
 - Pre-loads product data with EAV joins when custom mapping enabled
@@ -530,7 +530,7 @@ declare(strict_types=1);
 
 namespace YourVendor\YourModule\Model;
 
-use SoftCommerce\PlentyItem\Api\ProductMappingConfigInterface;
+use Byte8\PlentyItem\Api\ProductMappingConfigInterface;
 
 class YourService
 {
@@ -579,7 +579,7 @@ declare(strict_types=1);
 
 namespace YourVendor\YourModule\Model;
 
-use SoftCommerce\PlentyItem\Api\ProductMappingStrategyInterface;
+use Byte8\PlentyItem\Api\ProductMappingStrategyInterface;
 
 class OrderImportService
 {
@@ -636,7 +636,7 @@ declare(strict_types=1);
 
 namespace YourVendor\YourModule\Model;
 
-use SoftCommerce\PlentyItem\Api\SkuPoolInterface;
+use Byte8\PlentyItem\Api\SkuPoolInterface;
 
 class ProductImportService
 {

@@ -535,7 +535,7 @@ Test this feature thoroughly in a staging environment before enabling in product
 
 Enable logging of all API request data sent to PlentyONE to file system.
 
-**Log Location**: `var/log/softcommerce/plenty/category_export_request.log`
+**Log Location**: `var/log/plenty/category_export_request.log`
 
 **What Gets Logged**:
 - Complete API request URLs
@@ -570,7 +570,7 @@ Request logs contain API authentication tokens and potentially sensitive categor
 
 Enable logging of all API response data received from PlentyONE to file system.
 
-**Log Location**: `var/log/softcommerce/plenty/category_export_response.log`
+**Log Location**: `var/log/plenty/category_export_response.log`
 
 **What Gets Logged**:
 - Complete API response body
@@ -743,68 +743,68 @@ Schedule Configuration:
 
 ```bash
 # Execute category export profile manually
-bin/magento softcommerce:plenty:category:export --profile-id=2
+bin/magento byte8:plenty:category:export --profile-id=2
 
 # Export specific categories by ID (comma-separated)
-bin/magento softcommerce:plenty:category:export --profile-id=2 --entity-ids=5,12,18
+bin/magento byte8:plenty:category:export --profile-id=2 --entity-ids=5,12,18
 
 # Force re-export of all categories (ignores previous export status)
-bin/magento softcommerce:plenty:category:export --profile-id=2 --force
+bin/magento byte8:plenty:category:export --profile-id=2 --force
 
 # Export with verbose output for debugging
-bin/magento softcommerce:plenty:category:export --profile-id=2 -vvv
+bin/magento byte8:plenty:category:export --profile-id=2 -vvv
 ```
 
 ### Manage Export Queue
 
 ```bash
 # View all categories currently in export queue
-bin/magento softcommerce:plenty:category:queue --list
+bin/magento byte8:plenty:category:queue --list
 
 # Add specific category to export queue manually
-bin/magento softcommerce:plenty:category:queue --add --entity-id=15
+bin/magento byte8:plenty:category:queue --add --entity-id=15
 
 # Add multiple categories to queue
-bin/magento softcommerce:plenty:category:queue --add --entity-ids=15,16,17
+bin/magento byte8:plenty:category:queue --add --entity-ids=15,16,17
 
 # Remove category from export queue
-bin/magento softcommerce:plenty:category:queue --remove --entity-id=15
+bin/magento byte8:plenty:category:queue --remove --entity-id=15
 
 # Clear entire export queue (use with caution)
-bin/magento softcommerce:plenty:category:queue --clear
+bin/magento byte8:plenty:category:queue --clear
 
 # View queue statistics
-bin/magento softcommerce:plenty:category:queue --stats
+bin/magento byte8:plenty:category:queue --stats
 ```
 
 ### Profile Management
 
 ```bash
 # List all category export profiles
-bin/magento softcommerce:profile:list --type=plenty_category_export
+bin/magento byte8:profile:list --type=plenty_category_export
 
 # View profile configuration
-bin/magento softcommerce:profile:info --profile-id=2
+bin/magento byte8:profile:info --profile-id=2
 
 # Enable/disable profile scheduling
-bin/magento softcommerce:profile:schedule:enable --profile-id=2
-bin/magento softcommerce:profile:schedule:disable --profile-id=2
+bin/magento byte8:profile:schedule:enable --profile-id=2
+bin/magento byte8:profile:schedule:disable --profile-id=2
 ```
 
 ### Debugging and Diagnostics
 
 ```bash
 # Validate profile configuration
-bin/magento softcommerce:plenty:category:validate --profile-id=2
+bin/magento byte8:plenty:category:validate --profile-id=2
 
 # Test API connection for profile
-bin/magento softcommerce:plenty:category:test-connection --profile-id=2
+bin/magento byte8:plenty:category:test-connection --profile-id=2
 
 # View recent export history
-bin/magento softcommerce:profile:history --profile-id=2 --limit=10
+bin/magento byte8:profile:history --profile-id=2 --limit=10
 
 # Clear category export history
-bin/magento softcommerce:profile:history:clear --profile-id=2 --older-than=30
+bin/magento byte8:profile:history:clear --profile-id=2 --older-than=30
 ```
 
 ---
@@ -823,13 +823,13 @@ bin/magento softcommerce:profile:history:clear --profile-id=2 --older-than=30
 1. **Check Event Configuration**
    ```bash
    # Verify new entity observer is enabled if expecting automatic queue addition
-   bin/magento config:show softcommerce_plenty_category/event_config/new_entity_observer
+   bin/magento config:show plenty_category/event_config/new_entity_observer
    ```
    - If disabled and you want automatic queuing, enable it in profile configuration
 
 2. **Review Export Queue**
    ```bash
-   bin/magento softcommerce:plenty:category:queue --list
+   bin/magento byte8:plenty:category:queue --list
    ```
    - Verify categories are actually in the queue
    - Check queue status (pending, processing, error)
@@ -844,7 +844,7 @@ bin/magento softcommerce:profile:history:clear --profile-id=2 --older-than=30
 4. **Check Schedule Configuration**
    ```bash
    # Verify scheduled export is enabled
-   bin/magento config:show softcommerce_plenty_category/schedule_config/status
+   bin/magento config:show plenty_category/schedule_config/status
 
    # Check when schedule last ran
    bin/magento cron:job:list | grep category_export
@@ -855,13 +855,13 @@ bin/magento softcommerce:profile:history:clear --profile-id=2 --older-than=30
 5. **Review API Response Logs**
    - Enable response logging in profile configuration
    - Execute export manually
-   - Check `var/log/softcommerce/plenty/category_export_response.log`
+   - Check `var/log/plenty/category_export_response.log`
    - Look for API error codes (400, 401, 403, 500) or validation errors
 
 6. **Verify Client Configuration**
    ```bash
    # Test API connection
-   bin/magento softcommerce:plenty:category:test-connection --profile-id=2
+   bin/magento byte8:plenty:category:test-connection --profile-id=2
    ```
    - Ensure client has valid credentials
    - Check API token hasn't expired
@@ -888,7 +888,7 @@ bin/magento softcommerce:profile:history:clear --profile-id=2 --older-than=30
 
 1. **Check Delete Observer Setting**
    ```bash
-   bin/magento config:show softcommerce_plenty_category/event_config/deleted_entity_observer
+   bin/magento config:show plenty_category/event_config/deleted_entity_observer
    ```
    - If enabled (value: 1), deletions in Magento trigger PlentyONE deletions
    - Review if this is intentional behavior
@@ -971,7 +971,7 @@ bin/magento softcommerce:profile:history:clear --profile-id=2 --older-than=30
 2. **Reset Category Mappings**
    ```bash
    # Clear category mappings (will trigger full re-export)
-   bin/magento softcommerce:plenty:category:mapping:reset --profile-id=2
+   bin/magento byte8:plenty:category:mapping:reset --profile-id=2
    ```
    - Clears Magento-to-PlentyONE category ID mappings
    - Next export will re-establish correct mappings
@@ -1012,7 +1012,7 @@ bin/magento softcommerce:profile:history:clear --profile-id=2 --older-than=30
 3. **Verify PlentyONE Locale Configuration**
    ```bash
    # View collected configuration data
-   bin/magento softcommerce:plenty:category:config --profile-id=2
+   bin/magento byte8:plenty:category:config --profile-id=2
    ```
    - Ensure PlentyONE has matching locales configured
    - Check locale codes match exactly (en, de, fr, not en_US, de_DE, fr_FR)
@@ -1020,7 +1020,7 @@ bin/magento softcommerce:profile:history:clear --profile-id=2 --older-than=30
 4. **Review Export Logs**
    - Enable request logging
    - Execute export manually
-   - Check `var/log/softcommerce/plenty/category_export_request.log`
+   - Check `var/log/plenty/category_export_request.log`
    - Verify data for each locale is being sent
 
 **Solutions**:
@@ -1049,7 +1049,7 @@ bin/magento softcommerce:profile:history:clear --profile-id=2 --older-than=30
 4. **Re-Export with Force Flag**
    ```bash
    # Force re-export all categories
-   bin/magento softcommerce:plenty:category:export --profile-id=2 --force
+   bin/magento byte8:plenty:category:export --profile-id=2 --force
    ```
    - Ignores previous export status
    - Re-sends all category data including translations
@@ -1108,7 +1108,7 @@ bin/magento softcommerce:profile:history:clear --profile-id=2 --older-than=30
    - CLI has higher default timeout limits
    - Run manual exports via CLI instead of admin panel
    ```bash
-   bin/magento softcommerce:plenty:category:export --profile-id=2
+   bin/magento byte8:plenty:category:export --profile-id=2
    ```
    - Schedule using system cron instead of Magento cron for better resource allocation
 
@@ -1155,7 +1155,7 @@ bin/magento softcommerce:profile:history:clear --profile-id=2 --older-than=30
 1. **Monitor Export Queue**
    - Regularly check queue size and status
    ```bash
-   bin/magento softcommerce:plenty:category:queue --stats
+   bin/magento byte8:plenty:category:queue --stats
    ```
    - Investigate if queue grows continuously without processing
    - Clear stuck items and resolve underlying issues
@@ -1171,7 +1171,7 @@ bin/magento softcommerce:profile:history:clear --profile-id=2 --older-than=30
    - Rotate or clear old log files to manage disk space
    ```bash
    # Clear logs older than 30 days
-   find var/log/softcommerce/plenty/ -name "category_*" -mtime +30 -delete
+   find var/log/plenty/ -name "category_*" -mtime +30 -delete
    ```
 
 4. **Optimize Schedule Frequency**

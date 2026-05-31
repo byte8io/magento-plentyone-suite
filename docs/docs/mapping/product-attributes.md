@@ -558,7 +558,7 @@ SELECT
     pr.plenty_variation_id,
     pr.variation_attributes
 FROM catalog_product_entity p
-JOIN softcommerce_plenty_item_relation pr ON p.entity_id = pr.magento_product_id
+JOIN plenty_item_relation pr ON p.entity_id = pr.magento_product_id
 WHERE p.sku = 'CONFIG-001';
 
 -- Check attribute mapping
@@ -567,7 +567,7 @@ SELECT
     pv.attribute_id,
     pv.attribute_value_id,
     pa.attribute_code
-FROM softcommerce_plenty_item_variation_attribute pv
+FROM plenty_item_variation_attribute pv
 JOIN plenty_attribute_entity pa ON pv.attribute_id = pa.plenty_attribute_id
 WHERE pv.plenty_item_id = 101;
 ```

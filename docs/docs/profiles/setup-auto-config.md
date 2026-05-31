@@ -257,7 +257,7 @@ Provides default attribute mapping templates:
 
 #### Via Admin Panel
 
-1. **Navigate to:** SoftCommerce → Plenty Profiles
+1. **Navigate to:** Byte8 → Plenty Profiles
 2. **Click:** Add New Profile
 3. **Select:** Profile Type (e.g., "Item Import")
 4. **Click:** Save
@@ -338,7 +338,7 @@ If you prefer manual configuration or need to customize:
 
 ```bash
 # Profiles are typically created via Admin UI
-# Navigate to: SoftCommerce → Plenty Profiles → Add New
+# Navigate to: Byte8 → Plenty Profiles → Add New
 ```
 
 ### 2. Configure Basic Settings
@@ -408,12 +408,12 @@ Order Configuration Tab:
 
 ## Configuration Storage
 
-Configurations are stored in the `softcommerce_profile_config` table:
+Configurations are stored in the `byte8_profile_config` table:
 
 ```sql
 -- View profile configuration
 SELECT profile_id, path, value
-FROM softcommerce_profile_config
+FROM byte8_profile_config
 WHERE profile_id = 1;
 
 -- Example output:
@@ -589,7 +589,7 @@ class YourProfileAutoConfig
 
 ```xml
 <!-- etc/di.xml -->
-<type name="SoftCommerce\PlentyProfile\Model\AutoConfig\ConfigurationDetectorPool">
+<type name="Byte8\PlentyProfile\Model\AutoConfig\ConfigurationDetectorPool">
     <arguments>
         <argument name="detectors" xsi:type="array">
             <item name="your_type" xsi:type="object">YourModule\Model\AutoConfig\YourProfileConfigurationDetector</item>

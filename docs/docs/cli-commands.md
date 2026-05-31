@@ -1702,7 +1702,7 @@ Saleable: 100.00 + (-12.00) = 88.00
 - Reserved quantity is sum of all reservations (negative values)
 - Saleable quantity is what's available for sale
 - External reservations are managed by PlentyONE sync
-- Uses `SoftCommerce\PlentyStock` repositories for accurate data
+- Uses `Byte8\PlentyStock` repositories for accurate data
 
 ### Stock Setup Commands
 
@@ -2122,7 +2122,7 @@ Item Import (ID: 1)
 **Important Notes:**
 - Statistics are calculated for the last 30 days only
 - Schedule configuration: **Stores > Configuration > PlentyONE > [Module] > Schedule**
-- Profile history is stored in `softcommerce_profile_history` table
+- Profile history is stored in `byte8_profile_history` table
 - Cron must be configured and running for scheduled execution
 
 ### Profile Configuration Export/Import

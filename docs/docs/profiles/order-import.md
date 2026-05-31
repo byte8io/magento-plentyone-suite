@@ -1546,37 +1546,37 @@ Execute order import operations manually via command line.
 
 ```bash
 # Import orders using profile
-bin/magento softcommerce:plenty:order:import --profile-id=7
+bin/magento byte8:plenty:order:import --profile-id=7
 
 # Import specific order by PlentyONE ID
-bin/magento softcommerce:plenty:order:import --profile-id=7 --order-id=12345
+bin/magento byte8:plenty:order:import --profile-id=7 --order-id=12345
 
 # Import orders by date range
-bin/magento softcommerce:plenty:order:import --profile-id=7 --from-date="2024-01-01" --to-date="2024-01-31"
+bin/magento byte8:plenty:order:import --profile-id=7 --from-date="2024-01-01" --to-date="2024-01-31"
 
 # Import orders with specific PlentyONE status
-bin/magento softcommerce:plenty:order:import --profile-id=7 --status=5
+bin/magento byte8:plenty:order:import --profile-id=7 --status=5
 
 # Force re-import (update existing orders)
-bin/magento softcommerce:plenty:order:import --profile-id=7 --force
+bin/magento byte8:plenty:order:import --profile-id=7 --force
 
 # Collect orders from PlentyONE API (Stage 1)
-bin/magento softcommerce:plenty:order:collect --profile-id=7
+bin/magento byte8:plenty:order:collect --profile-id=7
 
 # Collect specific orders
-bin/magento softcommerce:plenty:order:collect --profile-id=7 --id=12345,67890
+bin/magento byte8:plenty:order:collect --profile-id=7 --id=12345,67890
 
 # Collect orders by date range
-bin/magento softcommerce:plenty:order:collect --profile-id=7 --date-created="2024-01-01/2024-01-31"
+bin/magento byte8:plenty:order:collect --profile-id=7 --date-created="2024-01-01/2024-01-31"
 
 # Run incomplete order detection
-bin/magento softcommerce:plenty:order:detect-incomplete --profile-id=7
+bin/magento byte8:plenty:order:detect-incomplete --profile-id=7
 
 # View profile execution history
-bin/magento softcommerce:profile:history:list --profile-id=7
+bin/magento byte8:profile:history:list --profile-id=7
 
 # Clear profile history
-bin/magento softcommerce:profile:history:clear --profile-id=7
+bin/magento byte8:profile:history:clear --profile-id=7
 ```
 
 **Command Options**:

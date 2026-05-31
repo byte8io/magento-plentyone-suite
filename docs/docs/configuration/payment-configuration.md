@@ -417,7 +417,7 @@ bin/magento cache:flush
    bin/magento config:set payment/plentyone/order_status pending_payment
 
    # Test order import
-   bin/magento softcommerce:plenty:order:import --profile-id=1 --limit=1
+   bin/magento byte8:plenty:order:import --profile-id=1 --limit=1
 
    # Verify order in admin
    # Check status, payment method, order details
@@ -437,7 +437,7 @@ bin/magento cache:flush
 
 **Solutions**:
 1. Clear cache: `bin/magento cache:flush`
-2. Verify module enabled: `bin/magento module:status SoftCommerce_PlentyOrder`
+2. Verify module enabled: `bin/magento module:status Byte8_PlentyOrder`
 3. Run setup upgrade: `bin/magento setup:upgrade`
 4. Check database: `SELECT * FROM core_config_data WHERE path LIKE 'payment/plentyone%'`
 
@@ -449,7 +449,7 @@ bin/magento cache:flush
 1. Enable payment method: `bin/magento config:set payment/plentyone/active 1`
 2. Verify correct website scope: `bin/magento config:show --scope=websites --scope-code=base payment/plentyone/active`
 3. Clear cache: `bin/magento cache:flush`
-4. Check error logs: `tail -f var/log/softcommerce/plenty/order.log`
+4. Check error logs: `tail -f var/log/plenty/order.log`
 
 ### Wrong Order Status After Import
 
@@ -459,7 +459,7 @@ bin/magento cache:flush
 1. Verify configuration: `bin/magento config:show payment/plentyone/order_status`
 2. Check order status exists: **Stores → Settings → Order Status**
 3. Update configuration: `bin/magento config:set payment/plentyone/order_status processing`
-4. Test with single order: `bin/magento softcommerce:plenty:order:import --limit=1`
+4. Test with single order: `bin/magento byte8:plenty:order:import --limit=1`
 
 ### Payment Title Not Displaying
 

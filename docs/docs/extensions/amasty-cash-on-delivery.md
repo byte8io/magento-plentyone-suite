@@ -10,7 +10,7 @@ The **Amasty Cash on Delivery (COD) plugin** integrates Amasty's Cash on Deliver
 
 ## Overview
 
-**Package**: `softcommerce/module-plenty-amasty-cash-on-delivery`
+**Package**: `byte8/module-plenty-amasty-cash-on-delivery`
 **Category**: Amasty Integrations
 **License**: OSL-3.0 / AFL-3.0
 **Status**: Production Ready
@@ -74,7 +74,7 @@ The **Amasty Cash on Delivery (COD) plugin** integrates Amasty's Cash on Deliver
 - **Amasty Cash on Delivery Fee** (`amasty/cashondelivery`) - Required
 
 ### Mage2Plenty Modules
-- `softcommerce/module-plenty-order-profile` - Required for order export
+- `byte8/module-plenty-order-profile` - Required for order export
 
 ### System Requirements
 - Magento 2.4.4 - 2.4.8
@@ -87,7 +87,7 @@ The **Amasty Cash on Delivery (COD) plugin** integrates Amasty's Cash on Deliver
 
 ```bash
 # Install the plugin
-composer require softcommerce/module-plenty-amasty-cash-on-delivery
+composer require byte8/module-plenty-amasty-cash-on-delivery
 
 # Run Magento setup
 bin/magento setup:upgrade
@@ -102,7 +102,7 @@ bin/magento setup:static-content:deploy
 
 ```bash
 # Check module status
-bin/magento module:status SoftCommerce_PlentyAmastryCashOnDelivery
+bin/magento module:status Byte8_PlentyAmastryCashOnDelivery
 
 # Should show as enabled
 ```
@@ -165,7 +165,7 @@ Export to PlentyONE
 **Solutions**:
 1. Verify plugin is enabled:
    ```bash
-   bin/magento module:status SoftCommerce_PlentyAmastryCashOnDelivery
+   bin/magento module:status Byte8_PlentyAmastryCashOnDelivery
    ```
 
 2. Check Amasty COD extension is installed:
@@ -180,7 +180,7 @@ Export to PlentyONE
 
 4. Review order export logs:
    ```bash
-   tail -f var/log/softcommerce/plenty/order.log
+   tail -f var/log/plenty/order.log
    ```
 
 ### Incorrect Fee Amount
@@ -289,7 +289,7 @@ If you encounter issues:
 
 - 📧 **Email**: support@byte8.io
 - 📞 **Phone**: +44 2080 587 795 (GMT working hours)
-- 🐛 **Bug Reports**: [GitHub Issues](https://github.com/softcommerceltd/mage2plenty-os/issues)
+- 🐛 **Bug Reports**: [GitHub Issues](https://github.com/byte8/mage2plenty/issues)
 
 ### Source Code
 
@@ -301,7 +301,7 @@ If you encounter issues:
 
 Check current version:
 ```bash
-composer show softcommerce/module-plenty-amasty-cash-on-delivery
+composer show byte8/module-plenty-amasty-cash-on-delivery
 ```
 
 ## Related Documentation

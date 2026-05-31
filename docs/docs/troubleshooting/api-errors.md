@@ -170,8 +170,8 @@ Error: Property with ID 100 not found
 4. **Check entity mapping:**
    ```sql
    -- Check if entity is mapped
-   SELECT * FROM softcommerce_plenty_item_relation WHERE plenty_item_id = 12345;
-   SELECT * FROM softcommerce_plenty_order_relation WHERE plenty_order_id = 67890;
+   SELECT * FROM plenty_item_relation WHERE plenty_item_id = 12345;
+   SELECT * FROM plenty_order_relation WHERE plenty_order_id = 67890;
    ```
 
 ### 422 Unprocessable Entity
@@ -375,7 +375,7 @@ Error: Property with ID 100 not found
 bin/magento plenty:item:collect -i <item_id> --verbose
 
 # Check variation mappings
-mysql> SELECT * FROM softcommerce_plenty_item_variation_relation WHERE plenty_item_id = <item_id>;
+mysql> SELECT * FROM plenty_item_variation_relation WHERE plenty_item_id = <item_id>;
 ```
 
 #### "Main variation required"
@@ -408,7 +408,7 @@ mysql> SELECT * FROM softcommerce_plenty_item_variation_relation WHERE plenty_it
 bin/magento plenty:setup:create --type=referrer
 
 # Verify referrer in profile config
-# SoftCommerce → Profiles → Manage Profiles → [Order Profile] → Configuration
+# Byte8 → Profiles → Manage Profiles → [Order Profile] → Configuration
 # Set Order Referrer to "magento"
 ```
 
