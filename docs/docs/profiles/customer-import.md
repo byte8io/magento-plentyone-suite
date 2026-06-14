@@ -751,7 +751,7 @@ Customer import relies on scheduled execution or manual CLI triggers:
 # Runs automatically based on schedule configuration
 
 # Manual import
-bin/magento byte8:plenty:customer:import --profile-id=3
+bin/magento plenty:customer:import --profile-id=3
 ```
 
 ---
@@ -911,14 +911,14 @@ Log Configuration:
 6. Enable request/response logging
 7. Start with small test batch (10-50 customers):
    ```bash
-   bin/magento byte8:plenty:customer:import --profile-id=3 --entity-ids=1,2,3,4,5
+   bin/magento plenty:customer:import --profile-id=3 --entity-ids=1,2,3,4,5
    ```
 8. Verify customers in Magento admin
 9. Check customer groups, addresses, prefixes
 10. Review logs for any errors or warnings
 11. Process full customer database:
     ```bash
-    bin/magento byte8:plenty:customer:import --profile-id=3
+    bin/magento plenty:customer:import --profile-id=3
     ```
 12. Monitor execution and review final statistics
 13. Disable logging after successful completion
@@ -1051,19 +1051,19 @@ Schedule Configuration (Both):
 
 ```bash
 # Import all customers from local cache
-bin/magento byte8:plenty:customer:import --profile-id=3
+bin/magento plenty:customer:import --profile-id=3
 
 # Import specific contacts by ID (comma-separated)
-bin/magento byte8:plenty:customer:import --profile-id=3 --entity-ids=100,101,102
+bin/magento plenty:customer:import --profile-id=3 --entity-ids=100,101,102
 
 # Import for specific store
-bin/magento byte8:plenty:customer:import --profile-id=3 --store-id=1
+bin/magento plenty:customer:import --profile-id=3 --store-id=1
 
 # Force re-import (update existing customers)
-bin/magento byte8:plenty:customer:import --profile-id=3 --force
+bin/magento plenty:customer:import --profile-id=3 --force
 
 # Import with verbose output for debugging
-bin/magento byte8:plenty:customer:import --profile-id=3 -vvv
+bin/magento plenty:customer:import --profile-id=3 -vvv
 ```
 
 ### Manage Configuration Data
@@ -1259,7 +1259,7 @@ bin/magento byte8:plenty:customer:collect --profile-id=1 --force
    ```bash
    # Delete incorrect customers
    # Re-run import with correct store mapping
-   bin/magento byte8:plenty:customer:import --profile-id=3 --force
+   bin/magento plenty:customer:import --profile-id=3 --force
    ```
 
 4. **Manual Customer Website Correction**
@@ -1329,7 +1329,7 @@ bin/magento byte8:plenty:customer:collect --profile-id=1 --force
 3. **Re-Import Affected Customers**
    ```bash
    # Re-import to update group assignments
-   bin/magento byte8:plenty:customer:import --profile-id=3 --force --entity-ids=100,101,102
+   bin/magento plenty:customer:import --profile-id=3 --force --entity-ids=100,101,102
    ```
    - Force flag updates existing customers
    - Verify correct group after re-import
@@ -1426,7 +1426,7 @@ bin/magento byte8:plenty:customer:collect --profile-id=1 --force
 4. **Re-Import with Address Creation**
    ```bash
    # Re-import customers to create addresses
-   bin/magento byte8:plenty:customer:import --profile-id=3 --force
+   bin/magento plenty:customer:import --profile-id=3 --force
    ```
    - Addresses should be created/updated on re-import
    - Verify in Magento admin after completion
@@ -1575,7 +1575,7 @@ bin/magento byte8:plenty:customer:collect --profile-id=1 --force
    bin/magento indexer:set-mode schedule
 
    # Run import
-   bin/magento byte8:plenty:customer:import --profile-id=3
+   bin/magento plenty:customer:import --profile-id=3
 
    # Reindex once at end
    bin/magento indexer:reindex customer_grid
@@ -1587,7 +1587,7 @@ bin/magento byte8:plenty:customer:collect --profile-id=1 --force
    - CLI has higher default timeout limits
    - Run imports via CLI instead of admin panel
    ```bash
-   bin/magento byte8:plenty:customer:import --profile-id=3
+   bin/magento plenty:customer:import --profile-id=3
    ```
 
 5. **Disable Address Creation Temporarily**
@@ -1598,8 +1598,8 @@ bin/magento byte8:plenty:customer:collect --profile-id=1 --force
 6. **Split Into Multiple Runs**
    ```bash
    # Import by batches manually
-   bin/magento byte8:plenty:customer:import --profile-id=3 --entity-ids=1-1000
-   bin/magento byte8:plenty:customer:import --profile-id=3 --entity-ids=1001-2000
+   bin/magento plenty:customer:import --profile-id=3 --entity-ids=1-1000
+   bin/magento plenty:customer:import --profile-id=3 --entity-ids=1001-2000
    ```
 
 ---

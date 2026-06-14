@@ -704,7 +704,7 @@ Use CLI commands or scheduled exports with queue processing to achieve similar a
 bin/magento byte8:plenty:customer:queue --add --entity-id=123
 
 # Process queue on schedule
-bin/magento byte8:plenty:customer:export --profile-id=4 --queue
+bin/magento plenty:customer:export --profile-id=4 --queue
 ```
 
 ---
@@ -853,13 +853,13 @@ Log Configuration:
 6. Enable request/response logging
 7. Start with small test batch (10-50 customers):
    ```bash
-   bin/magento byte8:plenty:customer:export --profile-id=4 --entity-ids=1,2,3,4,5
+   bin/magento plenty:customer:export --profile-id=4 --entity-ids=1,2,3,4,5
    ```
 8. Verify contacts and addresses in PlentyONE
 9. Review logs for any errors or warnings
 10. Process full customer database:
     ```bash
-    bin/magento byte8:plenty:customer:export --profile-id=4
+    bin/magento plenty:customer:export --profile-id=4
     ```
 11. Monitor execution and review final statistics
 12. Disable logging after successful completion
@@ -918,7 +918,7 @@ bin/magento byte8:plenty:customer:queue --list
 bin/magento byte8:plenty:customer:queue --add --entity-id=500
 
 # Process queue manually (optional, schedule handles this)
-bin/magento byte8:plenty:customer:export --profile-id=4 --queue
+bin/magento plenty:customer:export --profile-id=4 --queue
 ```
 
 ---
@@ -980,25 +980,25 @@ Schedule Configuration:
 
 ```bash
 # Export all customers
-bin/magento byte8:plenty:customer:export --profile-id=4
+bin/magento plenty:customer:export --profile-id=4
 
 # Export specific customers by ID (comma-separated)
-bin/magento byte8:plenty:customer:export --profile-id=4 --entity-ids=100,101,102
+bin/magento plenty:customer:export --profile-id=4 --entity-ids=100,101,102
 
 # Export new customers only (customers not yet exported)
-bin/magento byte8:plenty:customer:export --profile-id=4 --new-only
+bin/magento plenty:customer:export --profile-id=4 --new-only
 
 # Export customers from specific store
-bin/magento byte8:plenty:customer:export --profile-id=4 --store-id=1
+bin/magento plenty:customer:export --profile-id=4 --store-id=1
 
 # Process export queue (customers added to queue)
-bin/magento byte8:plenty:customer:export --profile-id=4 --queue
+bin/magento plenty:customer:export --profile-id=4 --queue
 
 # Force re-export (ignores previous export status)
-bin/magento byte8:plenty:customer:export --profile-id=4 --force
+bin/magento plenty:customer:export --profile-id=4 --force
 
 # Export with verbose output for debugging
-bin/magento byte8:plenty:customer:export --profile-id=4 -vvv
+bin/magento plenty:customer:export --profile-id=4 -vvv
 ```
 
 ### Manage Export Queue
@@ -1197,7 +1197,7 @@ bin/magento byte8:plenty:customer:check-mapping --customer-id=123
 3. **Re-Export Affected Customers**
    ```bash
    # Re-export customers with force flag
-   bin/magento byte8:plenty:customer:export --profile-id=4 --force --entity-ids=100,101,102
+   bin/magento plenty:customer:export --profile-id=4 --force --entity-ids=100,101,102
    ```
    - Force flag overwrites existing contact data
    - Verify correct class after re-export
@@ -1288,7 +1288,7 @@ bin/magento byte8:plenty:customer:check-mapping --customer-id=123
 4. **Re-Export with Address Creation**
    ```bash
    # Re-export customers to create addresses
-   bin/magento byte8:plenty:customer:export --profile-id=4 --force
+   bin/magento plenty:customer:export --profile-id=4 --force
    ```
    - Addresses should be created/updated on re-export
    - Verify in PlentyONE after completion
@@ -1358,7 +1358,7 @@ bin/magento byte8:plenty:customer:check-mapping --customer-id=123
 3. **Re-Export with Correct Mapping**
    ```bash
    # Re-export will update existing contact, not create duplicate
-   bin/magento byte8:plenty:customer:export --profile-id=4 --entity-ids=123
+   bin/magento plenty:customer:export --profile-id=4 --entity-ids=123
    ```
 
 4. **Implement Email Uniqueness**
@@ -1436,7 +1436,7 @@ bin/magento byte8:plenty:customer:check-mapping --customer-id=123
    - CLI has higher default timeout limits
    - Run manual exports via CLI instead of admin panel
    ```bash
-   bin/magento byte8:plenty:customer:export --profile-id=4
+   bin/magento plenty:customer:export --profile-id=4
    ```
    - Schedule using system cron instead of Magento cron
 
@@ -1449,10 +1449,10 @@ bin/magento byte8:plenty:customer:check-mapping --customer-id=123
    - Export by customer segments
    ```bash
    # Export customers 1-1000
-   bin/magento byte8:plenty:customer:export --profile-id=4 --entity-ids=1-1000
+   bin/magento plenty:customer:export --profile-id=4 --entity-ids=1-1000
 
    # Export customers 1001-2000
-   bin/magento byte8:plenty:customer:export --profile-id=4 --entity-ids=1001-2000
+   bin/magento plenty:customer:export --profile-id=4 --entity-ids=1001-2000
    ```
 
 6. **Schedule During Off-Peak**

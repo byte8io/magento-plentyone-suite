@@ -417,7 +417,7 @@ bin/magento cache:flush
    bin/magento config:set payment/plentyone/order_status pending_payment
 
    # Test order import
-   bin/magento byte8:plenty:order:import --profile-id=1 --limit=1
+   bin/magento plenty:order:import --profile-id=1 --limit=1
 
    # Verify order in admin
    # Check status, payment method, order details
@@ -459,7 +459,7 @@ bin/magento cache:flush
 1. Verify configuration: `bin/magento config:show payment/plentyone/order_status`
 2. Check order status exists: **Stores → Settings → Order Status**
 3. Update configuration: `bin/magento config:set payment/plentyone/order_status processing`
-4. Test with single order: `bin/magento byte8:plenty:order:import --limit=1`
+4. Test with single order: `bin/magento plenty:order:import --limit=1`
 
 ### Payment Title Not Displaying
 

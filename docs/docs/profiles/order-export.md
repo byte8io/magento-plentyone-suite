@@ -1163,25 +1163,25 @@ Execute order export operations manually via command line.
 
 ```bash
 # Export all pending orders
-bin/magento byte8:plenty:order:export --profile-id=8
+bin/magento plenty:order:export --profile-id=8
 
 # Export specific order
-bin/magento byte8:plenty:order:export --profile-id=8 --order-id=1000001
+bin/magento plenty:order:export --profile-id=8 --order-id=1000001
 
 # Export orders by status
-bin/magento byte8:plenty:order:export --profile-id=8 --status=processing
+bin/magento plenty:order:export --profile-id=8 --status=processing
 
 # Export orders by date range
-bin/magento byte8:plenty:order:export --profile-id=8 --from-date="2024-01-01" --to-date="2024-01-31"
+bin/magento plenty:order:export --profile-id=8 --from-date="2024-01-01" --to-date="2024-01-31"
 
 # Export with date range
-bin/magento byte8:plenty:order:export --profile-id=8 --from-date="2024-01-01"
+bin/magento plenty:order:export --profile-id=8 --from-date="2024-01-01"
 
 # Process export queue
-bin/magento byte8:plenty:order:export --profile-id=8 --queue
+bin/magento plenty:order:export --profile-id=8 --queue
 
 # Force re-export (update existing order)
-bin/magento byte8:plenty:order:export --profile-id=8 --order-id=1000001 --force
+bin/magento plenty:order:export --profile-id=8 --order-id=1000001 --force
 
 # View profile execution history
 bin/magento byte8:profile:history:list --profile-id=8

@@ -2078,7 +2078,7 @@ Flush Magento cache after import.
 4. **Test Import (Small Batch)**:
    ```bash
    # Import first 10 products
-   bin/magento byte8:plenty:item:import --profile-id=1 --limit=10
+   bin/magento plenty:item:import --profile-id=1 --limit=10
 
    # Check logs
    tail -f var/log/plenty_item_import.log
@@ -2103,7 +2103,7 @@ Flush Magento cache after import.
 7. **Full Catalog Import**:
    ```bash
    # Run full import
-   bin/magento byte8:plenty:item:import --profile-id=1
+   bin/magento plenty:item:import --profile-id=1
 
    # Monitor progress
    tail -f var/log/plenty_item_import.log
@@ -2259,7 +2259,7 @@ Result:
 **Verification**:
 ```bash
 # Test with single product
-bin/magento byte8:plenty:item:import --profile-id=1 --entity-ids=12345
+bin/magento plenty:item:import --profile-id=1 --entity-ids=12345
 
 # Check only price/stock updated
 bin/magento catalog:product:show SKU123
@@ -2450,7 +2450,7 @@ Product Catalog:
 **CLI Commands**:
 ```bash
 # Import configurable products
-bin/magento byte8:plenty:item:import --profile-id=1
+bin/magento plenty:item:import --profile-id=1
 
 # Check parent product
 bin/magento catalog:product:show 12345
@@ -2474,37 +2474,37 @@ bin/magento catalog:attribute:options size
 
 ```bash
 # Full import (all products)
-bin/magento byte8:plenty:item:import --profile-id=1
+bin/magento plenty:item:import --profile-id=1
 
 # Import specific products by PlentyONE variation IDs
-bin/magento byte8:plenty:item:import --profile-id=1 --entity-ids=1001,1002,1003
+bin/magento plenty:item:import --profile-id=1 --entity-ids=1001,1002,1003
 
 # Import with custom batch size
-bin/magento byte8:plenty:item:import --profile-id=1 --batch-size=50
+bin/magento plenty:item:import --profile-id=1 --batch-size=50
 
 # Import limited number of products
-bin/magento byte8:plenty:item:import --profile-id=1 --limit=100
+bin/magento plenty:item:import --profile-id=1 --limit=100
 ```
 
 ### Advanced Import Options
 
 ```bash
 # Force full re-import (ignore timestamps)
-bin/magento byte8:plenty:item:import --profile-id=1 --force
+bin/magento plenty:item:import --profile-id=1 --force
 
 # Import new products only (skip existing)
-bin/magento byte8:plenty:item:import --profile-id=1 --new-only
+bin/magento plenty:item:import --profile-id=1 --new-only
 
 # Import without processing images (faster)
-bin/magento byte8:plenty:item:import --profile-id=1 --skip-media
+bin/magento plenty:item:import --profile-id=1 --skip-media
 
 # Import without triggering indexers
-bin/magento byte8:plenty:item:import --profile-id=1 --skip-reindex
+bin/magento plenty:item:import --profile-id=1 --skip-reindex
 
 # Import with verbose output
-bin/magento byte8:plenty:item:import --profile-id=1 -v
-bin/magento byte8:plenty:item:import --profile-id=1 -vv
-bin/magento byte8:plenty:item:import --profile-id=1 -vvv (debug)
+bin/magento plenty:item:import --profile-id=1 -v
+bin/magento plenty:item:import --profile-id=1 -vv
+bin/magento plenty:item:import --profile-id=1 -vvv (debug)
 ```
 
 ### Product Management Commands
@@ -2972,7 +2972,7 @@ grep "Skipping attribute" var/log/plenty_item_import.log
 **1. Increase Memory Limit**
 ```bash
 # Temporary (CLI)
-php -d memory_limit=4G bin/magento byte8:plenty:item:import --profile-id=1
+php -d memory_limit=4G bin/magento plenty:item:import --profile-id=1
 
 # Permanent (php.ini)
 memory_limit = 4G
@@ -2985,7 +2985,7 @@ memory_limit = 4G
 **2. Reduce Batch Size**
 ```bash
 # Use smaller batches
-bin/magento byte8:plenty:item:import --profile-id=1 --batch-size=25
+bin/magento plenty:item:import --profile-id=1 --batch-size=25
 
 # Or configure in profile
 # Admin: Profile → Schedule Configuration → Batch Size
@@ -2995,7 +2995,7 @@ bin/magento byte8:plenty:item:import --profile-id=1 --batch-size=25
 **3. Increase Timeout**
 ```bash
 # Temporary (CLI)
-php -d max_execution_time=7200 bin/magento byte8:plenty:item:import --profile-id=1
+php -d max_execution_time=7200 bin/magento plenty:item:import --profile-id=1
 
 # Permanent (php.ini)
 max_execution_time = 7200
@@ -3013,7 +3013,7 @@ max_execution_time = 7200
 
 ```bash
 # Fast import: price/stock only, no media, no reindex
-bin/magento byte8:plenty:item:import \
+bin/magento plenty:item:import \
   --profile-id=1 \
   --batch-size=200 \
   --skip-media \
@@ -3167,7 +3167,7 @@ bin/magento config:show plenty/plenty_item_import/attribute_mapping
 bin/magento byte8:plenty:item:cleanup --profile-id=1
 
 # Quarterly: Full catalog re-sync for data integrity
-bin/magento byte8:plenty:item:import --profile-id=1 --force
+bin/magento plenty:item:import --profile-id=1 --force
 ```
 
 ---
@@ -3242,7 +3242,7 @@ Configuration:
 
 Commands:
 bin/magento maintenance:enable
-bin/magento byte8:plenty:item:import --profile-id=1 --skip-reindex
+bin/magento plenty:item:import --profile-id=1 --skip-reindex
 bin/magento indexer:reindex
 bin/magento cache:flush
 bin/magento maintenance:disable
@@ -3387,7 +3387,7 @@ Configuration Steps:
 **Pre-Production Testing**:
 ```bash
 # 1. Test with small dataset
-bin/magento byte8:plenty:item:import --profile-id=1 --limit=10
+bin/magento plenty:item:import --profile-id=1 --limit=10
 
 # 2. Validate different product types
 # - Simple products

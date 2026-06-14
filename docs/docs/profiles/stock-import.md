@@ -1015,7 +1015,7 @@ Records Fetched: 50
    # Admin: Stores → Configuration → PlentyMarkets → Client
 
    # Test connection
-   bin/magento byte8:plenty:client:test
+   bin/magento plenty:client:test
    ```
 
 2. **Create Stock Import Profile**:

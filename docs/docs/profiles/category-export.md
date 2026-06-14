@@ -743,16 +743,16 @@ Schedule Configuration:
 
 ```bash
 # Execute category export profile manually
-bin/magento byte8:plenty:category:export --profile-id=2
+bin/magento plenty:category:export --profile-id=2
 
 # Export specific categories by ID (comma-separated)
-bin/magento byte8:plenty:category:export --profile-id=2 --entity-ids=5,12,18
+bin/magento plenty:category:export --profile-id=2 --entity-ids=5,12,18
 
 # Force re-export of all categories (ignores previous export status)
-bin/magento byte8:plenty:category:export --profile-id=2 --force
+bin/magento plenty:category:export --profile-id=2 --force
 
 # Export with verbose output for debugging
-bin/magento byte8:plenty:category:export --profile-id=2 -vvv
+bin/magento plenty:category:export --profile-id=2 -vvv
 ```
 
 ### Manage Export Queue
@@ -1049,7 +1049,7 @@ bin/magento byte8:profile:history:clear --profile-id=2 --older-than=30
 4. **Re-Export with Force Flag**
    ```bash
    # Force re-export all categories
-   bin/magento byte8:plenty:category:export --profile-id=2 --force
+   bin/magento plenty:category:export --profile-id=2 --force
    ```
    - Ignores previous export status
    - Re-sends all category data including translations
@@ -1108,7 +1108,7 @@ bin/magento byte8:profile:history:clear --profile-id=2 --older-than=30
    - CLI has higher default timeout limits
    - Run manual exports via CLI instead of admin panel
    ```bash
-   bin/magento byte8:plenty:category:export --profile-id=2
+   bin/magento plenty:category:export --profile-id=2
    ```
    - Schedule using system cron instead of Magento cron for better resource allocation
 

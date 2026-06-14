@@ -661,19 +661,19 @@ Schedule Configuration:
 
 ```bash
 # Execute category import profile manually
-bin/magento byte8:plenty:category:import --profile-id=1
+bin/magento plenty:category:import --profile-id=1
 
 # Import specific categories by ID (comma-separated)
-bin/magento byte8:plenty:category:import --profile-id=1 --entity-ids=5,12,18
+bin/magento plenty:category:import --profile-id=1 --entity-ids=5,12,18
 
 # Force re-import of all categories (ignores previous import status)
-bin/magento byte8:plenty:category:import --profile-id=1 --force
+bin/magento plenty:category:import --profile-id=1 --force
 
 # Import with verbose output for debugging
-bin/magento byte8:plenty:category:import --profile-id=1 -vvv
+bin/magento plenty:category:import --profile-id=1 -vvv
 
 # Import for specific store view
-bin/magento byte8:plenty:category:import --profile-id=1 --store-id=1
+bin/magento plenty:category:import --profile-id=1 --store-id=1
 ```
 
 ### Manage Configuration Data
@@ -849,7 +849,7 @@ bin/magento byte8:profile:history:clear --profile-id=1 --older-than=30
 4. **Re-Import with Force Flag**
    ```bash
    # Force re-import all categories
-   bin/magento byte8:plenty:category:import --profile-id=1 --force
+   bin/magento plenty:category:import --profile-id=1 --force
    ```
    - Ignores previous import status
    - Re-fetches all category data including translations
@@ -959,7 +959,7 @@ bin/magento byte8:profile:history:clear --profile-id=1 --older-than=30
    ```bash
    # Use Replace mode to rebuild entire tree
    # First, set API Behaviour to "Replace" in profile
-   bin/magento byte8:plenty:category:import --profile-id=1
+   bin/magento plenty:category:import --profile-id=1
    ```
    - Clears existing structure
    - Rebuilds hierarchy from scratch
@@ -1043,7 +1043,7 @@ bin/magento byte8:profile:history:clear --profile-id=1 --older-than=30
    - CLI has higher default timeout limits
    - Run manual imports via CLI instead of admin panel
    ```bash
-   bin/magento byte8:plenty:category:import --profile-id=1
+   bin/magento plenty:category:import --profile-id=1
    ```
    - Schedule using system cron instead of Magento cron for better resource allocation
 

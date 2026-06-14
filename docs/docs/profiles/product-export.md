@@ -2038,7 +2038,7 @@ bin/magento byte8:profile:history:clear --profile-id=6
 4. **Test Export with Small Batch**
    ```bash
    # Export first 10 products
-   bin/magento byte8:plenty:item:export --profile-id=6 --batch-size=10 --limit=10
+   bin/magento plenty:item:export --profile-id=6 --batch-size=10 --limit=10
    ```
 
 5. **Verify in PlentyONE**
@@ -2051,7 +2051,7 @@ bin/magento byte8:profile:history:clear --profile-id=6
 6. **Full Export**
    ```bash
    # Export all products
-   bin/magento byte8:plenty:item:export --profile-id=6 --batch-size=20
+   bin/magento plenty:item:export --profile-id=6 --batch-size=20
    ```
 
 7. **Enable Schedule**
@@ -2146,7 +2146,7 @@ bin/magento byte8:profile:history:list --profile-id=6 --limit=10
 bin/magento byte8:plenty:item:queue:add --profile-id=6 --updated-since="1 hour ago"
 
 # Export price updates
-bin/magento byte8:plenty:item:export --profile-id=6
+bin/magento plenty:item:export --profile-id=6
 ```
 
 **Verify Price Sync**:
@@ -2187,7 +2187,7 @@ Children:
 
 3. **Export**
    ```bash
-   bin/magento byte8:plenty:item:export --profile-id=6 --batch-size=5
+   bin/magento plenty:item:export --profile-id=6 --batch-size=5
    ```
 
 **Result in PlentyONE**:
@@ -2359,7 +2359,7 @@ Store Views:
 
 6. **Test with Single Configurable**
    ```bash
-   bin/magento byte8:plenty:item:export --profile-id=6 --sku=CONFIGURABLE-SKU --batch-size=1
+   bin/magento plenty:item:export --profile-id=6 --sku=CONFIGURABLE-SKU --batch-size=1
    ```
 
 **Common Issues**:
@@ -2419,7 +2419,7 @@ Store Views:
 7. **Test Image Export**
    ```bash
    # Export single product with images
-   bin/magento byte8:plenty:item:export --profile-id=6 --sku=TEST-SKU -vvv
+   bin/magento plenty:item:export --profile-id=6 --sku=TEST-SKU -vvv
    ```
 
 **Common Issues**:
@@ -2475,7 +2475,7 @@ Store Views:
 
 7. **Test Price Export**
    ```bash
-   bin/magento byte8:plenty:item:export --profile-id=6 --sku=TEST-SKU -vvv
+   bin/magento plenty:item:export --profile-id=6 --sku=TEST-SKU -vvv
    ```
 
 **Common Issues**:
@@ -2512,21 +2512,21 @@ Store Views:
    php_value memory_limit 2G
 
    # Or via CLI
-   php -d memory_limit=2G bin/magento byte8:plenty:item:export
+   php -d memory_limit=2G bin/magento plenty:item:export
    ```
 
 3. **Export by Product Type**
    ```bash
    # Export simple products first (small batches)
-   bin/magento byte8:plenty:item:export --profile-id=6 --type=simple --batch-size=30
+   bin/magento plenty:item:export --profile-id=6 --type=simple --batch-size=30
 
    # Then configurable (smaller batches)
-   bin/magento byte8:plenty:item:export --profile-id=6 --type=configurable --batch-size=5
+   bin/magento plenty:item:export --profile-id=6 --type=configurable --batch-size=5
    ```
 
 4. **Disable Media Export Temporarily**
    ```bash
-   bin/magento byte8:plenty:item:export --profile-id=6 --skip-media
+   bin/magento plenty:item:export --profile-id=6 --skip-media
    ```
 
 5. **Check Smart Aggregation**
@@ -2536,7 +2536,7 @@ Store Views:
 6. **Monitor Memory Usage**
    ```bash
    # Run export with memory monitoring
-   php -d memory_limit=2G bin/magento byte8:plenty:item:export --profile-id=6 -vvv
+   php -d memory_limit=2G bin/magento plenty:item:export --profile-id=6 -vvv
    ```
 
 **Memory Recommendations**:
@@ -2566,7 +2566,7 @@ Store Views:
 2. **Increase Batch Size**
    ```bash
    # Process larger batches
-   bin/magento byte8:plenty:item:export --profile-id=6 --batch-size=50
+   bin/magento plenty:item:export --profile-id=6 --batch-size=50
    ```
 
 3. **Disable Auto-Queue Temporarily**
@@ -2576,10 +2576,10 @@ Store Views:
 4. **Parallel Processing**
    ```bash
    # Terminal 1: Process simple products
-   bin/magento byte8:plenty:item:export --profile-id=6 --type=simple &
+   bin/magento plenty:item:export --profile-id=6 --type=simple &
 
    # Terminal 2: Process configurable products
-   bin/magento byte8:plenty:item:export --profile-id=6 --type=configurable &
+   bin/magento plenty:item:export --profile-id=6 --type=configurable &
    ```
 
 5. **Clear Old Completed Items**
@@ -2701,13 +2701,13 @@ Store Views:
 1. **Export by Product Type**
    ```bash
    # Day 1: Simple products (fast)
-   bin/magento byte8:plenty:item:export --type=simple --batch-size=30
+   bin/magento plenty:item:export --type=simple --batch-size=30
 
    # Day 2: Configurable products (slower)
-   bin/magento byte8:plenty:item:export --type=configurable --batch-size=10
+   bin/magento plenty:item:export --type=configurable --batch-size=10
 
    # Day 3: Bundle products
-   bin/magento byte8:plenty:item:export --type=bundle --batch-size=10
+   bin/magento plenty:item:export --type=bundle --batch-size=10
    ```
 
 2. **Staged Export**
