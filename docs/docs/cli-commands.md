@@ -19,6 +19,7 @@ bin/magento plenty:setup:init             # Complete initial setup
 # Profile Management
 bin/magento plenty:item:import            # Import products
 bin/magento plenty:item:export            # Export products (with dry-run, SKU/ID filtering)
+bin/magento plenty:item:export:queue      # Add products to the export queue
 bin/magento plenty:order:export           # Export orders
 bin/magento plenty:stock:import           # Import stock
 bin/magento plenty:customer:export        # Export customers
@@ -404,6 +405,26 @@ bin/magento plenty:item:export -s SKU1,SKU2 --dry-run
 - Confirmation prompt when no filters are specified (safety check)
 - Dry run mode displays products in a table with ID, SKU, status, and PlentyONE item ID
 - Automatic parent product resolution when exporting child products
+
+### Item Export Queue
+
+Add products to the item export queue without exporting them immediately. Queued products are picked up by the scheduled export profile (or a subsequent `plenty:item:export` run):
+
+```bash
+# Add all products to the export queue (prompts for confirmation)
+bin/magento plenty:item:export:queue
+
+# Add specific products by entity ID
+bin/magento plenty:item:export:queue -i 1,2,3
+```
+
+**Options:**
+- `--id` / `-i`: Product entity ID(s). Comma-separated values
+
+**Features:**
+- Confirmation prompt when no ID filter is specified, showing the total number of products that will be queued (safety check)
+- Skips products already present in the queue and reports how many were added
+- Reports `Export queue is up-to-date.` when there is nothing new to add
 
 ### Item Collection
 
