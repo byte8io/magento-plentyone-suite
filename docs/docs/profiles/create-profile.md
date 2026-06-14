@@ -466,30 +466,6 @@ Auto-Configuration pulls data from multiple sources:
 - Review browser console and `var/log/system.log`
 - Try manual configuration
 
-#### CLI Alternative
-
-Auto-configuration can also be triggered via CLI:
-
-```bash
-# Auto-configure a profile
-bin/magento byte8:profile:auto-config --id=1
-
-# Auto-configure with specific source
-bin/magento byte8:profile:auto-config \
-    --id=1 \
-    --source-profile-id=2
-
-# Preview suggestions without applying
-bin/magento byte8:profile:auto-config \
-    --id=1 \
-    --dry-run
-
-# Force configuration even if already configured
-bin/magento byte8:profile:auto-config \
-    --id=1 \
-    --force
-```
-
 #### Best Practices
 
 **Before Using Auto-Configuration**:
@@ -968,36 +944,6 @@ Use consistent, descriptive names:
 - Review data types are compatible
 - Test with single item first
 - Check transformation logic
-
-## CLI Profile Management
-
-Create and manage profiles via command line:
-
-```bash
-# List all profiles
-bin/magento byte8:profile:list
-
-# Create a new profile
-bin/magento byte8:profile:create \
-    --name="Product Import CLI" \
-    --type="plenty_item_import" \
-    --status=1
-
-# Update profile configuration
-bin/magento byte8:profile:config:set \
-    --id=1 \
-    --key="batch_size" \
-    --value=50
-
-# Clone existing profile
-bin/magento byte8:profile:clone \
-    --id=1 \
-    --name="Cloned Profile" \
-    --type="plenty_item_export"
-
-# Delete profile
-bin/magento byte8:profile:delete --id=1
-```
 
 ## Next Steps
 

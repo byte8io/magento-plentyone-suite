@@ -759,52 +759,22 @@ bin/magento plenty:category:export --profile-id=2 -vvv
 
 ```bash
 # View all categories currently in export queue
-bin/magento byte8:plenty:category:queue --list
+bin/magento plenty:category:export:queue --list
 
 # Add specific category to export queue manually
-bin/magento byte8:plenty:category:queue --add --entity-id=15
+bin/magento plenty:category:export:queue --add --entity-id=15
 
 # Add multiple categories to queue
-bin/magento byte8:plenty:category:queue --add --entity-ids=15,16,17
+bin/magento plenty:category:export:queue --add --entity-ids=15,16,17
 
 # Remove category from export queue
-bin/magento byte8:plenty:category:queue --remove --entity-id=15
+bin/magento plenty:category:export:queue --remove --entity-id=15
 
 # Clear entire export queue (use with caution)
-bin/magento byte8:plenty:category:queue --clear
+bin/magento plenty:category:export:queue --clear
 
 # View queue statistics
-bin/magento byte8:plenty:category:queue --stats
-```
-
-### Profile Management
-
-```bash
-# List all category export profiles
-bin/magento byte8:profile:list --type=plenty_category_export
-
-# View profile configuration
-bin/magento byte8:profile:info --profile-id=2
-
-# Enable/disable profile scheduling
-bin/magento byte8:profile:schedule:enable --profile-id=2
-bin/magento byte8:profile:schedule:disable --profile-id=2
-```
-
-### Debugging and Diagnostics
-
-```bash
-# Validate profile configuration
-bin/magento byte8:plenty:category:validate --profile-id=2
-
-# Test API connection for profile
-bin/magento byte8:plenty:category:test-connection --profile-id=2
-
-# View recent export history
-bin/magento byte8:profile:history --profile-id=2 --limit=10
-
-# Clear category export history
-bin/magento byte8:profile:history:clear --profile-id=2 --older-than=30
+bin/magento plenty:category:export:queue --stats
 ```
 
 ---
@@ -829,7 +799,7 @@ bin/magento byte8:profile:history:clear --profile-id=2 --older-than=30
 
 2. **Review Export Queue**
    ```bash
-   bin/magento byte8:plenty:category:queue --list
+   bin/magento plenty:category:export:queue --list
    ```
    - Verify categories are actually in the queue
    - Check queue status (pending, processing, error)
@@ -859,10 +829,6 @@ bin/magento byte8:profile:history:clear --profile-id=2 --older-than=30
    - Look for API error codes (400, 401, 403, 500) or validation errors
 
 6. **Verify Client Configuration**
-   ```bash
-   # Test API connection
-   bin/magento byte8:plenty:category:test-connection --profile-id=2
-   ```
    - Ensure client has valid credentials
    - Check API token hasn't expired
    - Verify client has permissions in PlentyONE
@@ -969,10 +935,6 @@ bin/magento byte8:profile:history:clear --profile-id=2 --older-than=30
    - Note the correct category IDs for remapping
 
 2. **Reset Category Mappings**
-   ```bash
-   # Clear category mappings (will trigger full re-export)
-   bin/magento byte8:plenty:category:mapping:reset --profile-id=2
-   ```
    - Clears Magento-to-PlentyONE category ID mappings
    - Next export will re-establish correct mappings
    - Use with caution - may cause category recreation
@@ -1010,10 +972,6 @@ bin/magento byte8:profile:history:clear --profile-id=2 --older-than=30
    - Check that category is enabled in each store view
 
 3. **Verify PlentyONE Locale Configuration**
-   ```bash
-   # View collected configuration data
-   bin/magento byte8:plenty:category:config --profile-id=2
-   ```
    - Ensure PlentyONE has matching locales configured
    - Check locale codes match exactly (en, de, fr, not en_US, de_DE, fr_FR)
 
@@ -1155,7 +1113,7 @@ bin/magento byte8:profile:history:clear --profile-id=2 --older-than=30
 1. **Monitor Export Queue**
    - Regularly check queue size and status
    ```bash
-   bin/magento byte8:plenty:category:queue --stats
+   bin/magento plenty:category:export:queue --stats
    ```
    - Investigate if queue grows continuously without processing
    - Clear stuck items and resolve underlying issues

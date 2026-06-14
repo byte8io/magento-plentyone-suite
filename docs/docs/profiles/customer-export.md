@@ -700,9 +700,6 @@ This section is currently empty and reserved for future event-based export trigg
 **Current Workaround**:
 Use CLI commands or scheduled exports with queue processing to achieve similar automation:
 ```bash
-# Add customer to queue manually
-bin/magento byte8:plenty:customer:queue --add --entity-id=123
-
 # Process queue on schedule
 bin/magento plenty:customer:export --profile-id=4 --queue
 ```
@@ -911,12 +908,6 @@ Log Configuration:
 
 **Queue Management**:
 ```bash
-# View customers in export queue
-bin/magento byte8:plenty:customer:queue --list
-
-# Add new customer to queue (can be automated via observer)
-bin/magento byte8:plenty:customer:queue --add --entity-id=500
-
 # Process queue manually (optional, schedule handles this)
 bin/magento plenty:customer:export --profile-id=4 --queue
 ```
@@ -1001,78 +992,14 @@ bin/magento plenty:customer:export --profile-id=4 --force
 bin/magento plenty:customer:export --profile-id=4 -vvv
 ```
 
-### Manage Export Queue
-
-```bash
-# View all customers in export queue
-bin/magento byte8:plenty:customer:queue --list
-
-# View queue with details
-bin/magento byte8:plenty:customer:queue --list --verbose
-
-# Add specific customer to export queue
-bin/magento byte8:plenty:customer:queue --add --entity-id=123
-
-# Add multiple customers to queue
-bin/magento byte8:plenty:customer:queue --add --entity-ids=123,124,125
-
-# Remove customer from export queue
-bin/magento byte8:plenty:customer:queue --remove --entity-id=123
-
-# Clear entire export queue (use with caution)
-bin/magento byte8:plenty:customer:queue --clear
-
-# View queue statistics
-bin/magento byte8:plenty:customer:queue --stats
-```
-
 ### Manage Configuration Data
 
 ```bash
 # Collect customer configuration data from PlentyONE
-bin/magento byte8:plenty:customer:collect-config --client-id=1
+bin/magento plenty:customer:setup:collect --client-id=1
 
 # Force re-collection of configuration data
-bin/magento byte8:plenty:customer:collect-config --client-id=1 --force
-
-# Delete configuration data
-bin/magento byte8:plenty:customer:delete-config --client-id=1
-```
-
-### Profile Management
-
-```bash
-# List all customer export profiles
-bin/magento byte8:profile:list --type=plenty_customer_export
-
-# View profile configuration
-bin/magento byte8:profile:info --profile-id=4
-
-# Enable/disable profile scheduling
-bin/magento byte8:profile:schedule:enable --profile-id=4
-bin/magento byte8:profile:schedule:disable --profile-id=4
-```
-
-### Debugging and Diagnostics
-
-```bash
-# Validate profile configuration
-bin/magento byte8:plenty:customer:validate --profile-id=4
-
-# Test API connection for profile
-bin/magento byte8:plenty:customer:test-connection --profile-id=4
-
-# View recent export history
-bin/magento byte8:profile:history --profile-id=4 --limit=10
-
-# View export history with errors only
-bin/magento byte8:profile:history --profile-id=4 --status=error
-
-# Clear customer export history
-bin/magento byte8:profile:history:clear --profile-id=4 --older-than=30
-
-# Check customer PlentyONE contact mapping
-bin/magento byte8:plenty:customer:check-mapping --customer-id=123
+bin/magento plenty:customer:setup:collect --client-id=1 --force
 ```
 
 ---
@@ -1118,10 +1045,6 @@ bin/magento byte8:plenty:customer:check-mapping --customer-id=123
    - Look for API error codes (400, 401, 403, 404, 500) or validation errors
 
 6. **Verify Client Configuration**
-   ```bash
-   # Test API connection
-   bin/magento byte8:plenty:customer:test-connection --profile-id=4
-   ```
    - Ensure client has valid credentials
    - Check API token hasn't expired
    - Verify client has permissions in PlentyONE
@@ -1171,7 +1094,7 @@ bin/magento byte8:plenty:customer:check-mapping --customer-id=123
 4. **Check Configuration Data Collection**
    ```bash
    # Re-collect configuration data
-   bin/magento byte8:plenty:customer:collect-config --client-id=1
+   bin/magento plenty:customer:setup:collect --client-id=1
    ```
    - PlentyONE classes must be collected for mappings to work
    - Outdated collection data may not include new classes
@@ -1333,10 +1256,6 @@ bin/magento byte8:plenty:customer:check-mapping --customer-id=123
 5. **Check Extension Attributes**
    - Verify Magento customer has `plenty_contact_id` stored
    - Missing contact ID may cause duplicate creation
-   ```bash
-   # Check customer plenty contact ID
-   bin/magento byte8:plenty:customer:check-mapping --customer-id=123
-   ```
 
 **Solutions**:
 
@@ -1549,17 +1468,11 @@ bin/magento byte8:plenty:customer:check-mapping --customer-id=123
 
 1. **Monitor Export Queue**
    - Regularly check queue size and status
-   ```bash
-   bin/magento byte8:plenty:customer:queue --stats
-   ```
    - Clear stuck items and resolve issues
    - Don't let queue grow unbounded
 
 2. **Review Execution History**
    - Periodically check profile history for errors
-   ```bash
-   bin/magento byte8:profile:history --profile-id=4 --limit=20
-   ```
    - Set up email notifications for failures
    - Track execution times for performance trends
 

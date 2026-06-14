@@ -1981,19 +1981,6 @@ Exporting products to PlentyONE...
 Successfully processed 5 products
 ```
 
-### Profile Management Commands
-
-```bash
-# View profile execution history
-bin/magento byte8:profile:history:list --profile-id=6
-
-# View last 10 executions
-bin/magento byte8:profile:history:list --profile-id=6 --limit=10
-
-# Clear profile history
-bin/magento byte8:profile:history:clear --profile-id=6
-```
-
 ### Command Options Reference
 
 | Option | Short | Description |
@@ -2032,7 +2019,7 @@ bin/magento byte8:profile:history:clear --profile-id=6
 3. **Add Products to Queue**
    ```bash
    # Add all products to queue
-   bin/magento byte8:plenty:item:queue:add --profile-id=6
+   bin/magento plenty:item:export:queue --profile-id=6
    ```
 
 4. **Test Export with Small Batch**
@@ -2106,18 +2093,6 @@ Queue status: complete
 PlentyONE item ID saved to product
 ```
 
-**Monitoring**:
-```bash
-# Check queue status
-bin/magento byte8:plenty:item:queue:list --profile-id=6 --status=pending
-
-# Check for errors
-bin/magento byte8:plenty:item:queue:list --profile-id=6 --status=error
-
-# View recent history
-bin/magento byte8:profile:history:list --profile-id=6 --limit=10
-```
-
 ---
 
 ### 3. Price Update Synchronization
@@ -2143,7 +2118,7 @@ bin/magento byte8:profile:history:list --profile-id=6 --limit=10
 **Manual Price Update**:
 ```bash
 # Add products with recent price changes
-bin/magento byte8:plenty:item:queue:add --profile-id=6 --updated-since="1 hour ago"
+bin/magento plenty:item:export:queue --profile-id=6 --updated-since="1 hour ago"
 
 # Export price updates
 bin/magento plenty:item:export --profile-id=6
@@ -2182,7 +2157,7 @@ Children:
 
 2. **Add to Queue**
    ```bash
-   bin/magento byte8:plenty:item:queue:add --profile-id=6 --sku=TSHIRT-PARENT
+   bin/magento plenty:item:export:queue --profile-id=6 --sku=TSHIRT-PARENT
    ```
 
 3. **Export**
@@ -2282,9 +2257,6 @@ Store Views:
 **Diagnostic Steps**:
 
 1. **Check Queue**
-   ```bash
-   bin/magento byte8:plenty:item:queue:list --profile-id=6 --status=pending
-   ```
    - If empty: Products not added to queue
    - If has items: Check schedule and execution
 
@@ -2583,22 +2555,12 @@ Store Views:
    ```
 
 5. **Clear Old Completed Items**
-   ```bash
-   bin/magento byte8:plenty:item:queue:clear --profile-id=6 --status=complete
-   ```
 
 6. **Process During Off-Peak**
    - Schedule large exports at night
    - Reduce batch size during business hours
 
 7. **Identify Problematic Products**
-   ```bash
-   # Check for stuck items
-   bin/magento byte8:plenty:item:queue:list --profile-id=6 --status=processing
-
-   # Check errors
-   bin/magento byte8:plenty:item:queue:list --profile-id=6 --status=error
-   ```
 
 **Queue Management Strategy**:
 ```
@@ -2823,16 +2785,6 @@ Store Views:
 ### Monitoring & Maintenance
 
 1. **Daily Monitoring**
-   ```bash
-   # Check queue status
-   bin/magento byte8:plenty:item:queue:list --profile-id=6 --status=pending | wc -l
-
-   # Check errors
-   bin/magento byte8:plenty:item:queue:list --profile-id=6 --status=error
-
-   # View recent history
-   bin/magento byte8:profile:history:list --profile-id=6 --limit=5
-   ```
 
 2. **Weekly Tasks**
    - Review export success rate

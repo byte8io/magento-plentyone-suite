@@ -415,31 +415,6 @@ Access profiles via: **Byte8 → PlentyONE → Profiles**
 - **View History**: See execution logs
 - **Export Config**: Download configuration
 
-### Command Line Interface (CLI)
-
-Profiles can be managed via CLI:
-
-```bash
-# List all profiles
-bin/magento byte8:profile:list
-
-# View profile details
-bin/magento byte8:profile:info --id=1
-
-# Execute profile manually
-bin/magento byte8:profile:run --id=1
-
-# Enable/disable profile
-bin/magento byte8:profile:enable --id=1
-bin/magento byte8:profile:disable --id=1
-
-# View execution history
-bin/magento byte8:profile:history --id=1 --limit=10
-
-# Clear profile history
-bin/magento byte8:profile:history:clean --days=30
-```
-
 ## Best Practices
 
 ### Profile Configuration

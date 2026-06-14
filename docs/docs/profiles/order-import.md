@@ -1568,15 +1568,6 @@ bin/magento plenty:order:collect --profile-id=7 --id=12345,67890
 
 # Collect orders by date range
 bin/magento plenty:order:collect --profile-id=7 --date-created="2024-01-01/2024-01-31"
-
-# Run incomplete order detection
-bin/magento byte8:plenty:order:detect-incomplete --profile-id=7
-
-# View profile execution history
-bin/magento byte8:profile:history:list --profile-id=7
-
-# Clear profile history
-bin/magento byte8:profile:history:clear --profile-id=7
 ```
 
 **Command Options**:

@@ -75,19 +75,6 @@ Profile history tables can grow large in high-volume environments. Regular clean
 For compliance or audit requirements, you can set longer retention periods (90-365 days). Consider implementing database archiving for very long retention periods.
 :::
 
-**Manual Cleanup**:
-
-```bash
-# View profile history storage
-bin/magento byte8:profile:history:info
-
-# Clean up old profile history manually
-bin/magento byte8:profile:history:cleanup --days=30
-
-# Clean up specific profile
-bin/magento byte8:profile:history:cleanup --profile-id=1 --days=7
-```
-
 ## Profile Notifications
 
 Profile Notifications allow you to monitor profile executions and receive alerts when issues occur.
@@ -623,19 +610,6 @@ GROUP BY level
 ORDER BY level DESC;
 ```
 
-### Manual Cleanup
-
-```bash
-# Clean old notifications
-bin/magento byte8:profile:notification:cleanup --days=30
-
-# Clean by log level
-bin/magento byte8:profile:notification:cleanup --level=INFO --days=7
-
-# View cleanup statistics
-bin/magento byte8:profile:notification:info
-```
-
 ### Queue Monitoring
 
 ```bash
@@ -693,8 +667,7 @@ SELECT COUNT(*) FROM queue_message WHERE topic_name = 'profile.notification.log'
 2. Set maximum notification limit
 3. Increase minimum log level to WARNING or ERROR
 4. Disable DEBUG level in production
-5. Run manual cleanup: `bin/magento byte8:profile:notification:cleanup`
-6. Consider archiving old notifications before deletion
+5. Consider archiving old notifications before deletion
 
 ## Next Steps
 

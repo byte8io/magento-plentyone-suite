@@ -2085,19 +2085,33 @@ bin/magento plenty:category:collect --id=10,11,12
 
 ### Category Path Building
 
-Build category path hierarchy:
+Build and update the PlentyONE category path structure:
 
 ```bash
-bin/magento plenty:category:build
+# Build paths for all categories
+bin/magento plenty:category:path:build
+
+# Build paths for specific categories
+bin/magento plenty:category:path:build --id=123,456,789
+
+# Build with a specific profile
+bin/magento plenty:category:path:build --profile=2
 ```
+
+**Options:**
+- `--id` / `-i`: Category ID(s), comma-separated
+- `--profile` / `-p`: Profile ID
 
 ### Category Export Queue
 
-Add categories to export queue:
+Add categories to the export queue:
 
 ```bash
-bin/magento plenty:category:add --id=<category_id>
+bin/magento plenty:category:export:queue --id=<category_id>
 ```
+
+**Options:**
+- `--id` / `-i`: Category ID(s), comma-separated
 
 ### Category Maintenance
 

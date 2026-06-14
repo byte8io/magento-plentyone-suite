@@ -899,7 +899,7 @@ Log Configuration:
 **Steps**:
 1. Run contact collection profile first:
    ```bash
-   bin/magento byte8:plenty:customer:collect --profile-id=1
+   bin/magento plenty:contact:collect --profile-id=1
    ```
 2. Verify contacts in `plenty_customer` table:
    ```sql
@@ -1070,65 +1070,23 @@ bin/magento plenty:customer:import --profile-id=3 -vvv
 
 ```bash
 # Collect customer configuration data from PlentyONE
-bin/magento byte8:plenty:customer:collect-config --client-id=1
+bin/magento plenty:customer:setup:collect --client-id=1
 
 # Force re-collection of configuration data
-bin/magento byte8:plenty:customer:collect-config --client-id=1 --force
-
-# Delete configuration data
-bin/magento byte8:plenty:customer:delete-config --client-id=1
-```
-
-### Profile Management
-
-```bash
-# List all customer import profiles
-bin/magento byte8:profile:list --type=plenty_customer_import
-
-# View profile configuration
-bin/magento byte8:profile:info --profile-id=3
-
-# Enable/disable profile scheduling
-bin/magento byte8:profile:schedule:enable --profile-id=3
-bin/magento byte8:profile:schedule:disable --profile-id=3
-```
-
-### Debugging and Diagnostics
-
-```bash
-# Validate profile configuration
-bin/magento byte8:plenty:customer:validate --profile-id=3
-
-# Test website scope resolution
-bin/magento byte8:plenty:customer:test-website-scope --profile-id=3
-
-# View recent import history
-bin/magento byte8:profile:history --profile-id=3 --limit=10
-
-# View import history with errors only
-bin/magento byte8:profile:history --profile-id=3 --status=error
-
-# Clear customer import history
-bin/magento byte8:profile:history:clear --profile-id=3 --older-than=30
-
-# Check contact to customer mapping
-bin/magento byte8:plenty:customer:check-mapping --contact-id=456
-
-# View contacts ready for import
-bin/magento byte8:plenty:customer:list-pending --profile-id=3
+bin/magento plenty:customer:setup:collect --client-id=1 --force
 ```
 
 ### Contact Collection (Prerequisite)
 
 ```bash
 # Collect contacts from PlentyONE to local cache
-bin/magento byte8:plenty:customer:collect --profile-id=1
+bin/magento plenty:contact:collect --profile-id=1
 
 # View collected contacts count
-bin/magento byte8:plenty:customer:collect --profile-id=1 --count
+bin/magento plenty:contact:collect --profile-id=1 --count
 
 # Force re-collection (refresh cache)
-bin/magento byte8:plenty:customer:collect --profile-id=1 --force
+bin/magento plenty:contact:collect --profile-id=1 --force
 ```
 
 ---
@@ -1228,13 +1186,7 @@ bin/magento byte8:plenty:customer:collect --profile-id=1 --force
    ```
    - Client ID must match store mapping
 
-4. **Test Website Resolution**
-   ```bash
-   # Test website scope resolution for profile
-   bin/magento byte8:plenty:customer:test-website-scope --profile-id=3 --contact-id=456
-   ```
-
-5. **Review Import Logs**
+4. **Review Import Logs**
    - Enable request logging
    - Check which website ID is being assigned
    - Verify against expected website
@@ -1304,7 +1256,7 @@ bin/magento byte8:plenty:customer:collect --profile-id=1 --force
 4. **Check Configuration Data Collection**
    ```bash
    # Re-collect configuration data
-   bin/magento byte8:plenty:customer:collect-config --client-id=1
+   bin/magento plenty:customer:setup:collect --client-id=1
    ```
    - PlentyONE classes must be collected for mappings to work
    - Outdated collection data may not include new classes
@@ -1649,9 +1601,6 @@ bin/magento byte8:plenty:customer:collect --profile-id=1 --force
      ```
 
 2. **Monitor Import History**
-   ```bash
-   bin/magento byte8:profile:history --profile-id=3 --limit=20
-   ```
    - Check for errors regularly
    - Set up email notifications for failures
    - Track execution times for performance trends

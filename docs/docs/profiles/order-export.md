@@ -1182,12 +1182,6 @@ bin/magento plenty:order:export --profile-id=8 --queue
 
 # Force re-export (update existing order)
 bin/magento plenty:order:export --profile-id=8 --order-id=1000001 --force
-
-# View profile execution history
-bin/magento byte8:profile:history:list --profile-id=8
-
-# Clear profile history
-bin/magento byte8:profile:history:clear --profile-id=8
 ```
 
 **Command Options**:

@@ -2516,21 +2516,15 @@ bin/magento catalog:product:list
 # Show specific product details
 bin/magento catalog:product:show SKU123
 
-# Delete imported products
-bin/magento byte8:plenty:item:delete --profile-id=1 --entity-ids=1001,1002
-
 # Clean up orphaned product data
-bin/magento byte8:plenty:item:cleanup --profile-id=1
+bin/magento plenty:item:purge --profile-id=1
 ```
 
 ### Configuration Commands
 
 ```bash
 # Collect PlentyONE configuration data
-bin/magento byte8:plenty:client:collect-config --profile-id=1
-
-# Delete cached configuration data
-bin/magento byte8:plenty:client:delete-config --profile-id=1
+bin/magento plenty:setup:collect:config --profile-id=1
 
 # View profile configuration
 bin/magento config:show plenty/plenty_item_import
@@ -2665,7 +2659,7 @@ bin/magento config:show plenty/plenty_item_import/pim_search_criteria
 **4. Configuration Data Not Collected**
 ```bash
 # Collect configuration data
-bin/magento byte8:plenty:client:collect-config --profile-id=1
+bin/magento plenty:setup:collect:config --profile-id=1
 
 # Verify dropdowns populated
 # Admin: Profile configuration → Check dropdown fields
@@ -3164,7 +3158,7 @@ find var/log -name "plenty_item_import.log*" -mtime +30 -delete
 bin/magento config:show plenty/plenty_item_import/attribute_mapping
 
 # Monthly: Clean up orphaned images (if file cleanup enabled)
-bin/magento byte8:plenty:item:cleanup --profile-id=1
+bin/magento plenty:item:purge --profile-id=1
 
 # Quarterly: Full catalog re-sync for data integrity
 bin/magento plenty:item:import --profile-id=1 --force

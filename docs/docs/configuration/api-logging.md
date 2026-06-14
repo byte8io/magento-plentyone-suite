@@ -612,7 +612,6 @@ var/log/plenty/*.log.*
 2. Check directory permissions: `ls -la var/log/plenty/`
 3. Create directory if missing: `mkdir -p var/log/byte8/plenty && chmod 777 var/log/byte8/plenty`
 4. Check PHP error logs: `tail -f var/log/system.log`
-5. Verify profile is running: `bin/magento byte8:profile:list`
 
 ### Log Files Too Large
 
