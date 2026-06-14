@@ -129,7 +129,7 @@ For complete documentation, visit: [docs.byte8.io/plentyone](https://docs.byte8.
 ## Support
 
 - **Email**: hello@support.byte8.io
-- **Phone**: +44 2080 587 795 (GMT working hours)
+- **Phone**: +44 7737 927 707 (GMT working hours)
 - **WhatsApp**: +44 7737 927 707
 - **Slack**: byte8io.slack.com
 - **Issues**: [GitHub Issues](https://github.com/byte8io/magento-plentyone-suite/issues)
