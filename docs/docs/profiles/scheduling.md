@@ -377,7 +377,7 @@ echo "Starting full synchronization..."
 php bin/magento plenty:category:import && \
 
 # 2. Then attributes
-php bin/magento plenty:attribute:import && \
+php bin/magento plenty:attribute:collect && \
 
 # 3. Then products
 php bin/magento plenty:item:import && \

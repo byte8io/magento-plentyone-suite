@@ -449,7 +449,7 @@ Auto-Configuration pulls data from multiple sources:
 
 **Solutions**:
 - Review and correct related profile configuration
-- Re-run configuration collection: `bin/magento plenty:setup:collect`
+- Re-run configuration collection: `bin/magento plenty:setup:collect:config`
 - Skip auto-configuration and configure manually
 - Customize suggestions before applying
 

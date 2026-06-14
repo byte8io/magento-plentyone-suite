@@ -223,7 +223,7 @@ bin/magento plenty:stock:import --verbose
 **Check product saleable quantity:**
 ```bash
 # Check saleable quantity for product
-bin/magento plenty:stock:get-saleable-qty --sku=TEST-SKU-001
+bin/magento plenty:stock:get_saleable_qty --sku=TEST-SKU-001
 ```
 
 **Verify in Magento Admin:**
@@ -256,10 +256,10 @@ bin/magento plenty:customer:export --id=<customer_id> --verbose
 
 ```bash
 # Collect contacts
-bin/magento plenty:customer:collect-contact --verbose
+bin/magento plenty:contact:collect --verbose
 
 # Collect addresses
-bin/magento plenty:customer:collect-address --verbose
+bin/magento plenty:address:collect --verbose
 
 # Import collected data
 bin/magento plenty:customer:import --verbose

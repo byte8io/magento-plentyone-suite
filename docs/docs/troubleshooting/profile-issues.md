@@ -77,7 +77,7 @@ Error: Required configuration missing
 3. **Verify configuration:**
    ```bash
    # Export profile configuration to review
-   bin/magento profile:export:config --profile=1
+   bin/magento profile:config:export --profile=1
 
    # Check database
    mysql> SELECT path, value FROM byte8_profile_config WHERE profile_id = 1;
@@ -164,7 +164,7 @@ Cannot load profile
 1. **Check profile filters:**
    ```bash
    # View profile configuration
-   bin/magento profile:export:config --profile=1
+   bin/magento profile:config:export --profile=1
 
    # Look for filters:
    # - date_from / date_to
@@ -709,7 +709,7 @@ mysql> SELECT path, value FROM byte8_profile_config
        WHERE profile_id = 1;
 
 # Export configuration for review
-bin/magento profile:export:config --profile=1
+bin/magento profile:config:export --profile=1
 ```
 
 ### Test Profile Execution
@@ -778,7 +778,7 @@ If profile issues persist:
    bin/magento plenty:system:check > system-check.log
 
    # Profile configuration
-   bin/magento profile:export:config --profile=1 > profile-config.json
+   bin/magento profile:config:export --profile=1 > profile-config.json
 
    # Recent history
    mysql> SELECT * FROM byte8_profile_history

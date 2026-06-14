@@ -105,13 +105,13 @@ Run phases separately if needed:
 
 ```bash
 # Collect all configuration data
-bin/magento plenty:setup:collect
+bin/magento plenty:setup:collect:config
 
 # Collect specific types
-bin/magento plenty:setup:collect --type=referrer,shipping,vat
+bin/magento plenty:setup:collect:config --type=referrer,shipping,vat
 
 # List available collectors
-bin/magento plenty:setup:collect --list
+bin/magento plenty:setup:collect:config --list
 ```
 
 **What Gets Collected:**
@@ -161,7 +161,7 @@ bin/magento plenty:order:setup:collect
 bin/magento plenty:order:setup:property
 
 # Complete order setup
-bin/magento plenty:order:setup:init
+bin/magento plenty:order:setup
 ```
 
 #### Item Module
@@ -174,7 +174,7 @@ bin/magento plenty:item:setup:collect
 bin/magento plenty:item:setup:property
 
 # Complete item setup
-bin/magento plenty:item:setup:init
+bin/magento plenty:item:setup
 ```
 
 #### Customer Module
@@ -184,10 +184,10 @@ bin/magento plenty:item:setup:init
 bin/magento plenty:customer:setup:collect
 
 # Create customer properties
-bin/magento plenty:customer:setup:property
+bin/magento plenty:customer:config:create-initial-properties
 
 # Complete customer setup
-bin/magento plenty:customer:setup:init
+bin/magento plenty:customer:config:init
 ```
 
 #### Stock Module
@@ -438,7 +438,7 @@ mysql> SELECT * FROM plenty_client_config;
 
 ```bash
 # Export profile configuration
-bin/magento profile:export:config --profile=<profile_id>
+bin/magento profile:config:export --profile=<profile_id>
 
 # Check configuration completeness
 # Admin → Plenty Profiles → [Profile] → Configuration Status
@@ -472,7 +472,7 @@ bin/magento plenty:item:import --sku=TEST-SKU --profile=1 --verbose
 bin/magento plenty:client:test
 
 # Retry collection with verbose output
-bin/magento plenty:setup:collect --verbose
+bin/magento plenty:setup:collect:config --verbose
 
 # Check API logs
 tail -f var/log/plenty_api_error.log
@@ -530,7 +530,7 @@ bin/magento plenty:setup:create --type=order --verbose
 5. **Export Configuration**
    After setup, export configuration for backup:
    ```bash
-   bin/magento profile:export:config --profile=all > profiles_backup.json
+   bin/magento profile:config:export --profile=all > profiles_backup.json
    ```
 
 6. **Version Control**

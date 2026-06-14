@@ -153,7 +153,7 @@ Missing payment method mapping
 
 2. **Export and review configuration:**
    ```bash
-   bin/magento profile:export:config --profile=<profile_id>
+   bin/magento profile:config:export --profile=<profile_id>
    ```
 
 3. **Common missing mappings:**
@@ -322,7 +322,7 @@ sudo supervisorctl restart all
 
 2. **Check MSI configuration:**
    ```bash
-   bin/magento plenty:stock:assign-source --sku=TEST-SKU --source=default
+   bin/magento plenty:stock:reservation:assign_source --sku=TEST-SKU --source=default
    ```
 
 3. **Check for stock drift between Magento and PlentyONE:**
@@ -421,7 +421,7 @@ If issues persist after trying these solutions:
 
 3. **Export configuration:**
    ```bash
-   bin/magento profile:export:config --profile=all > config.json
+   bin/magento profile:config:export --profile=all > config.json
    ```
 
 4. **Contact support with:**

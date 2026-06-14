@@ -261,7 +261,7 @@ bin/magento sales:order:status --increment_id=000000123
 # Admin → Plenty Profiles → [Order Export Profile] → Mappings
 
 # Or export config
-bin/magento profile:export:config --profile=order_export
+bin/magento profile:config:export --profile=order_export
 ```
 
 ### Issue: Customer Not Found During Export
@@ -444,7 +444,7 @@ bin/magento plenty:order:map [--increment-id|--entity-id|--date-from|--date-to]
 bin/magento plenty:order:delete --id=<plenty_order_id>
 
 # Delete Test Payment
-bin/magento plenty:order:payment:delete --id=<payment_id>
+bin/magento plenty:order:delete:payment --id=<payment_id>
 ```
 
 ---

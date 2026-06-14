@@ -173,7 +173,7 @@ Cannot create payment record
 
 1. Check current mappings:
    ```bash
-   bin/magento profile:export:config --profile=order_export | grep payment_method_mapping
+   bin/magento profile:config:export --profile=order_export | grep payment_method_mapping
    ```
 
 2. Add missing mapping via Admin or configuration

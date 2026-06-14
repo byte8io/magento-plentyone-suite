@@ -52,7 +52,7 @@ Cannot create payment record
 1. **Check current mappings:**
    ```bash
    # View profile configuration
-   bin/magento profile:export:config --profile=order_export
+   bin/magento profile:config:export --profile=order_export
    ```
 
 2. **Configure mapping via Admin:**
@@ -88,7 +88,7 @@ Order export failed
 2. **Get PlentyONE shipping profile IDs:**
    ```bash
    # Collect shipping profiles from PlentyONE
-   bin/magento plenty:setup:collect --type=shipping --verbose
+   bin/magento plenty:setup:collect:config --type=shipping --verbose
 
    # View collected shipping profiles
    mysql> SELECT * FROM plenty_config_shipping_profile;
@@ -658,7 +658,7 @@ If order sync issues persist:
    tail -n 500 var/log/plenty_order.log > order-logs.txt
 
    # Profile configuration
-   bin/magento profile:export:config --profile=order_export > order-profile.json
+   bin/magento profile:config:export --profile=order_export > order-profile.json
    ```
 
 2. **Document the issue:**

@@ -87,6 +87,21 @@ Test API connection without full system check:
 bin/magento plenty:client:test
 ```
 
+### License Heartbeat
+
+Send the license heartbeat to the Byte8 API (normally triggered by cron):
+
+```bash
+# Send the heartbeat now
+bin/magento plenty:heartbeat
+
+# Preview the metrics that would be sent, without sending
+bin/magento plenty:heartbeat --dry-run
+```
+
+**Options:**
+- `--dry-run`: Display the heartbeat metrics without sending them
+
 ### Client Token Management
 
 Generate or refresh OAuth access token:
@@ -265,14 +280,18 @@ Collect configuration data from PlentyONE API:
 
 ```bash
 # Collect all configuration types
-bin/magento plenty:setup:collect
+bin/magento plenty:setup:collect:config
 
 # Collect specific types
-bin/magento plenty:setup:collect --type=referrer,shipping,vat
+bin/magento plenty:setup:collect:config --type=referrer,shipping,vat
 
 # List available collectors
-bin/magento plenty:setup:collect --list
+bin/magento plenty:setup:collect:config --list
 ```
+
+**Options (`plenty:setup:collect:config`):**
+- `--type` / `-t`: Specific types to collect, comma-separated (e.g. `referrer,shipping_profile,vat_config`). Collects all when omitted
+- `--list` / `-l`: List available collector types
 
 **What gets collected:**
 - Referrers (order sources)
@@ -282,6 +301,23 @@ bin/magento plenty:setup:collect --list
 - Item configuration (availabilities, barcodes, units)
 - Customer classes
 - Warehouse configurations
+
+Collect initial **entity** data (customers, items, categories, etc.) from PlentyONE:
+
+```bash
+# Collect data for all modules
+bin/magento plenty:setup:collect:data
+
+# Collect specific modules
+bin/magento plenty:setup:collect:data --modules=customer,item,category
+
+# List available data collection modules
+bin/magento plenty:setup:collect:data --list
+```
+
+**Options (`plenty:setup:collect:data`):**
+- `--modules` / `-m`: Specific modules to collect, comma-separated. Collects all when omitted
+- `--list` / `-l`: List available data collection modules
 
 ### Property Creation
 
@@ -725,31 +761,57 @@ Summary: 1 product(s) displayed, 0 not mapped
 Resolve which product variations should be visible in catalog:
 
 ```bash
-bin/magento plenty:item:resolve-variation-visibility
+bin/magento plenty:item:resolve_variations_visible_in_catalog
 ```
 
 ### Item Setup Commands
 
 ```bash
 # Complete item module setup
-bin/magento plenty:item:setup:init
+bin/magento plenty:item:setup
 
 # Collect item configuration data
 bin/magento plenty:item:setup:collect
 
 # Create item properties
 bin/magento plenty:item:setup:property
+
+# Pre-compute MD5 checksums for product media gallery images
+bin/magento plenty:item:setup:checksum
+bin/magento plenty:item:setup:checksum --product-ids=1,2,3 --batch-size=500 --force
 ```
+
+**`plenty:item:setup:checksum` options:**
+- `--product-ids` / `-p`: Restrict to specific product IDs, comma-separated
+- `--batch-size` / `-b`: Images processed per batch
+- `--force` / `-f`: Recompute even when a checksum already exists
 
 ### Item Maintenance
 
 ```bash
-# Clear item data
-bin/magento plenty:item:flush-data
+# Clear local item data (prompts for confirmation)
+bin/magento plenty:item:purge
 
-# Purge old item data
-bin/magento plenty:item:purge --days=30
+# Check item/variation mapping integrity (cpe + plenty_item_entity vs plenty_variation_entity)
+bin/magento plenty:item:check-integrity
+bin/magento plenty:item:check-integrity --log     # append results to var/log/plenty-item-integrity.log
+bin/magento plenty:item:check-integrity --email   # email a critical alert if mismatches are found
+
+# Delete orphaned PlentyONE items (items that exist in Magento, or all items) via batch DELETE
+bin/magento plenty:item:purge-orphans --dry-run
+bin/magento plenty:item:purge-orphans --all --force
 ```
+
+**`plenty:item:check-integrity` options:**
+- `--log`: Append the results to `var/log/plenty-item-integrity.log`
+- `--email`: Send a critical-alert email if mismatches are found
+
+**`plenty:item:purge-orphans` options:**
+- `--all`: Target all PlentyONE items (not just those present in Magento)
+- `--collect` / `-c`: Collect items from PlentyONE before evaluating
+- `--dry-run`: Report what would be deleted without deleting
+- `--force` / `-f`: Skip confirmation
+- `--limit`: Cap the number of items processed
 
 ## Order Commands
 
@@ -827,6 +889,24 @@ Create/update order relation mappings:
 ```bash
 bin/magento plenty:order:map
 ```
+
+Unmap Magento orders from PlentyONE (removes the relation IDs):
+
+```bash
+# Unmap by order increment ID, entity ID, or PlentyONE order ID
+bin/magento plenty:order:unmap --increment-id=000000123
+bin/magento plenty:order:unmap --entity-id=123
+bin/magento plenty:order:unmap --plenty-order-id=4567
+
+# Unmap a date range
+bin/magento plenty:order:unmap --date-from=2025-01-01 --date-to=2025-01-31
+```
+
+**Options:**
+- `--increment-id` / `-i`: Order increment ID
+- `--entity-id` / `-e`: Order entity ID
+- `--plenty-order-id` / `-p`: PlentyONE order ID
+- `--date-from` / `--date-to`: Restrict to an order date range
 
 ### Show Order Item Mapping
 
@@ -975,18 +1055,29 @@ Delete test orders from PlentyONE:
 bin/magento plenty:order:delete --id=<plenty_order_id>
 
 # Delete payment
-bin/magento plenty:order:payment:delete --id=<payment_id>
+bin/magento plenty:order:delete:payment --id=<payment_id>
 ```
 
 ### Order Maintenance
 
 ```bash
 # Refresh order grid data
-bin/magento plenty:order:refresh-grid
+bin/magento plenty:order:grid:refresh
 
 # Clear order data
-bin/magento plenty:order:purge
+bin/magento plenty:order:flush
+
+# Purge external_address_id values from PlentyONE addresses
+bin/magento plenty:address:purge-external-ids --execute
+bin/magento plenty:address:purge-external-ids --limit=500 --force
 ```
+
+**`plenty:address:purge-external-ids` options:**
+- `--execute`: Perform the purge (default is a dry-run preview)
+- `--dry-run`: Preview only (no changes)
+- `--limit` / `-l`: Maximum addresses to process
+- `--profile-id` / `-p`: Restrict to a specific profile
+- `--force` / `-f`: Skip confirmation
 
 ### Check Order Integrity
 
@@ -1089,7 +1180,7 @@ No order integrity issues found
 
 ```bash
 # Complete order setup
-bin/magento plenty:order:setup:init
+bin/magento plenty:order:setup
 
 # Collect order configuration
 bin/magento plenty:order:setup:collect
@@ -1112,6 +1203,60 @@ bin/magento plenty:stock:import --profile=<profile_id>
 bin/magento plenty:stock:import --profile=5 --verbose
 ```
 
+### Stock Export
+
+Export stock levels from Magento to PlentyONE:
+
+```bash
+# Export all queued stock
+bin/magento plenty:stock:export
+
+# Export specific products by entity ID
+bin/magento plenty:stock:export --id=1,2,3
+
+# Export specific products by SKU
+bin/magento plenty:stock:export --sku=SKU1,SKU2
+
+# Export with a specific profile
+bin/magento plenty:stock:export --profile-id=5
+```
+
+**Options:**
+- `--id` / `-i`: Product entity ID(s). Comma-separated values
+- `--sku` / `-s`: Product SKU(s). Comma-separated values
+- `--profile-id` / `-p`: Profile ID (uses default if not specified)
+- `--status`: Filter by export-queue status
+
+### Stock Export Queue
+
+Manage the stock export queue (products awaiting stock export):
+
+```bash
+# Add products to the stock export queue
+bin/magento plenty:stock:export:add --id=1,2,3
+bin/magento plenty:stock:export:add --sku=SKU1,SKU2
+
+# Add all products
+bin/magento plenty:stock:export:add --all
+
+# Remove rows from the stock export queue
+bin/magento plenty:stock:export:purge --id=1,2,3
+bin/magento plenty:stock:export:purge --older-than=7   # days
+bin/magento plenty:stock:export:purge --all
+```
+
+**`plenty:stock:export:add` options:**
+- `--id` / `-i`: Product entity ID(s), comma-separated
+- `--sku` / `-s`: Product SKU(s), comma-separated
+- `--all` / `-a`: Add all products
+- `--force` / `-f`: Skip confirmation
+
+**`plenty:stock:export:purge` options:**
+- `--id` / `-i`, `--sku` / `-s`: Restrict to specific products
+- `--older-than` / `-o`: Remove rows older than N days
+- `--all` / `-a`: Purge the entire queue
+- `--force` / `-f`: Skip confirmation
+
 ### Stock Collection
 
 Collect stock data from PlentyONE:
@@ -1130,16 +1275,16 @@ Assign stock sources (MSI):
 
 ```bash
 # Assign stock source to product
-bin/magento plenty:stock:assign-source --sku=TEST-SKU --source=default
+bin/magento plenty:stock:reservation:assign_source --sku=TEST-SKU --source=default
 
 # Batch assign
-bin/magento plenty:stock:assign-source --category=10 --source=warehouse1
+bin/magento plenty:stock:reservation:assign_source --category=10 --source=warehouse1
 ```
 
 ### Check Product Saleable Quantity
 
 ```bash
-bin/magento plenty:stock:get-saleable-qty --sku=TEST-SKU
+bin/magento plenty:stock:get_saleable_qty --sku=TEST-SKU
 ```
 
 ### Stock-Product Mapping
@@ -1290,19 +1435,19 @@ bin/magento plenty:stock:cleanup:orphan
 bin/magento plenty:stock:cleanup:warehouse
 
 # Clean up reservations
-bin/magento plenty:stock:cleanup-reservations
+bin/magento plenty:stock:reservation:cleanup
 
 # Clean up unassigned reservations
-bin/magento plenty:stock:cleanup-unassigned-reservations
+bin/magento plenty:stock:reservation:cleanup_unassigned
 
 # Resolve order inconsistencies
-bin/magento plenty:stock:resolve-order-inconsistency
+bin/magento plenty:stock:reservation:resolve_order_inconsistency
 
 # Resolve shipment inconsistencies
-bin/magento plenty:stock:resolve-shipment-inconsistency
+bin/magento plenty:stock:reservation:resolve_shipment_inconsistency
 
 # Flush import listing
-bin/magento plenty:stock:flush-import-listing
+bin/magento plenty:stock:flush:import
 ```
 
 #### Orphan Stock Cleanup
@@ -1834,12 +1979,68 @@ Note: physical is the authoritative signal; Plenty reserved/net are context only
 - **Stock Drift Detection** — enable/disable + cron schedule for the hourly tracker
 - **Stock Drift Report** — enable/disable, cron schedule, persistence threshold (hours), and recipient email(s) for the weekly report
 
+#### Enqueue Drifted SKUs for Export
+
+`plenty:stock:export:drift` is a focused companion to the report: it detects drift between Magento and PlentyONE and **enqueues the affected SKUs onto the stock export queue** (rather than printing a report):
+
+```bash
+# Detect drift and enqueue affected SKUs
+bin/magento plenty:stock:export:drift
+
+# Limit scope to a profile / cap the number of SKUs
+bin/magento plenty:stock:export:drift --profile=5
+bin/magento plenty:stock:export:drift --limit=200
+```
+
+**Options:**
+- `--profile` / `-p`: Restrict to a single profile ID
+- `--limit` / `-l`: Maximum number of SKUs to enqueue
+
+### Stock Reconciliation & Correction
+
+```bash
+# Report stock inconsistencies (read-only); --fix attempts repairs
+bin/magento plenty:stock:reconcile
+bin/magento plenty:stock:reconcile --fix
+bin/magento plenty:stock:reconcile --limit=100
+
+# Correct a storage-location quantity in PlentyONE
+bin/magento plenty:stock:location:correct \
+  --warehouse-id=101 --storage-location-id=5 --variation-id=12345 --quantity=10
+
+# Preview the correction without writing
+bin/magento plenty:stock:location:correct ... --dry-run
+```
+
+**`plenty:stock:reconcile` options:**
+- `--fix`: Attempt to repair detected inconsistencies (mutates data)
+- `--limit` / `-l`: Max sample rows to display per issue
+
+**`plenty:stock:location:correct` options:**
+- `--warehouse-id` / `-w`, `--storage-location-id` / `-l`, `--variation-id` / `-i`, `--reason-id` / `-r`: Target the correction
+- `--quantity`: Target quantity to set
+- `--batch-size` / `-b`: Rows processed per batch
+- `--dry-run`: Preview without writing
+- `--force` / `-f`: Skip confirmation
+
 ### Stock Setup Commands
 
 ```bash
 # Collect stock configuration
 bin/magento plenty:stock:setup:collect
+
+# Collect specific config types / list available types
+bin/magento plenty:stock:setup:collect --type=warehouse
+bin/magento plenty:stock:setup:collect --list
 ```
+
+**Options:**
+- `--type` / `-t`: Specific config types to collect, comma-separated
+- `--list` / `-l`: List available collector types
+
+:::note Deprecated
+`plenty:stock:client:collect` is **deprecated** — use `plenty:stock:setup:collect` instead.
+:::
 
 ## Category Commands
 
@@ -1940,13 +2141,13 @@ Collect customer data from PlentyONE:
 
 ```bash
 # Collect contacts (customers)
-bin/magento plenty:customer:collect-contact --profile=<profile_id>
+bin/magento plenty:contact:collect --profile=<profile_id>
 
 # Collect addresses
-bin/magento plenty:customer:collect-address --profile=<profile_id>
+bin/magento plenty:address:collect --profile=<profile_id>
 
 # Collect specific contacts
-bin/magento plenty:customer:collect-contact --id=12345
+bin/magento plenty:contact:collect --id=12345
 ```
 
 ### Customer Maintenance
@@ -1960,13 +2161,13 @@ bin/magento plenty:customer:purge
 
 ```bash
 # Complete customer setup
-bin/magento plenty:customer:setup:init
+bin/magento plenty:customer:config:init
 
 # Collect customer configuration
 bin/magento plenty:customer:setup:collect
 
 # Create customer properties
-bin/magento plenty:customer:setup:property
+bin/magento plenty:customer:config:create-initial-properties
 ```
 
 ## Attribute Commands
@@ -1979,32 +2180,36 @@ Export product attributes to PlentyONE:
 # Export all attributes
 bin/magento plenty:attribute:export
 
-# Export specific attributes
-bin/magento plenty:attribute:export --attribute=color,size
+# Export specific attributes by code
+bin/magento plenty:attribute:export --code=color,size
 
-# Export with verbose mode
-bin/magento plenty:attribute:export --verbose
+# Export specific attributes by ID
+bin/magento plenty:attribute:export --id=12,34
 ```
 
-### Manufacturer Export
+**Options:**
+- `--code` / `-c`: Attribute code filter. Comma-separated values
+- `--id` / `-i`: Attribute ID filter. Comma-separated values
 
-Export manufacturers/brands:
+### Attribute & Manufacturer Collection
 
-```bash
-bin/magento plenty:attribute:export-manufacturer
-```
-
-### Attribute Collection
-
-Collect attribute data from PlentyONE:
+Collect attribute and manufacturer data from PlentyONE:
 
 ```bash
 # Collect all attributes
 bin/magento plenty:attribute:collect
 
-# Collect manufacturers
-bin/magento plenty:attribute:collect-manufacturer
+# Collect manufacturers/brands
+bin/magento plenty:manufacturer:collect
+
+# Collect by ID or modified-since date
+bin/magento plenty:attribute:collect --id=12,34
+bin/magento plenty:manufacturer:collect --date=2025-01-01
 ```
+
+**Options (both commands):**
+- `--id` / `-i`: ID filter. Comma-separated values
+- `--date` / `-d`: Collect records modified since the given date
 
 ### Attribute Maintenance
 
@@ -2036,7 +2241,7 @@ Export properties to PlentyONE:
 bin/magento plenty:property:export --profile=<profile_id>
 
 # Export property groups
-bin/magento plenty:property:export-group
+bin/magento plenty:property:group:export
 ```
 
 ### Property Collection
@@ -2053,7 +2258,7 @@ bin/magento plenty:property:collect --profile=<profile_id>
 Create properties for attribute sets:
 
 ```bash
-bin/magento plenty:property:create-attribute-set-property
+bin/magento plenty:property:create:attribute_set
 ```
 
 ### Property Maintenance
@@ -2071,10 +2276,10 @@ Create order referrer in PlentyONE:
 
 ```bash
 # Create default referrer
-bin/magento plenty:client:create-referrer
+bin/magento plenty:client:create_referrer
 
 # Create specific referrer
-bin/magento plenty:client:create-referrer --name="magento" --type=1
+bin/magento plenty:client:create_referrer --name="magento" --type=1
 ```
 
 ### Create Media Referrer
@@ -2082,7 +2287,7 @@ bin/magento plenty:client:create-referrer --name="magento" --type=1
 Create media type referrers:
 
 ```bash
-bin/magento plenty:client:create-referrer-media
+bin/magento plenty:client:create_referrer_media
 ```
 
 ## Profile Management Commands
@@ -2258,28 +2463,38 @@ Item Import (ID: 1)
 ### Profile Configuration Export/Import
 
 ```bash
-# Export profile configuration
-bin/magento profile:export:config --profile=<profile_id>
+# Export all profile configuration
+bin/magento profile:config:export
 
-# Export all profiles
-bin/magento profile:export:config --profile=all
+# Export a specific profile type by ID
+bin/magento profile:config:export --id=<profile_type_id>
 
-# Import profile configuration
-bin/magento profile:import:config --file=config.json
+# Import profile configuration from a file
+bin/magento profile:config:import --file=config.json
 ```
+
+**Options:**
+- `profile:config:export` — `--id` / `-i`: Profile type ID filter (exports all when omitted)
+- `profile:config:import` — `--file` / `-f`: Source filename (required)
 
 ### Profile Data Purge
 
+Purges data from `byte8_*` tables (preserving `byte8_profile_entity`):
+
 ```bash
-# Purge profile data
-bin/magento profile:purge --profile=<profile_id>
+# Purge data for a specific profile
+bin/magento profile:data:purge --profile-id=<profile_id>
 
-# Purge all profile data
-bin/magento plenty:profile:purge-data
+# Purge all profile data (prompts for confirmation)
+bin/magento profile:data:purge
 
-# Purge old data (older than X days)
-bin/magento profile:purge --days=30
+# Skip the confirmation prompt
+bin/magento profile:data:purge --force
 ```
+
+**Options:**
+- `--profile-id`: Restrict purge to a specific profile ID
+- `--force` / `-f`: Force purge without confirmation
 
 ## Logging Commands
 
@@ -2310,12 +2525,11 @@ bin/magento plenty:log:process --type=error
 Send profile notification emails:
 
 ```bash
-# Send batch email notifications
-bin/magento profile:notification:send-batch
-
-# Send for specific profile
-bin/magento profile:notification:send-batch --profile=<profile_id>
+# Send queued batch email notifications
+bin/magento byte8:notification:send-batch-emails
 ```
+
+This command takes no options — it flushes any pending batch notification emails. Batch sending is normally triggered automatically by cron.
 
 ## Maintenance Commands
 
@@ -2328,10 +2542,10 @@ Clear module-specific data:
 bin/magento plenty:client:purge:config-data
 
 # Clear item data
-bin/magento plenty:item:flush-data
+bin/magento plenty:item:purge
 
 # Clear order data
-bin/magento plenty:order:purge
+bin/magento plenty:order:flush
 
 # Clear customer data
 bin/magento plenty:customer:purge
@@ -2346,11 +2560,30 @@ bin/magento plenty:attribute:purge
 bin/magento plenty:property:purge
 ```
 
+Purge **all** PlentyONE data at once (every `plenty_*` table):
+
+```bash
+# List the tables that would be purged
+bin/magento plenty:data:purge --list-tables
+
+# Purge all plenty_* data (prompts for confirmation)
+bin/magento plenty:data:purge
+
+# Restrict to a profile / skip confirmation
+bin/magento plenty:data:purge --profile-id=4
+bin/magento plenty:data:purge --force
+```
+
+**`plenty:data:purge` options:**
+- `--list-tables` / `-l`: List the `plenty_*` tables that would be purged
+- `--profile-id`: Restrict purge to a specific profile
+- `--force` / `-f`: Skip confirmation
+
 ### Clean Static View Files
 
 ```bash
-# Clean static view files
-bin/magento core:clean-static-view-files
+# Clean static view files from pub/static
+bin/magento pub:static:clean
 ```
 
 ## Testing & Development Commands
@@ -2409,7 +2642,7 @@ Chain commands for complex workflows:
 ```bash
 # Complete sync workflow
 bin/magento plenty:category:import && \
-bin/magento plenty:attribute:import && \
+bin/magento plenty:attribute:collect && \
 bin/magento plenty:item:import && \
 bin/magento plenty:stock:import
 
