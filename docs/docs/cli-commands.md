@@ -32,6 +32,7 @@ bin/magento plenty:order:resolve-address-assignment # Fix order address assignme
 bin/magento plenty:stock:map:show         # Show stock and warehouse mapping
 bin/magento plenty:stock:reservations:show # Show inventory reservations
 bin/magento plenty:stock:availability:show # Show product availability per source
+bin/magento plenty:stock:drift:report     # Report physical-stock drift vs PlentyONE
 bin/magento plenty:api:history            # View API request history
 bin/magento plenty:profile:status         # Show profile status dashboard
 
@@ -1261,8 +1262,11 @@ Next steps:
 ### Stock Cleanup
 
 ```bash
-# Clean up orphaned stock records
-bin/magento plenty:stock:cleanup-orphaned
+# Remove stock rows whose variation no longer exists (variation-orphan cleanup)
+bin/magento plenty:stock:cleanup:orphan
+
+# Remove stock rows for warehouses no longer in PlentyONE
+bin/magento plenty:stock:cleanup:warehouse
 
 # Clean up reservations
 bin/magento plenty:stock:cleanup-reservations
@@ -1279,6 +1283,49 @@ bin/magento plenty:stock:resolve-shipment-inconsistency
 # Flush import listing
 bin/magento plenty:stock:flush-import-listing
 ```
+
+#### Orphan Stock Cleanup
+
+Remove `plenty_stock_entity` rows whose variation no longer exists in `plenty_variation_entity` — e.g. left behind after a variation is deleted in PlentyONE. Age-guarded: a stock row is only an orphan candidate once its `collected_at` is older than the retention window (so stock collected before its variation arrives isn't deleted prematurely). This is the manual equivalent of the `plenty_stock_orphan_cleanup` cron — it shares the same logic and safety guards but ignores the cron's enabled flag.
+
+```bash
+# Preview how many rows would be deleted (no changes)
+bin/magento plenty:stock:cleanup:orphan --dry-run
+
+# Delete orphaned stock rows
+bin/magento plenty:stock:cleanup:orphan
+
+# Override the retention window / batching for this run
+bin/magento plenty:stock:cleanup:orphan --retention-days=30
+bin/magento plenty:stock:cleanup:orphan --batch-size=2000 --max-batches=20
+```
+
+**Options:**
+- `--dry-run`: Report how many rows would be deleted (with a sample of entity IDs), without deleting
+- `--retention-days`: Override the retention window in days (default: admin config, minimum 1)
+- `--batch-size`: Rows deleted per statement (default: admin config)
+- `--max-batches`: Max batches per run — a blast-radius cap (default: admin config)
+
+**Safety:** if `plenty_variation_entity` is empty (e.g. variations not yet collected), the command aborts rather than treating every stock row as an orphan.
+
+**Configuration:** **Stores > Configuration > PlentyONE > Stock Config > Orphan Stock Cleanup** (disabled by default — destructive).
+
+#### Deleted-Warehouse Stock Cleanup
+
+Remove `plenty_stock_entity` rows for warehouses that no longer exist in PlentyONE (their `warehouse_id` is not among the locally-collected warehouse config). Distinct from orphan cleanup, which targets deleted *variations*.
+
+```bash
+# Preview what would be deleted
+bin/magento plenty:stock:cleanup:warehouse --dry-run
+
+# Delete (prompts for confirmation)
+bin/magento plenty:stock:cleanup:warehouse
+```
+
+**Options:**
+- `--dry-run`: Show what would be deleted without deleting
+
+**Safety:** if no warehouses are found in the local config mirror, the command refuses to run rather than wiping the table. Collect the warehouse config first: `bin/magento plenty:stock:setup:collect`.
 
 ### Show Stock Mapping
 
@@ -1703,6 +1750,68 @@ Saleable: 100.00 + (-12.00) = 88.00
 - Saleable quantity is what's available for sale
 - External reservations are managed by PlentyONE sync
 - Uses `Byte8\PlentyStock` repositories for accurate data
+
+### Stock Drift Detection & Reporting
+
+Detect physical-stock discrepancies between Magento and PlentyONE, and optionally trigger the automated drift safety-net on demand. Physical stock is the authoritative signal the report alarms on; PlentyONE reserved/net are shown as context only.
+
+This one command is the manual entry point for two scheduled jobs:
+- the hourly `plenty_stock_drift_log_sync` cron (drift tracking + auto-fix) — `--fix`
+- the weekly `plenty_stock_drift_report` email cron — `--email`
+
+```bash
+# Read-only report: SKUs whose Magento physical differs from PlentyONE
+bin/magento plenty:stock:drift:report
+
+# Inspect a single profile only
+bin/magento plenty:stock:drift:report --profile=5
+bin/magento plenty:stock:drift:report -p 5
+
+# Show more rows / change the tolerance
+bin/magento plenty:stock:drift:report --limit=200
+bin/magento plenty:stock:drift:report --tolerance=0.5
+
+# Run the tracker now: record drift persistence + auto-fix
+#   import  -> collect from PlentyONE and re-pend (re-import)
+#   export  -> re-enqueue the SKUs for export
+bin/magento plenty:stock:drift:report --fix
+
+# Send the drift report email now (forces send, ignores the enabled flag)
+bin/magento plenty:stock:drift:report --email
+```
+
+**Options:**
+- `--profile` / `-p`: Inspect a single profile ID instead of the default import(+export) scope
+- `--limit` / `-l`: Maximum rows to display (default: 50)
+- `--tolerance` / `-t`: Drift tolerance override (default: 0.0001)
+- `--fix`: Run the tracker now — record persistence in `plenty_stock_drift_log` and attempt the direction-aware auto-fix (mutates data)
+- `--email`: Send the drift report email immediately, regardless of the enabled flag
+
+**How it works:**
+- **Default (no flags) — read-only.** Compares `inventory_source_item.quantity` (Magento) against `plenty_stock_entity.stock_physical` (PlentyONE) for every mapped source/warehouse, largest discrepancy first.
+- **`--fix`** mirrors the hourly cron: drift the auto-fix clears disappears next cycle; drift that persists past the threshold is escalated to the report.
+- **`--email`** mirrors the weekly cron: emails only the SKUs that have stayed out of sync past the persistence threshold (the ones needing manual review). A clean week sends no email.
+
+**Example Output:**
+```bash
+$ bin/magento plenty:stock:drift:report
+
+PlentyONE ↔ Magento physical-stock drift report
+============================================================
+
+Drifted SKUs: 3   |   Total |Δ|: 17
+
+ SKU       Source   Whse  Mage phys  Plenty phys  Δ (mage-plenty)  Plenty resv  Plenty net
+ PROD-123  default  101   5          12           -7               2            10
+ PROD-456  default  101   8          4            4                0            4
+ PROD-789  default  102   0          6            -6               0            6
+
+Note: physical is the authoritative signal; Plenty reserved/net are context only.
+```
+
+**Configuration:** **Stores > Configuration > PlentyONE > Stock Config**:
+- **Stock Drift Detection** — enable/disable + cron schedule for the hourly tracker
+- **Stock Drift Report** — enable/disable, cron schedule, persistence threshold (hours), and recipient email(s) for the weekly report
 
 ### Stock Setup Commands
 

@@ -1,5 +1,9 @@
 ## Changelog
 
+# mage2plenty-suite [4.0.0] 14 Jun 2026
+
+> **Namespace transition to Byte8.** Version 4.0.0 completes the SoftCommerce → Byte8 rebrand. PHP namespaces move from `SoftCommerce\` to `Byte8\`, Composer packages from `softcommerce/*` to `byte8/*`, and Magento module names from `SoftCommerce_*` to `Byte8_*`. The suite is now published as `byte8/magento-plentyone-suite`. This is a breaking change: after upgrading, remove the legacy `softcommerce/*` packages, require `byte8/magento-plentyone-suite`, and run `bin/magento setup:upgrade`.
+
 # mage2plenty-suite [3.4.0] 13 May 2026
 
 ### softcommerce/module-plenty-client [2.1.4]

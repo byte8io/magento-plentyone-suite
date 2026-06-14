@@ -325,9 +325,18 @@ sudo supervisorctl restart all
    bin/magento plenty:stock:assign-source --sku=TEST-SKU --source=default
    ```
 
-3. **Cleanup orphaned stock:**
+3. **Check for stock drift between Magento and PlentyONE:**
    ```bash
-   bin/magento plenty:stock:cleanup-orphaned
+   bin/magento plenty:stock:drift:report
+   ```
+
+4. **Clean up orphaned stock rows** (preview first with `--dry-run`):
+   ```bash
+   # Rows whose variation no longer exists in PlentyONE
+   bin/magento plenty:stock:cleanup:orphan --dry-run
+
+   # Rows for warehouses removed from PlentyONE
+   bin/magento plenty:stock:cleanup:warehouse --dry-run
    ```
 
 ### Issue: Order Status Not Syncing

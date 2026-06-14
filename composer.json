@@ -4,19 +4,17 @@
     "type": "metapackage",
     "license": "EULA",
     "require": {
-        "byte8/module-core": "1.0.0",
-        "byte8/module-plenty-attribute": "1.0.0",
-        "byte8/module-plenty-category": "1.0.0",
-        "byte8/module-plenty-client": "1.0.0",
-        "byte8/module-plenty-customer": "1.0.0",
-        "byte8/module-plenty-item": "1.0.0",
-        "byte8/module-plenty-log": "1.0.0",
-        "byte8/module-plenty-order": "1.0.0",
-        "byte8/module-plenty-profile": "1.0.0",
-        "byte8/module-plenty-property": "1.0.0",
-        "byte8/module-plenty-stock": "1.0.0",
-        "byte8/module-profile": "1.0.0",
-        "byte8/module-profile-notification": "1.0.0"
+        "byte8/module-core": "3.0.0",
+        "byte8/module-plenty-attribute": "3.0.0",
+        "byte8/module-plenty-category": "3.0.0",
+        "byte8/module-plenty-core": "3.0.0",
+        "byte8/module-plenty-customer": "3.0.0",
+        "byte8/module-plenty-item": "4.0.0",
+        "byte8/module-plenty-order": "3.0.0",
+        "byte8/module-plenty-property": "3.0.0",
+        "byte8/module-plenty-stock": "3.0.0",
+        "byte8/module-profile": "4.0.0",
+        "byte8/module-profile-notification": "3.0.0"
     },
     "version": "4.0.0"
 }

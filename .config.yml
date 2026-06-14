@@ -1,25 +1,15 @@
 packages:
-  - softcommerce/module-core
-  - softcommerce/module-plenty-attribute
-  - softcommerce/module-plenty-category
-  - softcommerce/module-plenty-category-profile
-  - softcommerce/module-plenty-client
-  - softcommerce/module-plenty-customer
-  - softcommerce/module-plenty-customer-profile
-  - softcommerce/module-plenty-item
-  - softcommerce/module-plenty-item-profile
-  - softcommerce/module-plenty-log
-  - softcommerce/module-plenty-order
-  - softcommerce/module-plenty-order-profile
-  - softcommerce/module-plenty-profile
-  - softcommerce/module-plenty-property
-  - softcommerce/module-plenty-stock
-  - softcommerce/module-plenty-stock-profile
-  - softcommerce/module-profile
-  - softcommerce/module-profile-history
-  - softcommerce/module-profile-notification
-  - softcommerce/module-profile-queue
-  - softcommerce/module-profile-schedule
+  - byte8/module-core
+  - byte8/module-plenty-attribute
+  - byte8/module-plenty-category
+  - byte8/module-plenty-core
+  - byte8/module-plenty-customer
+  - byte8/module-plenty-item
+  - byte8/module-plenty-order
+  - byte8/module-plenty-property
+  - byte8/module-plenty-stock
+  - byte8/module-profile
+  - byte8/module-profile-notification
 
 # Email notification settings
 email:
