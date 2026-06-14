@@ -1,11 +1,22 @@
-# Mage2Plenty - Magento PlentyONE Integration
+<p align="center">
+    <picture>
+        <source media="(prefers-color-scheme: dark)" srcset="assets/byte8-logo-dark.svg" />
+        <img src="assets/byte8-logo-light.svg" height="56" alt="Byte8" />
+    </picture>
+</p>
 
-Metapackage of bundled modules for seamless Magento 2 and PlentyONE integration.
+<h1 align="center">Magento PlentyONE Integration</h1>
+
+<p align="center">Metapackage of bundled modules for seamless Magento 2 and PlentyONE integration.</p>
+
+> **Licensed extension.** The PlentyONE integration must be purchased first at
+> **[byte8.io/integrations/plentyone](https://byte8.io/integrations/plentyone)**.
+> Your purchase confirmation includes the access token required for installation below.
 
 ## Requirements
 
 ### Magento
-- **Magento 2.4.4** or later (2.4.8 recommended)
+- **Magento 2.4.4** or later (2.4.9 recommended)
 - Magento Open Source or Adobe Commerce
 
 ### PHP
@@ -15,88 +26,52 @@ Metapackage of bundled modules for seamless Magento 2 and PlentyONE integration.
 | PHP 8.2 | ✅ Supported |
 | PHP 8.3 | ✅ Fully supported |
 | PHP 8.4 | ✅ Fully supported |
+| PHP 8.5 | ✅ Fully supported |
 
 ### Database
 - MySQL 8.0+ or MariaDB 10.6+
 
 ### Additional
 - Composer 2.2+
-- Elasticsearch 7.17+ or OpenSearch 1.2+
-- Redis 6.2+ (recommended)
+- Elasticsearch 7.17+ or OpenSearch 2.19+
+- Redis 7.2+ (recommended)
 
 ## Installation
 
-### 1. Add Composer Repository
+### 1. Add the Byte8 Composer Registry
 
-Add your private repository to composer.json:
-
-```bash
-composer config repositories.private-packagist composer https://byte8.repo.packagist.com/repository-name/
-```
-
-Or manually edit `composer.json`:
-
-```json
-{
-    "repositories": [
-        {
-            "type": "composer",
-            "url": "https://byte8.repo.packagist.com/repository-name/"
-        }
-    ]
-}
-```
-
-> **Note**: Replace `repository-name` with the actual repository name provided in your purchase confirmation.
-
-### 2. Setup Authentication
-
-Choose one of the following methods:
-
-**Method 1: Global Authentication (Recommended)**
+Packages are served from the Byte8 registry at `https://byte8.packages.cargoman.io`.
 
 ```bash
-composer config --global --auth http-basic.byte8.repo.packagist.com token your-access-token
+composer config repositories.cargoman '{"type":"composer","url":"https://byte8.packages.cargoman.io"}'
 ```
 
-**Method 2: Environment Variable**
+### 2. Authenticate
 
 ```bash
-export COMPOSER_AUTH='{"http-basic": {"byte8.repo.packagist.com": {"username": "token", "password": "your-access-token"}}}'
+composer config http-basic.byte8.packages.cargoman.io token YOUR_TOKEN
 ```
 
-**Method 3: Interactive**
-
-Composer will prompt for credentials when running any command:
-
-```
-Authentication required (byte8.repo.packagist.com):
-Username: token
-Password: your-access-token
-```
+> **Note**: Replace `YOUR_TOKEN` with the access token from your purchase confirmation.
 
 ### 3. Install Extension
 
 **For Magento Open Source:**
 
 ```bash
-composer require byte8/mage2plenty-os
+composer require byte8/magento-plentyone-suite
 ```
 
 **For Adobe Commerce:**
 
 ```bash
-composer require byte8/mage2plenty-ac
+composer require byte8/magento-plentyone-suite-ac
 ```
 
-**Install Specific Version:**
+**Install a Specific Version:**
 
 ```bash
-# Latest version (Magento 2.4.6 - 2.4.8)
-composer require byte8/mage2plenty-os ^2.1
-
-# For Magento 2.4.4 - 2.4.5
-composer require byte8/mage2plenty-os ^1.15
+composer require byte8/magento-plentyone-suite ^4.0
 ```
 
 ### 4. Post Installation
@@ -120,20 +95,20 @@ bin/magento cache:flush
 
 ## Documentation
 
-For complete documentation, visit: [mage2plenty-guide.byte8.io](https://mage2plenty-guide.byte8.io/)
+For complete documentation, visit: [docs.byte8.io/plentyone](https://docs.byte8.io/plentyone)
 
-- [System Requirements](https://mage2plenty-guide.byte8.io/docs/system-requirements)
-- [Installation Guide](https://mage2plenty-guide.byte8.io/docs/installation/composer-installation)
-- [Configuration](https://mage2plenty-guide.byte8.io/docs/configuration/initial-setup)
-- [Changelog](https://mage2plenty-guide.byte8.io/docs/changelog)
+- [System Requirements](https://docs.byte8.io/plentyone/docs/system-requirements)
+- [Installation Guide](https://docs.byte8.io/plentyone/docs/installation/composer-installation)
+- [Configuration](https://docs.byte8.io/plentyone/docs/configuration/initial-setup)
+- [Changelog](https://docs.byte8.io/plentyone/docs/changelog)
 
 ## Support
 
-- **Email**: support@byte8.io
+- **Email**: hello@support.byte8.io
 - **Phone**: +44 2080 587 795 (GMT working hours)
 - **WhatsApp**: +44 7737 927 707
-- **Slack**: byte8ltd.slack.com
-- **Issues**: [GitHub Issues](https://github.com/byte8ltd/mage2plenty-os/issues)
+- **Slack**: byte8io.slack.com
+- **Issues**: [GitHub Issues](https://github.com/byte8io/magento-plentyone-suite/issues)
 
 ## License
 
@@ -142,9 +117,12 @@ Proprietary - See LICENSE.txt
 ---
 
 <p align="center">
-    <a href="https://byte8.co.uk/">
-        <img src="https://byte8.co.uk/pub/media/banner/logo.svg" width="200" alt="Soft Commerce Ltd" />
+    <a href="https://byte8.io/">
+        <picture>
+            <source media="(prefers-color-scheme: dark)" srcset="assets/byte8-logo-dark.svg" />
+            <img src="assets/byte8-logo-light.svg" height="48" alt="Byte8" />
+        </picture>
     </a>
     <br />
-    <a href="https://byte8.co.uk/">https://byte8.co.uk/</a>
+    <a href="https://byte8.io/">https://byte8.io/</a>
 </p>
