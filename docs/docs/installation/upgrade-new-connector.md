@@ -265,7 +265,30 @@ After installation, configure the new connector:
 
 See [Client Configuration](/docs/configuration/client-configuration) for detailed instructions.
 
-### Step 5: Profile Configuration
+### Step 5: Collect Client Configuration Data
+
+:::danger Required — do this before running any profile
+After the upgrade your profiles will **not** have client configuration data — web stores, warehouses, prices, VAT rates, referrers, and payment/shipping methods. You **must** re-collect it, otherwise syncs will fail or produce incomplete data.
+:::
+
+Collect the client configuration data via **CLI**:
+
+```bash
+bin/magento plenty:setup:collect:config
+```
+
+Or via the **Admin UI**: **Stores → Configuration → Byte8 → PlentyONE Integration → Authentication Settings → Actions → Run Setup Wizard**.
+
+This retrieves the PlentyONE system configuration your profiles rely on, including:
+
+- Web stores and locations
+- Warehouses and stock sources
+- Sales prices
+- VAT configurations
+- Referrers and order referrers
+- Shipping profiles and payment methods
+
+### Step 6: Profile Configuration
 
 :::warning Reconfigure All Profiles
 Profile configurations from the old connector are **not compatible** with the new system. You must set up all profiles from scratch.
@@ -281,7 +304,7 @@ For each profile you had configured:
 
 See [Profile Configuration](/docs/profiles/about-profiles) for detailed guidance.
 
-### Step 6: Testing
+### Step 7: Testing
 
 Before disabling maintenance mode, thoroughly test the new installation:
 
@@ -302,7 +325,7 @@ bin/magento plenty:system:check
 bin/magento plenty:profile:run --profile-id=1 --dry-run
 ```
 
-### Step 7: Go Live
+### Step 8: Go Live
 
 Once testing is complete:
 
