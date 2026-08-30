@@ -9,7 +9,7 @@ description: Release history for Mage2Plenty connector
 All notable changes to the Mage2Plenty connector. This project follows [Semantic Versioning](https://semver.org/).
 
 :::tip Latest Release
-**v5.0.0** - 2026-08-30 | Breaking Changes
+**v4.1.0** - 2026-08-30 | Bundle Orders, Product Mapping & Deferred Imports
 :::
 
 
