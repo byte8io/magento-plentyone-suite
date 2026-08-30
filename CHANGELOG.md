@@ -1,7 +1,7 @@
 ## Changelog
 
 
-# magento-plentyone-suite [5.0.0] 30 Aug 2026
+# magento-plentyone-suite [4.1.0] 30 Aug 2026
 
 ### byte8/module-core [3.1.0]
 - **Feature**: add DEFERRED status for order import deferral
