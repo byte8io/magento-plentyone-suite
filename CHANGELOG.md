@@ -1,5 +1,59 @@
 ## Changelog
 
+
+# magento-plentyone-suite [5.0.0] 30 Aug 2026
+
+### byte8/module-core [3.1.0]
+- **Feature**: add DEFERRED status for order import deferral
+
+### byte8/module-plenty-attribute [3.0.1]
+- **Fix**: preserve PlentyONE manufacturer name casing on import
+
+### byte8/module-plenty-category [4.0.0]
+- **BREAKING CHANGE**: refactor!: rename category console commands for consistency
+
+### byte8/module-plenty-core [3.0.1]
+- **Fix**: prevent duplicate attribute options via normalized label matching
+- **Fix**: skip null language in getLocaleLanguages to fix property group export
+- **Fix**: bind DomainManagerInterface so image import works without Magento_Downloadable
+
+### byte8/module-plenty-item [4.1.0]
+- **Feature**: scheduled & on-demand product mapping, plus import fixes
+- **Fix**: skip empty external_id in item mapping integrity check
+- **Fix**: make item mapping CLI Adobe Commerce staging aware
+- **Fix**: guard null manufacturer country id in attribute import
+
+### byte8/module-plenty-order [3.1.0]
+- **Feature**: add external order ID column to plenty order listing grid
+- **Feature**: add channel description tooltip to sales order grid
+- **Feature**: flip plenty_sales_channel to exported referrer on order export
+- **Feature**: preserve original external order id in plenty_order_entity
+- **Feature**: defer order import documents on transient Magento blockers
+- **Feature**: gate order import by PlentyONE status and creation date
+- **Feature**: default Export Bundle Components to enabled
+- **Feature**: export Magento bundle orders to PlentyONE as linked sets
+- **Feature**: import PlentyONE bundle orders as Magento bundle products
+- **Fix**: return literal 0 from Order::getReferrerId for manual-entry channel
+- **Fix**: keep real sales channel through export gate and order import
+- **Fix**: pin increment_id to Magento increment once order is linked
+- **Fix**: save plenty_order_entity.increment_id on order import create path
+- **Fix**: allow channel 0 (manual entry) and -2 orders through export channel filter
+- **Fix**: prevent duplicate PlentyONE orders via external-id idempotency search on retry
+- **Fix**: drop product-alert backend model from cron schedule fields
+- **Fix**: persist imported order properties via saveAttribute
+- **Fix**: use quote store for product MSI stock check on order import
+
+### byte8/module-plenty-property [3.1.0]
+- **Feature**: add structured log metadata and collected_at indexes to property sync
+
+### byte8/module-plenty-stock [3.0.1]
+- **Fix**: ignore phantom stock drift where Magento floors at 0 vs negative Plenty
+- **Fix**: correct %S to %s in bookIncomingItems stock URI
+- **Fix**: exclude Manage-Stock-disabled SKUs from stock drift detection
+- **Fix**: make stock mapping CLI Adobe Commerce staging aware
+- **Fix**: prevent plenty_stock_export_queue deadlocks and gate enqueue on schedule
+
+
 # mage2plenty-suite [4.0.0] 14 Jun 2026
 
 > **Namespace transition to Byte8.** Version 4.0.0 completes the SoftCommerce → Byte8 rebrand. PHP namespaces move from `SoftCommerce\` to `Byte8\`, Composer packages from `softcommerce/*` to `byte8/*`, and Magento module names from `SoftCommerce_*` to `Byte8_*`. The suite is now published as `byte8/magento-plentyone-suite`. This is a breaking change: after upgrading, remove the legacy `softcommerce/*` packages, require `byte8/magento-plentyone-suite`, and run `bin/magento setup:upgrade`.
