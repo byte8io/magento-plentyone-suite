@@ -9,7 +9,7 @@ description: Release history for Mage2Plenty connector
 All notable changes to the Mage2Plenty connector. This project follows [Semantic Versioning](https://semver.org/).
 
 :::tip Latest Release
-**v3.13.0** - 2026-07-27 | Order Identity, Sales Channels & Deferred Imports
+**v5.0.0** - 2026-08-30 | Breaking Changes
 :::
 
 
@@ -77,6 +77,166 @@ All notable changes to the Mage2Plenty connector. This project follows [Semantic
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+## module-profile v4.0.1
+
+**Released:** 2026-08-30
+
+_Internal changes and maintenance updates._
+
+[View Release on GitHub](https://github.com/byte8io/magento-plentyone-suite/releases/tag/v4.0.1)
+
+---
+
+## module-plenty-stock v3.0.1
+
+**Released:** 2026-08-30
+
+### 🐛 Bug Fixes
+
+- ignore phantom stock drift where Magento floors at 0 vs negative Plenty
+- correct %S to %s in bookIncomingItems stock URI
+- exclude Manage-Stock-disabled SKUs from stock drift detection
+- make stock mapping CLI Adobe Commerce staging aware
+- prevent plenty_stock_export_queue deadlocks and gate enqueue on schedule
+
+[View Release on GitHub](https://github.com/byte8io/magento-plentyone-suite/releases/tag/v3.0.1)
+
+---
+
+## module-plenty-property v3.1.0
+
+**Released:** 2026-08-30
+
+### ✨ New Features
+
+- add structured log metadata and collected_at indexes to property sync
+
+[View Release on GitHub](https://github.com/byte8io/magento-plentyone-suite/releases/tag/v3.1.0)
+
+---
+
+## module-plenty-order v3.1.0
+
+**Released:** 2026-08-30
+
+### ✨ New Features
+
+- add external order ID column to plenty order listing grid
+- add channel description tooltip to sales order grid
+- flip plenty_sales_channel to exported referrer on order export
+- preserve original external order id in plenty_order_entity
+- defer order import documents on transient Magento blockers
+- gate order import by PlentyONE status and creation date
+- default Export Bundle Components to enabled
+- export Magento bundle orders to PlentyONE as linked sets
+- import PlentyONE bundle orders as Magento bundle products
+
+### 🐛 Bug Fixes
+
+- return literal 0 from Order::getReferrerId for manual-entry channel
+- keep real sales channel through export gate and order import
+- pin increment_id to Magento increment once order is linked
+- save plenty_order_entity.increment_id on order import create path
+- allow channel 0 (manual entry) and -2 orders through export channel filter
+- prevent duplicate PlentyONE orders via external-id idempotency search on retry
+- drop product-alert backend model from cron schedule fields
+- persist imported order properties via saveAttribute
+- use quote store for product MSI stock check on order import
+
+[View Release on GitHub](https://github.com/byte8io/magento-plentyone-suite/releases/tag/v3.1.0)
+
+---
+
+## module-plenty-item v4.1.0
+
+**Released:** 2026-08-30
+
+### ✨ New Features
+
+- scheduled & on-demand product mapping, plus import fixes
+
+### 🐛 Bug Fixes
+
+- skip empty external_id in item mapping integrity check
+- make item mapping CLI Adobe Commerce staging aware
+- guard null manufacturer country id in attribute import
+
+[View Release on GitHub](https://github.com/byte8io/magento-plentyone-suite/releases/tag/v4.1.0)
+
+---
+
+## module-plenty-customer v3.0.1
+
+**Released:** 2026-08-30
+
+_Internal changes and maintenance updates._
+
+[View Release on GitHub](https://github.com/byte8io/magento-plentyone-suite/releases/tag/v3.0.1)
+
+---
+
+## module-plenty-core v3.0.1
+
+**Released:** 2026-08-30
+
+### 🐛 Bug Fixes
+
+- prevent duplicate attribute options via normalized label matching
+- skip null language in getLocaleLanguages to fix property group export
+- bind DomainManagerInterface so image import works without Magento_Downloadable
+
+[View Release on GitHub](https://github.com/byte8io/magento-plentyone-suite/releases/tag/v3.0.1)
+
+---
+
+## module-plenty-category v4.0.0
+
+**Released:** 2026-08-30
+
+### ⚠️ Breaking Changes
+
+:::danger Important
+- rename category console commands for consistency
+:::
+
+[View Release on GitHub](https://github.com/byte8io/magento-plentyone-suite/releases/tag/v4.0.0)
+
+---
+
+## module-plenty-attribute v3.0.1
+
+**Released:** 2026-08-30
+
+### 🐛 Bug Fixes
+
+- preserve PlentyONE manufacturer name casing on import
+
+[View Release on GitHub](https://github.com/byte8io/magento-plentyone-suite/releases/tag/v3.0.1)
+
+---
+
+## module-core v3.1.0
+
+**Released:** 2026-08-30
+
+### ✨ New Features
+
+- add DEFERRED status for order import deferral
+
+[View Release on GitHub](https://github.com/byte8io/magento-plentyone-suite/releases/tag/v3.1.0)
+
+---
 
 ## module-plenty-stock-profile v2.6.2
 
