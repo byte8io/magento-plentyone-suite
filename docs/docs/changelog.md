@@ -9,7 +9,7 @@ description: Release history for Mage2Plenty connector
 All notable changes to the Mage2Plenty connector. This project follows [Semantic Versioning](https://semver.org/).
 
 :::tip Latest Release
-**v3.6.0** - 2026-05-30 | [object Object]
+**v3.13.0** - 2026-07-27 | Order Identity, Sales Channels & Deferred Imports
 :::
 
 
@@ -77,6 +77,526 @@ All notable changes to the Mage2Plenty connector. This project follows [Semantic
 
 
 
+
+## module-plenty-stock-profile v2.6.2
+
+**Released:** 2026-07-27
+
+### 🐛 Bug Fixes
+
+- exclude Manage-Stock-disabled SKUs from stock drift detection
+
+[View Release on GitHub](https://github.com/byte8/mage2plenty/releases/tag/v2.6.2)
+
+---
+
+## module-plenty-order-profile v2.10.0
+
+**Released:** 2026-07-27
+
+### ✨ New Features
+
+- flip plenty_sales_channel to exported referrer on order export
+- preserve original external order id in plenty_order_entity
+- defer order import documents on transient Magento blockers
+
+### 🐛 Bug Fixes
+
+- keep real sales channel through export gate and order import
+- pin increment_id to Magento increment once order is linked
+- save plenty_order_entity.increment_id on order import create path
+- allow channel 0 (manual entry) and -2 orders through export channel filter
+- prevent duplicate PlentyONE orders via external-id idempotency search on retry
+
+[View Release on GitHub](https://github.com/byte8/mage2plenty/releases/tag/v2.10.0)
+
+---
+
+## module-plenty-order v2.4.0
+
+**Released:** 2026-07-27
+
+### ✨ New Features
+
+- add external order ID column to plenty order listing grid
+- add channel description tooltip to sales order grid
+- allow UpdateSalesOrderStatus to stamp plenty_sales_channel
+- preserve original external order id in plenty_order_entity
+- add order metadata column for deferred-retry sync
+
+### 🐛 Bug Fixes
+
+- return literal 0 from Order::getReferrerId for manual-entry channel
+- render manual-entry channel 0 in order grid sales channel column
+
+[View Release on GitHub](https://github.com/byte8/mage2plenty/releases/tag/v2.4.0)
+
+---
+
+## module-plenty-item-profile v3.6.1
+
+**Released:** 2026-07-27
+
+### 🐛 Bug Fixes
+
+- skip empty external_id in item mapping integrity check
+
+[View Release on GitHub](https://github.com/byte8/mage2plenty/releases/tag/v3.6.1)
+
+---
+
+## module-core v2.6.0
+
+**Released:** 2026-07-27
+
+### ✨ New Features
+
+- add DEFERRED status for order import deferral
+
+### 🐛 Bug Fixes
+
+- rebrand admin menu and configuration tab from Soft Commerce to Byte8
+
+[View Release on GitHub](https://github.com/byte8/mage2plenty/releases/tag/v2.6.0)
+
+---
+
+## module-plenty-order-profile v2.9.0
+
+**Released:** 2026-06-25
+
+### ✨ New Features
+
+- gate order import by PlentyONE status and creation date
+
+### 🐛 Bug Fixes
+
+- drop product-alert backend model from cron schedule fields
+- persist imported order properties via saveAttribute
+- use quote store for product MSI stock check on order import
+
+[View Release on GitHub](https://github.com/byte8/mage2plenty/releases/tag/v2.9.0)
+
+---
+
+## module-plenty-item-profile v3.6.0
+
+**Released:** 2026-06-25
+
+### ✨ New Features
+
+- scheduled & on-demand product mapping, plus import fixes
+
+[View Release on GitHub](https://github.com/byte8/mage2plenty/releases/tag/v3.6.0)
+
+---
+
+## module-plenty-attribute v2.0.6
+
+**Released:** 2026-06-25
+
+### 🐛 Bug Fixes
+
+- preserve PlentyONE manufacturer name casing on import
+
+[View Release on GitHub](https://github.com/byte8/mage2plenty/releases/tag/v2.0.6)
+
+---
+
+## module-core v2.5.1
+
+**Released:** 2026-06-25
+
+### 🐛 Bug Fixes
+
+- prevent duplicate attribute options via normalized label matching
+
+[View Release on GitHub](https://github.com/byte8/mage2plenty/releases/tag/v2.5.1)
+
+---
+
+## module-plenty-stock-profile v2.6.1
+
+**Released:** 2026-06-18
+
+### 🐛 Bug Fixes
+
+- make stock mapping CLI Adobe Commerce staging aware
+
+[View Release on GitHub](https://github.com/byte8/mage2plenty/releases/tag/v2.6.1)
+
+---
+
+## module-plenty-order-profile v2.8.0
+
+**Released:** 2026-06-18
+
+### ✨ New Features
+
+- default Export Bundle Components to enabled
+- export Magento bundle orders to PlentyONE as linked sets
+- import PlentyONE bundle orders as Magento bundle products
+
+[View Release on GitHub](https://github.com/byte8/mage2plenty/releases/tag/v2.8.0)
+
+---
+
+## module-plenty-order v2.3.0
+
+**Released:** 2026-06-18
+
+### ✨ New Features
+
+- export Magento bundle orders to PlentyONE as linked sets
+
+[View Release on GitHub](https://github.com/byte8/mage2plenty/releases/tag/v2.3.0)
+
+---
+
+## module-plenty-item-profile v3.5.1
+
+**Released:** 2026-06-18
+
+### 🐛 Bug Fixes
+
+- make item mapping CLI Adobe Commerce staging aware
+
+[View Release on GitHub](https://github.com/byte8/mage2plenty/releases/tag/v3.5.1)
+
+---
+
+## module-plenty-client v2.1.6
+
+**Released:** 2026-06-18
+
+### 🐛 Bug Fixes
+
+- skip null language in getLocaleLanguages to fix property group export
+
+[View Release on GitHub](https://github.com/byte8/mage2plenty/releases/tag/v2.1.6)
+
+---
+
+## module-profile-schedule v2.0.4
+
+**Released:** 2026-06-17
+
+_Internal changes and maintenance updates._
+
+[View Release on GitHub](https://github.com/byte8/mage2plenty/releases/tag/v2.0.4)
+
+---
+
+## module-profile-queue v2.0.2
+
+**Released:** 2026-06-17
+
+### 🐛 Bug Fixes
+
+- batch profile queue cleanup
+
+[View Release on GitHub](https://github.com/byte8/mage2plenty/releases/tag/v2.0.2)
+
+---
+
+## module-profile-notification v2.2.0
+
+**Released:** 2026-06-17
+
+### ✨ New Features
+
+- add stock physical-drift report email
+
+[View Release on GitHub](https://github.com/byte8/mage2plenty/releases/tag/v2.2.0)
+
+---
+
+## module-profile-history v2.0.2
+
+**Released:** 2026-06-17
+
+### 🐛 Bug Fixes
+
+- batch profile history cleanup and index created_at
+
+[View Release on GitHub](https://github.com/byte8/mage2plenty/releases/tag/v2.0.2)
+
+---
+
+## module-plenty-stock-profile v2.6.0
+
+**Released:** 2026-06-17
+
+### ✨ New Features
+
+- add stock drift detection, reporting and orphan cleanup
+
+[View Release on GitHub](https://github.com/byte8/mage2plenty/releases/tag/v2.6.0)
+
+---
+
+## module-plenty-stock v2.2.2
+
+**Released:** 2026-06-17
+
+### 🐛 Bug Fixes
+
+- prevent plenty_stock_export_queue deadlocks and gate enqueue on schedule
+- Performance: index collected_at on stock mirror table
+
+[View Release on GitHub](https://github.com/byte8/mage2plenty/releases/tag/v2.2.2)
+
+---
+
+## module-plenty-property v2.0.6
+
+**Released:** 2026-06-17
+
+### 🐛 Bug Fixes
+
+- Performance: index collected_at on property mirror tables
+
+[View Release on GitHub](https://github.com/byte8/mage2plenty/releases/tag/v2.0.6)
+
+---
+
+## module-plenty-profile v2.2.2
+
+**Released:** 2026-06-17
+
+### 🐛 Bug Fixes
+
+- Performance: limit GetLastCollectedAt watermark query to a single row
+
+[View Release on GitHub](https://github.com/byte8/mage2plenty/releases/tag/v2.2.2)
+
+---
+
+## module-plenty-order-profile v2.7.1
+
+**Released:** 2026-06-17
+
+_Internal changes and maintenance updates._
+
+[View Release on GitHub](https://github.com/byte8/mage2plenty/releases/tag/v2.7.1)
+
+---
+
+## module-plenty-order v2.2.1
+
+**Released:** 2026-06-17
+
+### 🐛 Bug Fixes
+
+- Performance: index collected_at on order mirror table
+
+[View Release on GitHub](https://github.com/byte8/mage2plenty/releases/tag/v2.2.1)
+
+---
+
+## module-plenty-log v2.0.3
+
+**Released:** 2026-06-17
+
+### 🐛 Bug Fixes
+
+- Performance: index collected_at on log table
+
+[View Release on GitHub](https://github.com/byte8/mage2plenty/releases/tag/v2.0.3)
+
+---
+
+## module-plenty-item-profile v3.5.0
+
+**Released:** 2026-06-17
+
+### ✨ New Features
+
+- add Magento-deleted item orphan cleanup cron
+
+### 🐛 Bug Fixes
+
+- guard null manufacturer country id in attribute import
+
+[View Release on GitHub](https://github.com/byte8/mage2plenty/releases/tag/v3.5.0)
+
+---
+
+## module-plenty-item v2.4.3
+
+**Released:** 2026-06-17
+
+### 🐛 Bug Fixes
+
+- Performance: index collected_at on item mirror tables
+
+[View Release on GitHub](https://github.com/byte8/mage2plenty/releases/tag/v2.4.3)
+
+---
+
+## module-plenty-customer v2.1.4
+
+**Released:** 2026-06-17
+
+### 🐛 Bug Fixes
+
+- Performance: index collected_at on customer mirror tables
+
+[View Release on GitHub](https://github.com/byte8/mage2plenty/releases/tag/v2.1.4)
+
+---
+
+## module-plenty-client v2.1.5
+
+**Released:** 2026-06-17
+
+### 🐛 Bug Fixes
+
+- Performance: index collected_at on client config table
+
+[View Release on GitHub](https://github.com/byte8/mage2plenty/releases/tag/v2.1.5)
+
+---
+
+## module-plenty-category v2.2.3
+
+**Released:** 2026-06-17
+
+### 🐛 Bug Fixes
+
+- Performance: index collected_at on category mirror table
+
+[View Release on GitHub](https://github.com/byte8/mage2plenty/releases/tag/v2.2.3)
+
+---
+
+## module-plenty-attribute v2.0.5
+
+**Released:** 2026-06-17
+
+### 🐛 Bug Fixes
+
+- Performance: index collected_at on attribute mirror tables
+
+[View Release on GitHub](https://github.com/byte8/mage2plenty/releases/tag/v2.0.5)
+
+---
+
+## module-core v2.5.0
+
+**Released:** 2026-06-17
+
+### ✨ New Features
+
+- add BatchPurgeTrait for batched DB cleanup
+
+### 🐛 Bug Fixes
+
+- bind DomainManagerInterface so image import works without Magento_Downloadable
+
+[View Release on GitHub](https://github.com/byte8/mage2plenty/releases/tag/v2.5.0)
+
+---
+
+## module-plenty-stock-profile v2.5.0
+
+**Released:** 2026-06-11
+
+### ✨ New Features
+
+- add plenty:stock:location:correct CLI to drain orphaned storage-location stock
+
+[View Release on GitHub](https://github.com/byte8/mage2plenty/releases/tag/v2.5.0)
+
+---
+
+## module-plenty-order-profile v2.7.0
+
+**Released:** 2026-06-11
+
+### ✨ New Features
+
+- add configurable new-order email gate for order import
+- defer order export until settling period elapses to avoid unpaid sync
+
+### 🐛 Bug Fixes
+
+- inject order-profile schedule config factory so settling-period guard engages
+
+[View Release on GitHub](https://github.com/byte8/mage2plenty/releases/tag/v2.7.0)
+
+---
+
+## module-plenty-stock-profile v2.4.0
+
+**Released:** 2026-06-08
+
+### ✨ New Features
+
+- skip stock import for products with Manage Stock disabled
+
+### 🐛 Bug Fixes
+
+- Performance: add sku index to inventory_reservation table
+- log and skip unsupported stock types in source assignment
+
+[View Release on GitHub](https://github.com/byte8/mage2plenty/releases/tag/v2.4.0)
+
+---
+
+## module-plenty-order-profile v2.6.0
+
+**Released:** 2026-06-08
+
+### ✨ New Features
+
+- gate PlentyONE-imported payments to offline capture
+
+### 🐛 Bug Fixes
+
+- fall back to order item properties for shipping profile ID
+
+[View Release on GitHub](https://github.com/byte8/mage2plenty/releases/tag/v2.6.0)
+
+---
+
+## module-plenty-stock v2.2.1
+
+**Released:** 2026-06-05
+
+### 🐛 Bug Fixes
+
+- correct sprintf format specifier in book incoming items URL
+
+[View Release on GitHub](https://github.com/byte8/mage2plenty/releases/tag/v2.2.1)
+
+---
+
+## module-plenty-order-profile v2.5.1
+
+**Released:** 2026-06-05
+
+### 🐛 Bug Fixes
+
+- normalize order import payment method code to lowercase
+- fall back to line-item shipping profile on order import
+
+[View Release on GitHub](https://github.com/byte8/mage2plenty/releases/tag/v2.5.1)
+
+---
+
+## module-plenty-order v2.2.0
+
+**Released:** 2026-06-05
+
+### ✨ New Features
+
+- add order property type management helper
+- add order tag constants to REST API interface
+
+[View Release on GitHub](https://github.com/byte8/mage2plenty/releases/tag/v2.2.0)
+
+---
 
 ## module-plenty-stock-profile v2.3.0
 
