@@ -1,6 +1,36 @@
 ## Changelog
 
 
+
+# magento-plentyone-suite [4.2.0] 14 Sept 2026
+
+### byte8/module-core [3.2.0]
+- **Feature**: add per-entity overall status resolution to MessageCollector
+
+### byte8/module-plenty-core [3.0.2]
+- **Fix**: fall back to credential login when token refresh fails with HTTP 400
+
+### byte8/module-plenty-item [4.1.1]
+- **Fix**: collect manufacturers using their own watermark
+
+### byte8/module-plenty-order [3.2.0]
+- **Feature**: add --no-force option to plenty:order:export
+- **Fix**: ship delivery-order lines without warehouse via reservation fallback
+- **Fix**: guard already-exported orders against address re-export churn
+- **Fix**: bypass order-settling deferral for admin-triggered order exports
+- **Fix**: match PO order line by SKU when variation lookup fails on import
+- **Fix**: cap credit memo shipping refund to Magento refundable shipping
+- **Fix**: stop re-inserting shipment tracking numbers on import
+- **Fix**: skip unsupported and unresolvable orders on import
+- **Fix**: assign order import status per-order to prevent batch contamination
+
+### byte8/module-plenty-stock [3.1.0]
+- **Feature**: add stock-status reconciliation (indexed status vs actual salability)
+- **Fix**: aggregate reservation qty in stock-status reconcile detection query
+- **Fix**: make stock-consistency queries table-prefix aware
+- **Fix**: heal derived stock-status drift stranded by qty-unchanged skip guard
+
+
 # magento-plentyone-suite [4.1.0] 30 Aug 2026
 
 ### byte8/module-core [3.1.0]
