@@ -9,7 +9,7 @@ description: Release history for Mage2Plenty connector
 All notable changes to the Mage2Plenty connector. This project follows [Semantic Versioning](https://semver.org/).
 
 :::tip Latest Release
-**v4.1.0** - 2026-08-30 | Bundle Orders, Product Mapping & Deferred Imports
+**v4.2.0** - 2026-09-14 | [object Object]
 :::
 
 
@@ -87,6 +87,99 @@ All notable changes to the Mage2Plenty connector. This project follows [Semantic
 
 
 
+
+
+
+
+
+
+
+## module-plenty-stock v3.1.0
+
+**Released:** 2026-09-14
+
+### ✨ New Features
+
+- add stock-status reconciliation (indexed status vs actual salability)
+
+### 🐛 Bug Fixes
+
+- aggregate reservation qty in stock-status reconcile detection query
+- make stock-consistency queries table-prefix aware
+- heal derived stock-status drift stranded by qty-unchanged skip guard
+
+[View Release on GitHub](https://github.com/byte8io/magento-plentyone-suite/releases/tag/v3.1.0)
+
+---
+
+## module-plenty-order v3.2.0
+
+**Released:** 2026-09-14
+
+### ✨ New Features
+
+- add --no-force option to plenty:order:export
+
+### 🐛 Bug Fixes
+
+- ship delivery-order lines without warehouse via reservation fallback
+- guard already-exported orders against address re-export churn
+- bypass order-settling deferral for admin-triggered order exports
+- match PO order line by SKU when variation lookup fails on import
+- cap credit memo shipping refund to Magento refundable shipping
+- stop re-inserting shipment tracking numbers on import
+- skip unsupported and unresolvable orders on import
+- assign order import status per-order to prevent batch contamination
+
+[View Release on GitHub](https://github.com/byte8io/magento-plentyone-suite/releases/tag/v3.2.0)
+
+---
+
+## module-plenty-item v4.1.1
+
+**Released:** 2026-09-14
+
+### 🐛 Bug Fixes
+
+- collect manufacturers using their own watermark
+
+[View Release on GitHub](https://github.com/byte8io/magento-plentyone-suite/releases/tag/v4.1.1)
+
+---
+
+## module-plenty-core v3.0.2
+
+**Released:** 2026-09-14
+
+### 🐛 Bug Fixes
+
+- fall back to credential login when token refresh fails with HTTP 400
+
+[View Release on GitHub](https://github.com/byte8io/magento-plentyone-suite/releases/tag/v3.0.2)
+
+---
+
+## module-plenty-category v4.0.1
+
+**Released:** 2026-09-14
+
+_Internal changes and maintenance updates._
+
+[View Release on GitHub](https://github.com/byte8io/magento-plentyone-suite/releases/tag/v4.0.1)
+
+---
+
+## module-core v3.2.0
+
+**Released:** 2026-09-14
+
+### ✨ New Features
+
+- add per-entity overall status resolution to MessageCollector
+
+[View Release on GitHub](https://github.com/byte8io/magento-plentyone-suite/releases/tag/v3.2.0)
+
+---
 
 ## module-profile v4.0.1
 
