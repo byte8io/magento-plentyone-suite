@@ -2,6 +2,20 @@
 
 
 
+
+# magento-plentyone-suite [4.3.0] 24 Sept 2026
+
+### byte8/module-plenty-core [3.0.3]
+- **Fix**: drop conflicting verbose option from plenty:profile:status
+
+### byte8/module-plenty-item [4.2.0]
+- **Feature**: clear removed sales price on product import
+
+### byte8/module-plenty-order [3.2.1]
+- **Fix**: drop conflicting verbose option from plenty:order:validate
+- **Fix**: prevent order collect "Invalid data for insert" on mixed externalOrderId batch
+
+
 # magento-plentyone-suite [4.2.0] 14 Sept 2026
 
 ### byte8/module-core [3.2.0]
