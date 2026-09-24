@@ -3,6 +3,13 @@
 
 
 
+
+# magento-plentyone-suite [4.3.1] 24 Sept 2026
+
+### byte8/module-plenty-core [3.0.4]
+- **Fix**: honour Retry-After and treat HTTP 429 as throttling on retry
+
+
 # magento-plentyone-suite [4.3.0] 24 Sept 2026
 
 ### byte8/module-plenty-core [3.0.3]

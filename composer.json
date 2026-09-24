@@ -7,7 +7,7 @@
         "byte8/module-core": "3.2.0",
         "byte8/module-plenty-attribute": "3.0.1",
         "byte8/module-plenty-category": "4.0.1",
-        "byte8/module-plenty-core": "3.0.3",
+        "byte8/module-plenty-core": "3.0.4",
         "byte8/module-plenty-customer": "3.0.1",
         "byte8/module-plenty-item": "4.2.0",
         "byte8/module-plenty-order": "3.2.1",
@@ -16,5 +16,5 @@
         "byte8/module-profile": "4.0.1",
         "byte8/module-profile-notification": "3.0.0"
     },
-    "version": "4.3.0"
+    "version": "4.3.1"
 }
