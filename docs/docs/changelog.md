@@ -9,7 +9,7 @@ description: Release history for Mage2Plenty connector
 All notable changes to the Mage2Plenty connector. This project follows [Semantic Versioning](https://semver.org/).
 
 :::tip Latest Release
-**v4.3.0** - 2026-09-24 | [object Object]
+**v4.3.1** - 2026-09-24 | 1 modules updated
 :::
 
 
@@ -96,6 +96,19 @@ All notable changes to the Mage2Plenty connector. This project follows [Semantic
 
 
 
+
+
+## module-plenty-core v3.0.4
+
+**Released:** 2026-09-24
+
+### 🐛 Bug Fixes
+
+- honour Retry-After and treat HTTP 429 as throttling on retry
+
+[View Release on GitHub](https://github.com/byte8io/magento-plentyone-suite/releases/tag/v3.0.4)
+
+---
 
 ## module-plenty-order v3.2.1
 
