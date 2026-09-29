@@ -14,6 +14,7 @@ const sidebars: SidebarsConfig = {
         'installation/marketplace-composer-installation',
         'installation/upgrade-v1-to-v2',
         'installation/upgrade-new-connector',
+        'installation/upgrade-softcommerce-to-byte8',
       ],
     },
     {

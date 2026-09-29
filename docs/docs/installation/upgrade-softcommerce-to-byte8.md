@@ -6,7 +6,7 @@ description: Step-by-step migration guide for the SoftCommerce → Byte8 namespa
 
 # Migrating from SoftCommerce to Byte8 (v4.0.0)
 
-**Last Updated:** June 14, 2026
+**Last Updated:** September 28, 2026
 **Status:** Production Ready
 **Breaking Changes:** ⚠️ Yes — vendor/namespace change + database migration (automated)
 
@@ -32,7 +32,7 @@ The v4.0.0 namespace transition has been thoroughly tested end-to-end on dedicat
 
 ### Grace period — no rush
 
-Your **existing** `softcommerce/mage2plenty-os` (or `softcommerce/mage2plenty-ac` for Adobe Commerce) installation keeps working and continues to receive releases for **3 months, until 14 September 2026**. After that date, switch to `byte8/magento-plentyone-suite` (`-ac` for Adobe Commerce) to keep receiving updates. You can migrate any time within that window.
+Your **existing** `softcommerce/mage2plenty-os` (or `softcommerce/mage2plenty-ac` for Adobe Commerce) installation keeps working and continues to receive releases **until 30 November 2026**. After that date, switch to `byte8/magento-plentyone-suite` (`-ac` for Adobe Commerce) to keep receiving updates. You can migrate any time within that window.
 
 ---
 

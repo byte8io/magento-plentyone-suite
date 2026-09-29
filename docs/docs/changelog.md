@@ -9,7 +9,7 @@ description: Release history for Mage2Plenty connector
 All notable changes to the Mage2Plenty connector. This project follows [Semantic Versioning](https://semver.org/).
 
 :::tip Latest Release
-**v4.3.1** - 2026-09-24 | 1 modules updated
+**v4.4.0** - 2026-09-29 | [object Object]
 :::
 
 
@@ -97,6 +97,32 @@ All notable changes to the Mage2Plenty connector. This project follows [Semantic
 
 
 
+
+
+
+## module-plenty-item v4.2.1
+
+**Released:** 2026-09-29
+
+### 🐛 Bug Fixes
+
+- define isForceUpdate() on item-import service context
+
+[View Release on GitHub](https://github.com/byte8io/magento-plentyone-suite/releases/tag/v4.2.1)
+
+---
+
+## module-plenty-core v3.1.0
+
+**Released:** 2026-09-29
+
+### ✨ New Features
+
+- expose license key field in admin configuration
+
+[View Release on GitHub](https://github.com/byte8io/magento-plentyone-suite/releases/tag/v3.1.0)
+
+---
 
 ## module-plenty-core v3.0.4
 
