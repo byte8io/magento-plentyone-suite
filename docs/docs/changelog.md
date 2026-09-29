@@ -9,7 +9,7 @@ description: Release history for Mage2Plenty connector
 All notable changes to the Mage2Plenty connector. This project follows [Semantic Versioning](https://semver.org/).
 
 :::tip Latest Release
-**v4.4.0** - 2026-09-29 | [object Object]
+**v4.5.0** - 2026-09-29 | [object Object]
 :::
 
 
@@ -99,6 +99,45 @@ All notable changes to the Mage2Plenty connector. This project follows [Semantic
 
 
 
+
+
+
+
+## module-plenty-stock v3.1.1
+
+**Released:** 2026-09-29
+
+### 🐛 Bug Fixes
+
+- correct InventoryReservation model namespace to Model
+
+[View Release on GitHub](https://github.com/byte8io/magento-plentyone-suite/releases/tag/v3.1.1)
+
+---
+
+## module-plenty-core v3.1.1
+
+**Released:** 2026-09-29
+
+### 🐛 Bug Fixes
+
+- correct SetupWizard CollectionFactory namespace to Model
+
+[View Release on GitHub](https://github.com/byte8io/magento-plentyone-suite/releases/tag/v3.1.1)
+
+---
+
+## module-core v3.3.0
+
+**Released:** 2026-09-29
+
+### ✨ New Features
+
+- redesign Installed Modules admin panel with tiered add-on discovery
+
+[View Release on GitHub](https://github.com/byte8io/magento-plentyone-suite/releases/tag/v3.3.0)
+
+---
 
 ## module-plenty-item v4.2.1
 
