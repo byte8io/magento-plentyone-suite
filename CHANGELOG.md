@@ -4,6 +4,16 @@
 
 
 
+
+# magento-plentyone-suite [4.4.0] 29 Sept 2026
+
+### byte8/module-plenty-core [3.1.0]
+- **Feature**: expose license key field in admin configuration
+
+### byte8/module-plenty-item [4.2.1]
+- **Fix**: define isForceUpdate() on item-import service context
+
+
 # magento-plentyone-suite [4.3.1] 24 Sept 2026
 
 ### byte8/module-plenty-core [3.0.4]
