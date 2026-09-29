@@ -5,6 +5,19 @@
 
 
 
+
+# magento-plentyone-suite [4.5.0] 29 Sept 2026
+
+### byte8/module-core [3.3.0]
+- **Feature**: redesign Installed Modules admin panel with tiered add-on discovery
+
+### byte8/module-plenty-core [3.1.1]
+- **Fix**: correct SetupWizard CollectionFactory namespace to Model
+
+### byte8/module-plenty-stock [3.1.1]
+- **Fix**: correct InventoryReservation model namespace to Model
+
+
 # magento-plentyone-suite [4.4.0] 29 Sept 2026
 
 ### byte8/module-plenty-core [3.1.0]
