@@ -2085,14 +2085,14 @@ Flush Magento cache after import.
 
 4. **Test Import (Small Batch)**:
    ```bash
-   # Import first 10 products
-   bin/magento plenty:item:import --profile-id=1 --limit=10
+   # Import a few PlentyONE items first (item IDs, comma-separated)
+   bin/magento plenty:item:import -i 1001,1002,1003 -p 1 -v
 
    # Check logs
    tail -f var/log/plenty_item_import.log
 
-   # Verify products created
-   bin/magento catalog:product:list
+   # Verify the created products and their PlentyONE mapping
+   bin/magento plenty:item:map:show -s SKU123
    ```
 
 5. **Review Test Results**:
@@ -2110,8 +2110,8 @@ Flush Magento cache after import.
 
 7. **Full Catalog Import**:
    ```bash
-   # Run full import
-   bin/magento plenty:item:import --profile-id=1
+   # Run full import (-a opts into importing every item)
+   bin/magento plenty:item:import -a -p 1
 
    # Monitor progress
    tail -f var/log/plenty_item_import.log
@@ -2131,8 +2131,8 @@ Flush Magento cache after import.
    # Disable maintenance mode
    bin/magento maintenance:disable
 
-   # Verify product counts
-   bin/magento catalog:product:list | wc -l
+   # Verify the import result
+   bin/magento plenty:profile:status -p item_import
    ```
 
 9. **Verify Frontend**:
@@ -2198,7 +2198,7 @@ Process:
 **Monitoring**:
 ```bash
 # Check last execution
-bin/magento cron:status | grep plenty_item_import
+bin/magento plenty:profile:status -p item_import
 
 # View recent log entries
 tail -100 var/log/plenty_item_import.log
@@ -2266,11 +2266,11 @@ Result:
 
 **Verification**:
 ```bash
-# Test with single product
-bin/magento plenty:item:import --profile-id=1 --entity-ids=12345
+# Test with a single PlentyONE item
+bin/magento plenty:item:import -i 12345 -p 1 -v
 
-# Check only price/stock updated
-bin/magento catalog:product:show SKU123
+# Check that only price/stock changed
+# Admin: Catalog → Products → open the product and compare the other attributes
 
 # Monitor log to verify attributes skipped
 tail -f var/log/plenty_item_import.log | grep "Skipping attribute"
@@ -2354,15 +2354,9 @@ Import Process (per product):
 
 **Verification**:
 ```bash
-# Check product in English store
-bin/magento catalog:product:show SKU123 --store=en
-
-# Check product in German store
-bin/magento catalog:product:show SKU123 --store=de
-
-# Compare product names
-bin/magento catalog:product:show SKU123 --store=en | grep "Name:"
-bin/magento catalog:product:show SKU123 --store=de | grep "Name:"
+# Compare the product per store view
+# Admin: Catalog → Products → open the product → switch "Scope" to the English and the German store view
+# Confirm name, description, meta data and url_key differ per store view
 ```
 
 ---
@@ -2455,21 +2449,15 @@ Product Catalog:
 
 **CLI Commands**:
 ```bash
-# Import configurable products
-bin/magento plenty:item:import --profile-id=1
+# Import the item (PlentyONE item ID 12345)
+bin/magento plenty:item:import -i 12345 -p 1 -v
 
-# Check parent product
-bin/magento catalog:product:show 12345
+# Check how the parent and its children are mapped
+bin/magento plenty:item:map:show -s 12345,12345-001,12345-002
 
-# List child products
-bin/magento catalog:product:list | grep "12345-"
-
-# View configurable options
-bin/magento catalog:product:show 12345 --show-super-attributes
-
-# Test attribute options created
-bin/magento catalog:attribute:options color
-bin/magento catalog:attribute:options size
+# View configurable options and created attribute values
+# Admin: Catalog → Products → parent product → Configurations
+# Admin: Stores → Attributes → Product → color / size → Manage Options
 ```
 
 ---
@@ -2479,51 +2467,49 @@ bin/magento catalog:attribute:options size
 ### Basic Import Commands
 
 ```bash
-# Full import (all products)
-bin/magento plenty:item:import --profile-id=1
+# Full import (all items; -a is required to opt into a full run)
+bin/magento plenty:item:import -a -p 1
 
-# Import specific products by PlentyONE variation IDs
-bin/magento plenty:item:import --profile-id=1 --entity-ids=1001,1002,1003
+# Import specific PlentyONE item IDs
+bin/magento plenty:item:import -i 1001,1002,1003 -p 1
 
-# Import with custom batch size
-bin/magento plenty:item:import --profile-id=1 --batch-size=50
+# Import only active (or inactive) items
+bin/magento plenty:item:import -s active -p 1
 
-# Import limited number of products
-bin/magento plenty:item:import --profile-id=1 --limit=100
+# Preview what would be imported without writing anything
+bin/magento plenty:item:import -i 1001 -p 1 --dry-run
 ```
+
+Batch size, media import and indexing are profile settings (Schedule, Media and Advanced Configuration), not CLI options. `-p` is the profile ID; the default profile is used when omitted.
 
 ### Advanced Import Options
 
 ```bash
-# Force full re-import (ignore timestamps)
-bin/magento plenty:item:import --profile-id=1 --force
+# Full re-sync: re-collect all item data from PlentyONE, then import everything
+bin/magento plenty:item:collect -b replace -p 1
+bin/magento plenty:item:import -a -p 1
 
-# Import new products only (skip existing)
-bin/magento plenty:item:import --profile-id=1 --new-only
+# Collect only items updated in PlentyONE since a date, then import them
+bin/magento plenty:item:collect -u "2026-01-01 00:00:00" -p 1
+bin/magento plenty:item:import -s active -p 1
 
-# Import without processing images (faster)
-bin/magento plenty:item:import --profile-id=1 --skip-media
-
-# Import without triggering indexers
-bin/magento plenty:item:import --profile-id=1 --skip-reindex
-
-# Import with verbose output
-bin/magento plenty:item:import --profile-id=1 -v
-bin/magento plenty:item:import --profile-id=1 -vv
-bin/magento plenty:item:import --profile-id=1 -vvv (debug)
+# Verbose output (-v normal, -vv more, -vvv debug)
+bin/magento plenty:item:import -i 1001 -p 1 -v
+bin/magento plenty:item:import -i 1001 -p 1 -vvv
 ```
 
 ### Product Management Commands
 
 ```bash
-# List all products
-bin/magento catalog:product:list
+# Show the PlentyONE item/variation mapping of products (by SKU or product ID)
+bin/magento plenty:item:map:show -s SKU123
+bin/magento plenty:item:map:show -p 2049
 
-# Show specific product details
-bin/magento catalog:product:show SKU123
+# Check the item/product mapping integrity of the whole catalog
+bin/magento plenty:item:check-integrity
 
-# Clean up orphaned product data
-bin/magento plenty:item:purge --profile-id=1
+# Purge the collected item and variation data (run plenty:item:collect afterwards)
+bin/magento plenty:item:purge
 ```
 
 ### Configuration Commands
@@ -2594,12 +2580,12 @@ tail -f var/log/plenty_item_import.log
 # Filter errors only
 grep -i error var/log/plenty_item_import.log | tail -50
 
-# Check cron status
-bin/magento cron:status | grep plenty_item_import
+# Check the last profile execution
+bin/magento plenty:profile:status -p item_import
 
 # Check queue consumers
 bin/magento queue:consumers:list
-bin/magento queue:consumers:start plenty.item.import
+bin/magento queue:consumers:start plenty.item.import.processor
 
 # View system errors
 tail -f var/log/system.log
@@ -2615,8 +2601,8 @@ watch -n 1 'free -h'
 # Monitor running processes
 watch -n 5 'ps aux | grep plenty'
 
-# Check database locks
-bin/magento db:status
+# Check running queries and locks (MySQL)
+mysql -e "SHOW FULL PROCESSLIST"
 
 # View slow query log
 tail -f var/log/db.log
@@ -2654,8 +2640,8 @@ tail -f var/log/db.log
 
 **4. Configuration Data Not Collected**
 ```bash
-# Collect configuration data
-bin/magento plenty:setup:collect:config --profile-id=1
+# Collect configuration data (referrers, shipping profiles, VAT, ...)
+bin/magento plenty:setup:collect:config
 
 # Verify dropdowns populated
 # Admin: Profile configuration → Check dropdown fields
@@ -2702,23 +2688,17 @@ Every PlentyONE variation attribute must be mapped to a Magento configurable att
 - Verify "Used in Configurable Products" = Yes
 - Ensure attribute is visible and comparable
 
-```bash
-# Check attribute properties
-bin/magento catalog:attribute:show color
+- Admin: Stores → Attributes → Product → select the attribute
+- Advanced Attribute Properties: Scope = Global; input type Dropdown or Swatch
 
-# Solution: Update attribute
-# Admin: Stores → Attributes → Product
-# Select attribute → Storefront Properties
-# Set: Scope = Global, Use in Configurable = Yes
-```
 
 **4. Attribute Options Not Created**
 ```bash
 # Admin: Profile → Attribute Configuration
 # Enable: Create Attribute Options = Yes
 
-# Or manually create options
-bin/magento catalog:attribute:options color --add="Red,Blue,Green"
+# Or create the options manually
+# Admin: Stores → Attributes → Product → color → Manage Options
 ```
 
 **5. Attribute Restriction Blocking Super Attributes** (Fixed October 2025)
@@ -2907,7 +2887,7 @@ grep "Skipping attribute" var/log/plenty_item_import.log
 **1. Increase Memory Limit**
 ```bash
 # Temporary (CLI)
-php -d memory_limit=4G bin/magento plenty:item:import --profile-id=1
+php -d memory_limit=4G bin/magento plenty:item:import -a -p 1
 
 # Permanent (php.ini)
 memory_limit = 4G
@@ -2918,19 +2898,14 @@ memory_limit = 4G
 ```
 
 **2. Reduce Batch Size**
-```bash
-# Use smaller batches
-bin/magento plenty:item:import --profile-id=1 --batch-size=25
+- Admin: Profile → Schedule Configuration → Batch Size
+- Set 25-50 for limited memory
 
-# Or configure in profile
-# Admin: Profile → Schedule Configuration → Batch Size
-# Set: 25-50 for limited memory
-```
 
 **3. Increase Timeout**
 ```bash
 # Temporary (CLI)
-php -d max_execution_time=7200 bin/magento plenty:item:import --profile-id=1
+php -d max_execution_time=7200 bin/magento plenty:item:import -a -p 1
 
 # Permanent (php.ini)
 max_execution_time = 7200
@@ -2947,12 +2922,9 @@ max_execution_time = 7200
 - Use scheduled indexing instead of automatic
 
 ```bash
-# Fast import: price/stock only, no media, no reindex
-bin/magento plenty:item:import \
-  --profile-id=1 \
-  --batch-size=200 \
-  --skip-media \
-  --skip-reindex
+# Price/stock-only run: enable attribute restriction with only the price attributes allowed,
+# disable media import and keep the indexers in "Update by Schedule" mode, then
+bin/magento plenty:item:import -a -p 1
 ```
 
 ---
@@ -2978,8 +2950,8 @@ bin/magento plenty:item:import \
 # Admin: Profile → Attribute Configuration → Product Mapping Identifier
 # Example custom attribute: plenty_variation_id
 
-# Verify attribute exists
-bin/magento catalog:attribute:show plenty_variation_id
+# Verify the attribute exists
+# Admin: Stores → Attributes → Product → search for plenty_variation_id
 
 # Create attribute if missing
 # Admin: Stores → Attributes → Product → Add Attribute
@@ -3070,13 +3042,13 @@ Weekly Full Sync:
 ```bash
 # Daily monitoring routine
 # 1. Check last execution
-bin/magento cron:status | grep plenty_item_import
+bin/magento plenty:profile:status -p item_import
 
 # 2. Review errors (if any)
 grep -i error var/log/plenty_item_import.log | tail -20
 
-# 3. Verify product count (check for unexpected changes)
-bin/magento catalog:product:list | wc -l
+# 3. Verify the item/product mapping integrity
+bin/magento plenty:item:check-integrity
 
 # 4. Check indexer status
 bin/magento indexer:status
@@ -3093,11 +3065,12 @@ find var/log -name "plenty_item_import.log*" -mtime +30 -delete
 # Monthly: Verify attribute mappings still valid (export and review attribute_config.attribute_mapping)
 bin/magento profile:config:export -i plenty_item_import
 
-# Monthly: Remove Magento products whose PlentyONE item no longer exists
-bin/magento plenty:item:purge-orphans
+# Monthly: Check the item/product mapping integrity
+bin/magento plenty:item:check-integrity
 
 # Quarterly: Full catalog re-sync for data integrity
-bin/magento plenty:item:import --profile-id=1 --force
+bin/magento plenty:item:collect -b replace -p 1
+bin/magento plenty:item:import -a -p 1
 ```
 
 ---
@@ -3172,7 +3145,7 @@ Configuration:
 
 Commands:
 bin/magento maintenance:enable
-bin/magento plenty:item:import --profile-id=1 --skip-reindex
+bin/magento plenty:item:import -a -p 1
 bin/magento indexer:reindex
 bin/magento cache:flush
 bin/magento maintenance:disable
@@ -3207,14 +3180,15 @@ PlentyONE Content Checklist:
 ```bash
 # After import, validate key data:
 
-# 1. Check product count matches expectations
-bin/magento catalog:product:list | wc -l
+# 1. Check the import result and the item/product mapping
+bin/magento plenty:profile:status -p item_import
+bin/magento plenty:item:check-integrity
 
 # 2. Spot-check random products
-bin/magento catalog:product:show SKU123
+bin/magento plenty:item:map:show -s SKU123
 
 # 3. Verify configurable relationships
-bin/magento catalog:product:show SKU456 --show-super-attributes
+# Admin: Catalog → Products → parent product → Configurations
 
 # 4. Check price range (no zeros)
 # Query database or use admin grid
@@ -3316,8 +3290,8 @@ Configuration Steps:
 
 **Pre-Production Testing**:
 ```bash
-# 1. Test with small dataset
-bin/magento plenty:item:import --profile-id=1 --limit=10
+# 1. Test with a few PlentyONE items
+bin/magento plenty:item:import -i 1001,1002,1003 -p 1 -v
 
 # 2. Validate different product types
 # - Simple products
