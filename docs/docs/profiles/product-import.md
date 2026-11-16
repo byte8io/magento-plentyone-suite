@@ -1199,95 +1199,126 @@ With Delete Differences OFF:
 ### 8. URL Configuration
 
 **Fieldset**: `url_config`
-**Purpose**: Configure SEO-friendly URL generation
+**Purpose**: Write product URL keys and generate URL rewrites for the imported store views
 
-#### Generate URL Rewrites
+#### Enable URL import
 
-**Field**: `generate_url_rewrites`
+**Field**: `is_active`
 **Type**: Checkbox
-**Default**: Yes
+**Default**: No
 **Scope**: Global
 
-Automatically generate SEO-friendly URLs for imported products.
+When enabled, the import sets the product `url_key` and generates product URL rewrites for every imported store view: the canonical product URL, category URLs where Magento's "Use Categories Path for Product URLs" is on, and a permanent (301) redirect from each previous URL whenever a key changes.
 
-**Generated URLs**:
-- Product URLs: `/product-name.html`
-- Category URLs: `/category/product-name.html`
-- Store-specific URLs
+**Visibility rule**: products that are "Not Visible Individually" have no URL of their own and get no rewrites. The import uses the visibility it is about to write; when `visibility` is excluded from the import (see [Allowed Attributes](#allowed-attributes)), it uses the visibility stored in Magento instead. This is how configurable child products that were made visible in Magento keep their URLs.
 
-#### URL Key Generation
+#### URL Manage Options
 
-**Field**: `url_key_generation`
+**Field**: `url_manage_options`
 **Type**: Select
+**Default**: Create new based on product name
 **Scope**: Global
-**Depends**: `generate_url_rewrites = Yes`
 
-Define URL key generation strategy.
+Defines where the URL key comes from when PlentyONE does not supply one directly.
 
 **Options**:
-- **From Product Name**: Use product name (default)
-- **From SKU**: Use product SKU
-- **From PlentyONE URL Path**: Use URL path from PlentyONE
-- **Custom Pattern**: Define custom pattern
+- **Create new based on product name**: URL key built from the product name of each store view
+- **Create new based on text name fields**: URL key built from the PlentyONE item text fields selected below, in the language mapped to each store view
+- **Create new based on url path**: URL key taken from the PlentyONE item URL path
+- **Create new based on combination of attributes**: URL key built from the Magento attributes selected below, joined with `-`
 
-**Examples**:
-```
-Product Name: "Red Cotton T-Shirt Size M"
-
-From Product Name:
-→ red-cotton-t-shirt-size-m
-
-From SKU (SKU: TS-RED-M):
-→ ts-red-m
-
-Custom Pattern ({sku}-{name}):
-→ ts-red-m-red-cotton-t-shirt-size-m
-```
-
-#### Append SKU on Duplicate
-
-**Field**: `append_sku_on_duplicate_url`
-**Type**: Checkbox
-**Default**: Yes
-**Scope**: Global
-**Depends**: `generate_url_rewrites = Yes`
-
-Append SKU to URL key when duplicate URLs detected.
-
-**How It Works**:
-```
-Product 1 Name: "Blue Shirt"
-Product 2 Name: "Blue Shirt" (different SKU)
-
-Without Append SKU:
-→ Product 1: blue-shirt
-→ Product 2: blue-shirt (ERROR: Duplicate URL)
-
-With Append SKU:
-→ Product 1: blue-shirt
-→ Product 2: blue-shirt-sku123 (No conflict)
-```
-
-#### URL Suffix
-
-**Field**: `url_suffix`
-**Type**: Text
-**Scope**: Store View
-**Depends**: `generate_url_rewrites = Yes`
-
-Add suffix to product URLs.
-
-**Common Suffixes**:
-- `.html` (default, SEO-friendly)
-- `.htm`
-- No suffix (blank)
+A PlentyONE property mapped to the Magento `url_key` attribute (see [Property Configuration](#11-property-configuration)) always takes precedence over this option.
 
 **Example**:
 ```
-URL Suffix: .html
-Product: Blue Shirt
-URL: /blue-shirt.html
+Product name (default store): "Red Cotton T-Shirt"
+Product name (German store):  "Rotes Baumwoll-T-Shirt"
+
+Default store: red-cotton-t-shirt
+German store:  rotes-baumwoll-t-shirt
 ```
+
+#### Manage URL Based On Item Text Fields
+
+**Field**: `url_manage_based_on_text`
+**Type**: Multiselect
+**Scope**: Global
+**Depends**: `url_manage_options = Create new based on text name fields`
+
+PlentyONE item text fields (for example `name1`, `name2`, `name3`) whose values form the URL key.
+
+#### Manage URL Based On Combination Of Attributes
+
+**Field**: `url_manage_based_on_attribute`
+**Type**: Multiselect
+**Scope**: Global
+**Depends**: `url_manage_options = Create new based on combination of attributes`
+
+Magento text attributes whose values are joined to form the URL key, in the selected order.
+
+#### Check URL Key Against URL Rewrites
+
+**Field**: `check_rewrite_collision`
+**Type**: Checkbox
+**Default**: Yes
+**Scope**: Global
+
+**Detection rule.** A URL key is always treated as taken when another product uses it in the same store view. With this option on, a key is also taken when its request path (key plus the store's product URL suffix) is already used in that store view by a category, a CMS page, a custom rewrite or another product's redirect. Without it, such conflicts only surface when the rewrite is saved, and the product is left without a URL in that store view.
+
+Collisions are checked per imported store view, against the key that store view will actually use (its own localized key, or the default key it inherits).
+
+#### Add SKU Suffix On Duplicate URL Key
+
+**Field**: `add_sku_suffix_on_error`
+**Type**: Checkbox
+**Default**: No
+**Scope**: Global
+
+**Resolution rule.** When a product's URL key is already taken in a store view, append the product SKU to the key. The suffixed key is checked again before it is used.
+
+When this option is off, a colliding localized key falls back to the default key, and a colliding default key is kept with a warning in the import log.
+
+The two options are independent. How they combine:
+
+| SKU Suffix | Rewrite Check | Result |
+|------------|---------------|--------|
+| On | On | Collisions with products and rewrites are detected; the colliding key gets the SKU suffix (re-checked) |
+| On | Off | Only collisions with other products' URL keys are detected; the colliding key gets the SKU suffix |
+| Off | On | Collisions with products and rewrites are detected; a localized key falls back to the default key, a default key is kept and a warning is logged |
+| Off | Off | No collision handling (legacy behaviour) |
+
+**Example**:
+```
+Product 1 name: "Blue Shirt"  (SKU: TS-BLUE-M)
+Product 2 name: "Blue Shirt"  (SKU: TS-BLUE-L)
+
+Without SKU suffix:
+→ Product 1: blue-shirt
+→ Product 2: blue-shirt is taken; default key kept, warning logged
+
+With SKU suffix:
+→ Product 1: blue-shirt
+→ Product 2: blue-shirt-ts-blue-l
+```
+
+#### Keep Store URL Key When Not Imported
+
+**Field**: `keep_store_url_key`
+**Type**: Checkbox
+**Default**: Yes
+**Scope**: Global
+
+When a store view gets no URL key from the current import (for example its localized name was not collected, or the product has no translation in that language), keep the store view's existing store-level `url_key` and its rewrites instead of rebuilding them from the default store key. This keeps the store's `url_key` attribute, its canonical URL and its canonical tag consistent, and avoids a 301 redirect every time the translation is missing.
+
+A store view that only inherits the default key (no store-level value) is not preserved, so a genuine change of the default key still propagates to it.
+
+Only takes effect while [Delete Product Attribute Value Difference](#delete-attribute-value-differences) is off. With deletion on, the store-level value is removed and the store's URLs follow the default key.
+
+#### Localized URL keys
+
+URL keys are written per store view whenever the imported data differs per store view: product names from PlentyONE texts in the language mapped to each store view, properties mapped to `name` or `url_key`, or [localized child product names](#localize-child-product-names-per-store-view). The default store view holds the default key; a store view with a different name gets its own key, its own canonical URL and, when the key changes, its own 301 redirect.
+
+**Upgrade note**: "Check URL Key Against URL Rewrites" and "Keep Store URL Key When Not Imported" are on by default. Manual store-level URL keys that used to be overwritten when PlentyONE sent no key for that store view are now kept.
 
 ---
 
@@ -1603,120 +1634,97 @@ Default scope for properties.
 
 ### 12. Configurable Product Configuration
 
-**Fieldset**: `configurable_config`
-**Purpose**: Configure configurable product import with variations
+**Fieldset**: `configurable_product_config`
+**Purpose**: Configure how PlentyONE items with variations become configurable products with child products
 
-#### Import Configurable Products
+A PlentyONE item whose variations differ by attributes is imported as a configurable product: the main variation becomes the parent (visibility "Catalog, Search"), every other variation becomes a child product. Children are imported as "Not Visible Individually" unless `visibility` is excluded from the import via [Allowed Attributes](#allowed-attributes), in which case the visibility set in Magento is kept.
 
-**Field**: `is_active_configurable`
+#### System generated child product name
+
+**Field**: `generate_child_product_name`
 **Type**: Checkbox
 **Default**: Yes
 **Scope**: Global
 
-Enable configurable product import (products with variations).
+Generate child product names from the variation name plus the values of the configurable attributes. The variation name is kept exactly as written; a value is appended only when the name does not already contain it, in any language. A value that is already part of the name, in any of its PlentyONE translations or (when enabled) its Magento option labels, is not appended again.
 
-#### Configurable Attribute Mapping
-
-**Field**: `configurable_attribute_mapping`
-**Type**: Dynamic Rows
-**Scope**: Global
-**Depends**: `is_active_configurable = Yes`
-
-Map PlentyONE variation properties to Magento super attributes.
-
-**Structure per Row**:
-- **PlentyONE Property**: Variation property from PlentyONE (dropdown)
-- **Magento Attribute**: Configurable attribute in Magento (dropdown)
-- **Sort Order**: Display order (integer)
-
-**Common Mappings**:
-| PlentyONE Property | Magento Attribute | Sort Order |
-|-------------------|------------------|------------|
-| Color | color | 10 |
-| Size | size | 20 |
-| Style | style | 30 |
-| Material | material | 40 |
-
-**Requirements**:
-- Magento attribute must be configurable (global scope, used in variants)
-- Attribute must exist before import
-- Values will be auto-created if "Create Attribute Options" enabled
-
-#### Child Product Name Pattern
-
-**Field**: `child_product_name_pattern`
-**Type**: Text
-**Scope**: Global
-**Depends**: `is_active_configurable = Yes`
-
-Template for generating child product names.
-
-**Variables**:
-- `{parent_name}`: Parent product name
-- `{variation_name}`: Variation name
-- `{attribute_name}`: Attribute label (Color, Size, etc.)
-- `{attribute_value}`: Attribute value (Red, Large, etc.)
-
-**Examples**:
+**Example**:
 ```
-Pattern: {parent_name} - {attribute_value}
-Parent: "Cotton T-Shirt"
-Variation: Size M, Color Red
-Child Name: "Cotton T-Shirt - M - Red"
-
-Pattern: {parent_name} ({attribute_value})
-Child Name: "Cotton T-Shirt (M/Red)"
-
-Pattern: {variation_name}
-Child Name: "Cotton T-Shirt M Red"
+Variation name: "Cotton T-Shirt"      Values: Red, M  → "Cotton T-Shirt Red M"
+Variation name: "Cotton T-Shirt Red"  Values: Red, M  → "Cotton T-Shirt Red M"
+Variation name: "Baumwoll-T-Shirt"    Values: Rot, M  → "Baumwoll-T-Shirt Rot M"
 ```
 
-**Default**: `{parent_name} - {attribute_value}`
+**Disabled**: child names are imported exactly as entered in PlentyONE. Disable this when you maintain full child names in PlentyONE and do not want the import to touch them.
 
-#### Auto-generate Child Names
+A PlentyONE property mapped to the Magento `name` attribute in [Property Configuration](#11-property-configuration) overrides the generated name for the store views the property translates.
 
-**Field**: `auto_generate_child_names`
-**Type**: Checkbox
-**Default**: Yes
-**Scope**: Global
-**Depends**: `is_active_configurable = Yes`
+#### Localize child product names per store view
 
-Automatically generate child product names using pattern.
-
-**Behavior**:
-- **Enabled**: Use name pattern to generate names
-- **Disabled**: Use names from PlentyONE
-
-#### Child Product Visibility
-
-**Field**: `child_product_visibility`
-**Type**: Select
-**Scope**: Global
-**Depends**: `is_active_configurable = Yes`
-
-Set visibility for configurable child products.
-
-**Options**:
-- **Not Visible Individually** (recommended): Only parent visible
-- **Catalog**: Visible in catalog, not search
-- **Search**: Visible in search, not catalog
-- **Catalog, Search**: Fully visible
-
-**Recommendation**: Use "Not Visible Individually" for standard configurables.
-
-#### Include Child Out of Stock
-
-**Field**: `include_child_out_of_stock`
+**Field**: `localize_child_product_name`
 **Type**: Checkbox
 **Default**: No
 **Scope**: Global
-**Depends**: `is_active_configurable = Yes`
+**Depends**: `generate_child_product_name = Yes`
 
-Create configurable child products even when out of stock.
+Child products that are visible individually take the item name of each store view's PlentyONE language, where it differs from the default language, with the store view's option values appended. Their URL keys and URL rewrites are then built per store view. The default store view keeps the variation name. Children that are not visible individually have no URL of their own and are left unchanged.
 
-**Behavior**:
-- **Enabled**: Import all variations regardless of stock
-- **Disabled**: Skip out-of-stock variations
+**Name precedence per store view**:
+1. PlentyONE property mapped to `name`, when it has a value in the store view's language
+2. Item text name in the store view's language (this option)
+3. Variation name (default store view)
+
+**Example**:
+```
+Item name (en): "Cotton T-Shirt"   Item name (de): "Baumwoll-T-Shirt"
+Variation name: "Cotton T-Shirt"   Value: Red / Rot
+
+Default store: "Cotton T-Shirt Red"      → cotton-t-shirt-red
+German store:  "Baumwoll-T-Shirt Rot"    → baumwoll-t-shirt-rot
+```
+
+Turning this on for an existing catalog changes child names and URL keys in the localized store views; the old URLs are kept as 301 redirects. Test on a staging environment or on a few items first (`bin/magento plenty:item:import -i <item id> -p <profile id>`).
+
+#### Use Magento option labels in child product names
+
+**Field**: `use_magento_option_label`
+**Type**: Checkbox
+**Default**: No
+**Scope**: Global
+**Depends**: `generate_child_product_name = Yes`
+
+When an attribute value has no name in a store view's PlentyONE language, use the store view label of the matching Magento attribute option (the option whose admin label is the value's default name) before falling back to the default value name. Lets stores that translate option values in Magento rather than in PlentyONE get localized child names. Such labels also count as "already present" when deciding whether to append a value.
+
+**Value name precedence per store view**:
+1. PlentyONE value name in the store view's language
+2. Magento option label for the store view (this option)
+3. Default value name (PlentyONE backend name, then default language, then English, then the first available)
+
+Turning this on for an existing catalog changes child names, and URL keys of children that are visible individually, in store views that have such labels.
+
+#### Attribute Mapping
+
+**Field**: `attribute_mapping`
+**Type**: Dynamic Rows
+**Scope**: Global
+
+Map PlentyONE variation attributes to the Magento attributes used as configurable (super) attributes.
+
+**Structure per Row**:
+- **Magento Attribute**: Configurable attribute in Magento (dropdown)
+- **Plenty Attribute**: Variation attribute from PlentyONE (dropdown)
+
+**Common Mappings**:
+| Magento Attribute | Plenty Attribute |
+|-------------------|------------------|
+| color | Color |
+| size | Size |
+| material | Material |
+
+**Requirements**:
+- The Magento attribute must be usable for configurable products (dropdown or swatch, global scope)
+- The attribute must exist before the import runs
+- Missing option values are created by the import when "Create Attribute Options" is enabled in [Attribute Configuration](#6-attribute-configuration)
 
 ---
 
@@ -2342,7 +2350,7 @@ Import Process (per product):
 **Result**:
 - Single product with multiple translations
 - Shared: SKU, price, images, stock, attributes
-- Store-specific: name, description, meta data, URLs
+- Store-specific: name, description, meta data, URL keys and URL rewrites (see [Localized URL keys](#localized-url-keys))
 
 **Verification**:
 ```bash
@@ -2377,14 +2385,12 @@ Item ID: 12345 - "Cotton T-Shirt"
 **Configuration**:
 ```
 Configurable Product Settings:
-- Import Configurable Products: Yes
-- Configurable Attribute Mapping:
-  - Row 1: Color (PlentyONE Attribute 1) → color (Sort: 10)
-  - Row 2: Size (PlentyONE Attribute 2) → size (Sort: 20)
-- Child Product Name Pattern: {parent_name} - {attribute_value}
-- Auto-generate Child Names: Yes
-- Child Product Visibility: Not Visible Individually
-- Include Child Out of Stock: No (only import in-stock variations)
+- Attribute Mapping:
+  - Row 1: color ← Color (PlentyONE attribute)
+  - Row 2: size ← Size (PlentyONE attribute)
+- System generated child product name: Yes
+- Localize child product names per store view: No (enable for per-store child names and URLs)
+- Use Magento option labels in child product names: No
 
 Attribute Configuration:
 - Product Mapping Identifier: SKU
@@ -2405,20 +2411,20 @@ Attribute Configuration:
 
 3. Processing Stage:
    - Create parent product: "Cotton T-Shirt"
-   - Create child products:
-     - "Cotton T-Shirt - S - Red"
-     - "Cotton T-Shirt - M - Red"
-     - "Cotton T-Shirt - L - Red"
-     - "Cotton T-Shirt - S - Blue"
-     - "Cotton T-Shirt - M - Blue"
-     - "Cotton T-Shirt - L - Blue"
+   - Create child products (variation name + option values):
+     - "Cotton T-Shirt Red S"
+     - "Cotton T-Shirt Red M"
+     - "Cotton T-Shirt Red L"
+     - "Cotton T-Shirt Blue S"
+     - "Cotton T-Shirt Blue M"
+     - "Cotton T-Shirt Blue L"
    - Link children to parent
    - Configure super attributes (color, size)
 
 4. Post-Processing:
-   - Set child visibility: Not Visible Individually
+   - Child products imported as Not Visible Individually
    - Configure price display (lowest price shown)
-   - Generate URL rewrites for parent
+   - Generate URL rewrites for the parent (children only when visible individually)
    - Update stock status based on children
 ```
 
@@ -2685,26 +2691,21 @@ grep -i "authentication\|unauthorized\|401" var/log/plenty_item_import.log
 
 **Possible Causes & Solutions**:
 
-**1. Configurable Import Disabled**
-```bash
-# Check configurable import setting
-bin/magento config:show plenty/plenty_item_import/is_active_configurable
+**1. Item Has No Variation Attributes In PlentyONE**
 
-# Solution: Enable configurable product import
-# Admin: Profile → Configurable Product Configuration
-# Enable: Import Configurable Products = Yes
+A PlentyONE item becomes a configurable product only when its variations differ by at least one attribute. Items whose variations have no attribute values are imported as simple products.
+
+```bash
+# Re-import the item with details to see the resolved product type
+bin/magento plenty:item:import -i <item id> -p <profile id> -v
 ```
 
 **2. Variation Attributes Not Mapped**
-```bash
-# Check configurable attribute mapping
-bin/magento config:show plenty/plenty_item_import/configurable_attribute_mapping
 
-# Solution: Map variation attributes
-# Admin: Profile → Configurable Product Configuration
-# Add rows: PlentyONE Property → Magento Attribute
-# Example: Color → color, Size → size
-```
+Every PlentyONE variation attribute must be mapped to a Magento configurable attribute.
+
+- Admin: Profile → Configurable Product Configuration → **Attribute Mapping**
+- Add rows: Magento Attribute ← Plenty Attribute (example: color ← Color, size ← Size)
 
 **3. Magento Attributes Not Configurable**
 - Check attribute scope (must be Global)
@@ -3061,14 +3062,17 @@ bin/magento catalog:attribute:show plenty_variation_id
 **Solution**: Use unique SKU patterns or custom mapping attribute
 
 **4. URL Key Duplicates**
-```bash
-# Check URL duplicate handling
-bin/magento config:show plenty/plenty_item_import/append_sku_on_duplicate_url
 
-# Enable SKU appending
-# Admin: Profile → URL Configuration
-# Enable: Append SKU on Duplicate = Yes
+The import log reports collisions per store view, for example `URL key "blue-shirt" already in use; appended SKU suffix -> "blue-shirt-ts-blue-l"` or `URL rewrite conflict: "blue-shirt.html" (store 1) already in use by another entity`.
+
+```bash
+# Re-run one item with details
+bin/magento plenty:item:import -i <item id> -p <profile id> -v
 ```
+
+- Admin: Profile → URL Configuration → **Check URL Key Against URL Rewrites** = Yes (detects conflicts with categories, CMS pages and redirects, not only other products)
+- Admin: Profile → URL Configuration → **Add SKU Suffix On Duplicate URL Key** = Yes (resolves a detected conflict by appending the SKU)
+- Otherwise resolve the conflicting URL in Magento (Marketing → URL Rewrites) and re-import the item
 
 ---
 
@@ -3353,7 +3357,7 @@ Option 3: Content Localization
 Best Practices:
 ✅ Use correct ISO 639-1 locale codes (en, de, fr, es, it)
 ✅ Map item text types for each language
-✅ Configure store-specific URL rewrites
+✅ Enable URL import and keep "Keep Store URL Key When Not Imported" on so manual store-level URL keys survive missing translations
 ✅ Test content rendering in each store view
 ✅ Validate special characters (UTF-8 encoding)
 ✅ Set up fallback to default store for missing translations
