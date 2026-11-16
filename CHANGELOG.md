@@ -6,6 +6,89 @@
 
 
 
+
+# magento-plentyone-suite [4.6.0] 16 Nov 2026
+
+### byte8/module-core [3.5.0]
+- **Feature**: render server messages in ajax modal insert forms
+- **Fix**: accept an int status in AbstractResource::updateStatus
+
+### byte8/module-plenty-attribute [3.0.2]
+- **Performance**: suppress frontend cache identities on backend-only entities
+
+### byte8/module-plenty-category [4.0.2]
+- **Fix**: read the exported category id from the column the category export writes
+- **Performance**: suppress frontend cache identities on backend-only entities
+
+### byte8/module-plenty-core [3.2.0]
+- **Feature**: install ping, daily heartbeat retry and licence status in the admin
+- **Feature**: record session usage reported by the PlentyONE login response
+- **Feature**: honour app/etc/env.php for license key and client credentials
+- **Fix**: report the installed suite release as extension_version
+- **Fix**: create referrers from the admin form, which posts the name as `name`
+- **Fix**: skip non-numeric option ids in normalized attribute option index
+- **Fix**: move default cron schedules off busy slots
+- **Fix**: fall back to credential login when refresh issues scope-less tokens
+- **Fix**: share refreshed tokens across processes and lock the auth step
+- **Performance**: suppress frontend cache identities on backend-only entities
+
+### byte8/module-plenty-customer [3.0.2]
+- **Performance**: suppress frontend cache identities on backend-only entities
+
+### byte8/module-plenty-item [4.3.0]
+- **Feature**: keep localized child names for stores a name property does not translate
+- **Feature**: localize child product names per store view with Magento option label fallback
+- **Feature**: expose stored product visibility on the product data registry
+- **Feature**: detect and block Magento products that share one PlentyONE variation
+- **Feature**: keep store-level url key and rewrites when a store gets no key from the import
+- **Feature**: expose store-level url_key overrides on the product data registry
+- **Feature**: check url key collisions against url_rewrite, per store view
+- **Fix**: reset the stock item and bundle option title caches at every item import batch boundary
+- **Fix**: reset reserved url keys at every item import batch boundary
+- **Fix**: unwrap nested request visibility values fully when resolving effective visibility
+- **Fix**: resolve url rewrite visibility from the value the import persists
+- **Fix**: append option values to generated child names without reordering the variation name
+- **Fix**: fall back to the parent product's attribute set for child variations
+- **Fix**: clear the PlentyONE mapping on duplicated products and restore the product observers
+- **Fix**: load configurable children with all attributes and never send an empty barcode
+- **Fix**: mark a product with any failed batch as error instead of warning
+- **Fix**: stop item export looping on existing products, rate limits and untouched queue rows
+- **Fix**: stop url rewrite conflict retry deleting live product rewrites
+- **Fix**: stop scheduling disabled item cron jobs and move defaults off busy slots
+- **Fix**: defer category-product and stock indexers to schedule mode
+- **Fix**: stop item import force-reindexing unchanged products
+- **Performance**: suppress frontend cache identities on backend-only entities
+
+### byte8/module-plenty-order [3.3.0]
+- **Feature**: add order attribute filter guard to order export
+- **Fix**: show the result of the Create Referrer modal instead of failing silently
+- **Fix**: queue large admin mass exports instead of running them in the request
+- **Fix**: harden order export against paging loops, rate limits and repeated cancellations
+- **Fix**: reset order repository registry after processor failure and defer shipment on unsaved order state
+- **Fix**: stop scheduling disabled order cron jobs and move defaults off busy slots
+- **Fix**: restore order to persisted state after processor failure and defer failed captures
+- **Fix**: do not let a run error mask DEFERRED marking of retryable documents
+- **Performance**: suppress frontend cache identities on backend-only entities
+
+### byte8/module-plenty-property [3.1.1]
+- **Performance**: suppress frontend cache identities on backend-only entities
+
+### byte8/module-plenty-stock [3.2.0]
+- **Feature**: make stock status reconcile SKU logging configurable
+- **Fix**: stop scheduling disabled stock cron jobs and move defaults off busy slots
+- **Fix**: stop stock export queue metadata growing unbounded
+- **Performance**: suppress frontend cache identities on backend-only entities
+
+### byte8/module-profile [4.1.0]
+- **Feature**: add BatchResetInterface for services that accumulate per-batch state
+- **Fix**: pass the schedule mass status to the resource as a string
+- **Fix**: compare full timestamp in canRunOnetimeProcess
+- **Performance**: suppress frontend cache identities on backend-only entities
+
+### byte8/module-profile-notification [3.0.1]
+- **Fix**: move notification cleanup cron off the 02:00 slot
+
+
 # magento-plentyone-suite [4.5.0] 29 Sept 2026
 
 ### byte8/module-core [3.3.0]
