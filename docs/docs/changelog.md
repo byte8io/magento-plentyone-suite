@@ -9,7 +9,7 @@ description: Release history for Mage2Plenty connector
 All notable changes to the Mage2Plenty connector. This project follows [Semantic Versioning](https://semver.org/).
 
 :::tip Latest Release
-**v4.5.0** - 2026-09-29 | [object Object]
+**v4.6.0** - 2026-11-16 | [object Object]
 :::
 
 
@@ -102,6 +102,213 @@ All notable changes to the Mage2Plenty connector. This project follows [Semantic
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+## module-profile-notification v3.0.1
+
+**Released:** 2026-11-16
+
+### 🐛 Bug Fixes
+
+- move notification cleanup cron off the 02:00 slot
+
+[View Release on GitHub](https://github.com/byte8io/magento-plentyone-suite/releases/tag/v3.0.1)
+
+---
+
+## module-profile v4.1.0
+
+**Released:** 2026-11-16
+
+### ✨ New Features
+
+- add BatchResetInterface for services that accumulate per-batch state
+
+### 🐛 Bug Fixes
+
+- pass the schedule mass status to the resource as a string
+- Performance: suppress frontend cache identities on backend-only entities
+- compare full timestamp in canRunOnetimeProcess
+
+[View Release on GitHub](https://github.com/byte8io/magento-plentyone-suite/releases/tag/v4.1.0)
+
+---
+
+## module-plenty-stock v3.2.0
+
+**Released:** 2026-11-16
+
+### ✨ New Features
+
+- make stock status reconcile SKU logging configurable
+
+### 🐛 Bug Fixes
+
+- stop scheduling disabled stock cron jobs and move defaults off busy slots
+- Performance: suppress frontend cache identities on backend-only entities
+- stop stock export queue metadata growing unbounded
+
+[View Release on GitHub](https://github.com/byte8io/magento-plentyone-suite/releases/tag/v3.2.0)
+
+---
+
+## module-plenty-property v3.1.1
+
+**Released:** 2026-11-16
+
+### 🐛 Bug Fixes
+
+- Performance: suppress frontend cache identities on backend-only entities
+
+[View Release on GitHub](https://github.com/byte8io/magento-plentyone-suite/releases/tag/v3.1.1)
+
+---
+
+## module-plenty-order v3.3.0
+
+**Released:** 2026-11-16
+
+### ✨ New Features
+
+- add order attribute filter guard to order export
+
+### 🐛 Bug Fixes
+
+- show the result of the Create Referrer modal instead of failing silently
+- queue large admin mass exports instead of running them in the request
+- harden order export against paging loops, rate limits and repeated cancellations
+- reset order repository registry after processor failure and defer shipment on unsaved order state
+- stop scheduling disabled order cron jobs and move defaults off busy slots
+- restore order to persisted state after processor failure and defer failed captures
+- do not let a run error mask DEFERRED marking of retryable documents
+- Performance: suppress frontend cache identities on backend-only entities
+
+[View Release on GitHub](https://github.com/byte8io/magento-plentyone-suite/releases/tag/v3.3.0)
+
+---
+
+## module-plenty-item v4.3.0
+
+**Released:** 2026-11-16
+
+### ✨ New Features
+
+- keep localized child names for stores a name property does not translate
+- localize child product names per store view with Magento option label fallback
+- expose stored product visibility on the product data registry
+- detect and block Magento products that share one PlentyONE variation
+- keep store-level url key and rewrites when a store gets no key from the import
+- expose store-level url_key overrides on the product data registry
+- check url key collisions against url_rewrite, per store view
+
+### 🐛 Bug Fixes
+
+- reset the stock item and bundle option title caches at every item import batch boundary
+- reset reserved url keys at every item import batch boundary
+- unwrap nested request visibility values fully when resolving effective visibility
+- resolve url rewrite visibility from the value the import persists
+- append option values to generated child names without reordering the variation name
+- **import**: fall back to the parent product's attribute set for child variations
+- clear the PlentyONE mapping on duplicated products and restore the product observers
+- load configurable children with all attributes and never send an empty barcode
+- mark a product with any failed batch as error instead of warning
+- stop item export looping on existing products, rate limits and untouched queue rows
+- stop url rewrite conflict retry deleting live product rewrites
+- stop scheduling disabled item cron jobs and move defaults off busy slots
+- defer category-product and stock indexers to schedule mode
+- Performance: suppress frontend cache identities on backend-only entities
+- stop item import force-reindexing unchanged products
+
+[View Release on GitHub](https://github.com/byte8io/magento-plentyone-suite/releases/tag/v4.3.0)
+
+---
+
+## module-plenty-customer v3.0.2
+
+**Released:** 2026-11-16
+
+### 🐛 Bug Fixes
+
+- Performance: suppress frontend cache identities on backend-only entities
+
+[View Release on GitHub](https://github.com/byte8io/magento-plentyone-suite/releases/tag/v3.0.2)
+
+---
+
+## module-plenty-core v3.2.0
+
+**Released:** 2026-11-16
+
+### ✨ New Features
+
+- install ping, daily heartbeat retry and licence status in the admin
+- record session usage reported by the PlentyONE login response
+- honour app/etc/env.php for license key and client credentials
+
+### 🐛 Bug Fixes
+
+- report the installed suite release as extension_version
+- create referrers from the admin form, which posts the name as `name`
+- skip non-numeric option ids in normalized attribute option index
+- move default cron schedules off busy slots
+- fall back to credential login when refresh issues scope-less tokens
+- Performance: suppress frontend cache identities on backend-only entities
+- share refreshed tokens across processes and lock the auth step
+
+[View Release on GitHub](https://github.com/byte8io/magento-plentyone-suite/releases/tag/v3.2.0)
+
+---
+
+## module-plenty-category v4.0.2
+
+**Released:** 2026-11-16
+
+### 🐛 Bug Fixes
+
+- read the exported category id from the column the category export writes
+- Performance: suppress frontend cache identities on backend-only entities
+
+[View Release on GitHub](https://github.com/byte8io/magento-plentyone-suite/releases/tag/v4.0.2)
+
+---
+
+## module-plenty-attribute v3.0.2
+
+**Released:** 2026-11-16
+
+### 🐛 Bug Fixes
+
+- Performance: suppress frontend cache identities on backend-only entities
+
+[View Release on GitHub](https://github.com/byte8io/magento-plentyone-suite/releases/tag/v3.0.2)
+
+---
+
+## module-core v3.5.0
+
+**Released:** 2026-11-16
+
+### ✨ New Features
+
+- render server messages in ajax modal insert forms
+
+### 🐛 Bug Fixes
+
+- accept an int status in AbstractResource::updateStatus
+
+[View Release on GitHub](https://github.com/byte8io/magento-plentyone-suite/releases/tag/v3.5.0)
+
+---
 
 ## module-plenty-stock v3.1.1
 
