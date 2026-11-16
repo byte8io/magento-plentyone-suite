@@ -2529,25 +2529,23 @@ bin/magento plenty:item:purge --profile-id=1
 ### Configuration Commands
 
 ```bash
-# Collect PlentyONE configuration data
-bin/magento plenty:setup:collect:config --profile-id=1
+# Collect PlentyONE configuration data (referrers, shipping profiles, VAT, ...) used by the profile forms
+bin/magento plenty:setup:collect:config
 
-# View profile configuration
-bin/magento config:show plenty/plenty_item_import
+# Export the item import profile configuration to var/plenty/profile-config-<timestamp>.json
+bin/magento profile:config:export -i plenty_item_import
 ```
 
 ### Validation Commands
 
+Profile settings are stored per profile, not in Magento's core configuration, so `config:show` does not list them. Export the profile and inspect the JSON:
+
 ```bash
-# Validate attribute restriction configuration
-bin/magento config:show plenty/plenty_item_import/is_active_attribute_restriction
-bin/magento config:show plenty/plenty_item_import/allowed_attributes
-
-# Validate store mapping
-bin/magento config:show plenty/plenty_item_import/store_mapping
-
-# Validate sales price configuration
-bin/magento config:show plenty/plenty_item_import/sales_price_config
+# Export the profile configuration (attribute restriction, allowed attributes, store mapping,
+# sales price configuration, ...) and read the keys you want to verify
+bin/magento profile:config:export -i plenty_item_import
+grep -A 20 '"attribute_config"' var/plenty/profile-config-*.json
+grep -A 20 '"store_config"' var/plenty/profile-config-*.json
 ```
 
 ### Indexing Commands
@@ -2638,24 +2636,16 @@ tail -f var/log/db.log
 **Possible Causes & Solutions**:
 
 **1. Store Mapping Not Configured**
-```bash
-# Check store mapping
-bin/magento config:show plenty/plenty_item_import/store_mapping
 
-# Solution: Configure at least one store mapping
-# Admin: Profile → Store Mapping Configuration
-# Add row: Plenty ID, Magento Store, Referrer, Locale
-```
+- Admin: Profile → Store Mapping Configuration
+- Add at least one row: Plenty ID, Magento Store, Referrer, Locale
+
 
 **2. API Collection Filters Too Restrictive**
-```bash
-# Check PIM search criteria
-bin/magento config:show plenty/plenty_item_import/pim_search_criteria
 
-# Solution: Review/remove restrictive filters
-# Admin: Profile → HTTP API Configuration → PIM Search Criteria
-# Remove or adjust filters (e.g., isActive, flagOne, supplierId)
-```
+- Admin: Profile → HTTP API Configuration → PIM Search Criteria
+- Remove or relax filters (for example `isActive`, `flagOne`, `supplierId`) and collect again
+
 
 **3. Products Not Active in PlentyONE**
 - Check product status in PlentyONE
@@ -2724,10 +2714,6 @@ bin/magento catalog:attribute:show color
 
 **4. Attribute Options Not Created**
 ```bash
-# Check if auto-create enabled
-bin/magento config:show plenty/plenty_item_import/auto_create_attribute_options
-
-# Enable auto-creation
 # Admin: Profile → Attribute Configuration
 # Enable: Create Attribute Options = Yes
 
@@ -2739,14 +2725,8 @@ bin/magento catalog:attribute:options color --add="Red,Blue,Green"
 - Older versions: Super attributes were incorrectly blocked by attribute restriction
 - **Solution**: Update to latest version or disable attribute restriction for configurable imports
 
-```bash
-# Temporary workaround: Disable attribute restriction
-bin/magento config:set plenty/plenty_item_import/is_active_attribute_restriction 0
-
-# Or: Include super attributes in allowed list
-# Admin: Profile → Attribute Configuration
-# Allowed Attributes: Add color, size, style, etc.
-```
+- Temporary workaround: Admin → Profile → Attribute Configuration → Enable attribute restriction = No
+- Or include the super attributes in the allowed list: Admin → Profile → Attribute Configuration → Allowed Attributes: add color, size, style, etc.
 
 ---
 
@@ -2760,19 +2740,14 @@ bin/magento config:set plenty/plenty_item_import/is_active_attribute_restriction
 **Possible Causes & Solutions**:
 
 **1. Image Import Disabled**
-```bash
-# Check media import setting
-bin/magento config:show plenty/plenty_item_import/is_active_media
 
-# Solution: Enable media import
-# Admin: Profile → Media Configuration
-# Enable: Import Media Data = Yes
-```
+- Admin: Profile → Media Configuration
+- Enable: Import Media Data = Yes
+
 
 **2. Image Download Issues**
 ```bash
-# Check if file download enabled (if using download mode)
-bin/magento config:show plenty/plenty_item_import/enable_file_download
+# Admin: Profile → Media Configuration → check that file download is enabled (download mode)
 
 # Test image URL accessibility
 curl -I https://cdn02.plentymarkets.com/path/to/image.jpg
@@ -2800,21 +2775,13 @@ chcon -R -t httpd_sys_rw_content_t pub/media/catalog/product/
 - Test image URL in browser
 
 **5. Image Role Mapping Not Configured**
-```bash
-# Check image role mapping
-bin/magento config:show plenty/plenty_item_import/image_role_mapping
 
-# Solution: Configure image role mapping
-# Admin: Profile → Media Configuration → Image Role Mapping
-# Add rows: PlentyONE Type → Magento Role (image, small_image, etc.)
-```
+- Admin: Profile → Media Configuration → Image Role Mapping
+- Add rows: PlentyONE Type → Magento Role (image, small_image, thumbnail)
+
 
 **6. Image Channel Filter**
 ```bash
-# Check channel filter
-bin/magento config:show plenty/plenty_item_import/image_channel_filter
-
-# Solution: Ensure webshop channel included
 # Admin: Profile → Media Configuration → Image Channel Filter
 # Include: 1 (Webshop) or leave empty for all channels
 ```
@@ -2831,37 +2798,23 @@ bin/magento config:show plenty/plenty_item_import/image_channel_filter
 **Possible Causes & Solutions**:
 
 **1. Price Import Disabled**
-```bash
-# Check price import setting
-bin/magento config:show plenty/plenty_item_import/is_active_price
 
-# Solution: Enable price import
-# Admin: Profile → Tax & Price Configuration
-# Enable: Import Price Data = Yes
-```
+- Admin: Profile → Tax & Price Configuration
+- Enable: Import Price Data = Yes
+
 
 **2. Sales Price Not Mapped**
-```bash
-# Check sales price configuration
-bin/magento config:show plenty/plenty_item_import/sales_price_config
 
-# Solution: Map sales prices
-# Admin: Profile → Tax & Price Configuration → Sales Price Configuration
-# Add rows: PlentyONE Sales Price ID → Magento Price Type (price, special_price)
-```
+- Admin: Profile → Tax & Price Configuration → Sales Price Configuration
+- Add rows: PlentyONE Sales Price ID → Magento Price Type (price, special_price)
+
 
 **3. Wrong Price Calculation Mode**
-```bash
-# Check price calculation mode
-bin/magento config:show plenty/plenty_item_import/price_calculation_mode
 
-# Options:
-# - net: Import net price (Magento adds tax on display)
-# - gross: Import gross price (tax included)
+- Admin: Profile → Tax & Price Configuration → Price Calculation Mode
+- `net`: import the net price (Magento adds tax on display); `gross`: import the gross price (tax included)
+- Match the mode to your PlentyONE price setup
 
-# Solution: Match to your PlentyONE setup
-# Admin: Profile → Tax & Price Configuration → Price Calculation Mode
-```
 
 **4. Currency Mismatch**
 - Verify PlentyONE currency matches Magento store currency
@@ -2869,26 +2822,15 @@ bin/magento config:show plenty/plenty_item_import/price_calculation_mode
 - Review multi-currency setup
 
 **5. Customer Group Pricing Issues**
-```bash
-# Check sales price customer group mapping
-bin/magento config:show plenty/plenty_item_import/sales_price_config
 
-# Solution: Map group prices correctly
-# Admin: Profile → Tax & Price Configuration → Sales Price Configuration
-# Specify: Customer Group, Website for group/tier prices
-```
+- Admin: Profile → Tax & Price Configuration → Sales Price Configuration
+- Set Customer Group and Website on the rows used for group and tier prices
+
 
 **6. Tax Configuration Issues**
 ```bash
-# Check tax import setting
-bin/magento config:show plenty/plenty_item_import/is_active_tax
-
-# Check VAT configuration
-bin/magento config:show plenty/plenty_item_import/vat_config
-
-# Solution: Configure tax classes
 # Admin: Profile → Tax & Price Configuration
-# Map: PlentyONE VAT → Magento Tax Class
+# Enable tax import and map: PlentyONE VAT → Magento Tax Class
 ```
 
 ---
@@ -2903,22 +2845,20 @@ bin/magento config:show plenty/plenty_item_import/vat_config
 **Possible Causes & Solutions**:
 
 **1. Restriction Not Enabled**
+
+- Admin: Profile → Attribute Configuration
+- Enable: Enable attribute restriction = Yes
+- To verify from the CLI, export the profile and check `attribute_config.is_active_attribute_restriction` in the JSON:
+
 ```bash
-# Verify restriction enabled
-bin/magento config:show plenty/plenty_item_import/is_active_attribute_restriction
-
-# Should return: 1
-
-# Enable restriction
-bin/magento config:set plenty/plenty_item_import/is_active_attribute_restriction 1
+bin/magento profile:config:export -i plenty_item_import
 ```
+
 
 **2. Allowed Attributes Not Set**
 ```bash
-# Check allowed attributes
-bin/magento config:show plenty/plenty_item_import/allowed_attributes
-
-# Should return: JSON array like ["price","special_price","quantity"]
+# Expected in the exported profile JSON: attribute_config.allowed_attributes
+# as a list such as ["price","special_price","quantity"]
 
 # Solution: Configure allowed attributes
 # Admin: Profile → Attribute Configuration
@@ -3027,24 +2967,16 @@ bin/magento plenty:item:import \
 **Possible Causes & Solutions**:
 
 **1. SKU Mapping Configuration**
-```bash
-# Check product mapping identifier
-bin/magento config:show plenty/plenty_item_import/product_mapping_identifier
 
-# Options:
-# - sku: Use variation number as SKU (default)
-# - custom: Use custom attribute
+- Admin: Profile → Attribute Configuration → Product Mapping Identifier
+- `sku`: use the variation number as SKU (default); otherwise the selected custom attribute holds the variation number
+- Keep the identifier consistent between imports; changing it re-maps the whole catalog
 
-# Solution: Ensure consistent identifier
-# Admin: Profile → Attribute Configuration → Product Mapping Identifier
-```
 
 **2. Custom Mapping Attribute Issues** (if using custom attribute)
 ```bash
-# Check custom mapping attribute
-bin/magento config:show plenty/plenty_item_import/custom_mapping_attribute
-
-# Example: plenty_variation_id
+# Admin: Profile → Attribute Configuration → Product Mapping Identifier
+# Example custom attribute: plenty_variation_id
 
 # Verify attribute exists
 bin/magento catalog:attribute:show plenty_variation_id
@@ -3158,8 +3090,8 @@ df -h pub/media/catalog/product/
 # Weekly: Clean old logs
 find var/log -name "plenty_item_import.log*" -mtime +30 -delete
 
-# Monthly: Verify attribute mappings still valid
-bin/magento config:show plenty/plenty_item_import/attribute_mapping
+# Monthly: Verify attribute mappings still valid (export and review attribute_config.attribute_mapping)
+bin/magento profile:config:export -i plenty_item_import
 
 # Monthly: Clean up orphaned images (if file cleanup enabled)
 bin/magento plenty:item:purge --profile-id=1
