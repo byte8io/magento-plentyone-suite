@@ -3093,8 +3093,8 @@ find var/log -name "plenty_item_import.log*" -mtime +30 -delete
 # Monthly: Verify attribute mappings still valid (export and review attribute_config.attribute_mapping)
 bin/magento profile:config:export -i plenty_item_import
 
-# Monthly: Clean up orphaned images (if file cleanup enabled)
-bin/magento plenty:item:purge --profile-id=1
+# Monthly: Remove Magento products whose PlentyONE item no longer exists
+bin/magento plenty:item:purge-orphans
 
 # Quarterly: Full catalog re-sync for data integrity
 bin/magento plenty:item:import --profile-id=1 --force
